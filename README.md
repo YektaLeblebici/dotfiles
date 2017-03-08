@@ -6,4 +6,3 @@ Some of my configuration files and resources I use everyday. I do my best to kee
 
 #### Vim
 ![Screenshot](screenshots/vim1.png?raw=true "Screenshot")
-![Screenshot](screenshots/vim2.png?raw=true "Screenshot")
