@@ -196,24 +196,13 @@ silent! map <F3> :NERDTreeFind<CR>
 let g:NERDTreeMapActivateNode="<F3>"
 " END NerdTREE settings.
 
-" BEGIN Gist.vim settings.
-"let g:gist_detect_filetype = 1
-"let g:gist_show_privates = 1
-"let g:gist_post_private = 1
-"let g:gist_list_vsplit = 1
-" END Gist.vim settings.
-
 " BEGIN Vim-Gista settings.
 let g:gista#command#post#default_public = 0 
 " END Vim-Gista settings.
 
-" BEGIN Airline settings.
-"let g:airline_left_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_left_alt_sep = ''
-" END Airline settings.
-
+" BEGIN UltiSnips settings.
+let g:UltiSnipsNoPythonWarning = 1
+" END UltiSnips settings.
 
 " Airline buffer tab view. Uncomment to enable.
 "let g:airline#extensions#tabline#enabled = 1
