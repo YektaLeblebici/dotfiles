@@ -71,6 +71,7 @@ autocmd VimResized * :wincmd =      " Automatically scale internal windows on te
 " Convenience
 set tabstop=4           " Number of spaces that a <Tab> counts for. Default is 8.
 set shiftwidth=4        " Number of spaces to use for each step of indentation.
+set expandtab           " Spaces are used instead of <Tab>. To insert a real tab, use CTRL-V<Tab>
 set copyindent          " Copy the structure of existing lines indent when autoindenting.
 set wildmenu            " Enable enhanced command-line completion.
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj " Ignore these patterns on completion.
