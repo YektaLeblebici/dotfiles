@@ -3,7 +3,6 @@
 " silversearcher-ag (>= 0.29.1)
 
 " Common settings
-"execute pathogen#infect()
 set nocompatible
 syntax on
 filetype plugin indent on
@@ -15,7 +14,20 @@ filetype plugin indent on
 " necessary flags to the debian/rules file of the 'vim' package and recompile.
 packadd! matchit
 
+let s:vimplug_exists=expand('~/.vim/autoload/plug.vim')
+
+" Install vim-plug if not installed already.
+if !filereadable(s:vimplug_exists)
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let s:loading_plugins = "yes"
+  autocmd VimEnter * PlugInstall
+endif
+
 call plug#begin('~/.vim/plugged')
+Plug 'tomasr/molokai'
 Plug 'kien/ctrlp.vim'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'scrooloose/nerdtree'
@@ -30,7 +42,6 @@ Plug 'sirver/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'sjl/gundo.vim'
-"Plug 'tpope/vim-sleuth'
 Plug 'lambdalisue/vim-gista' 
 Plug 'lambdalisue/vim-gista-ctrlp'
 Plug 'easymotion/vim-easymotion'
@@ -202,6 +213,8 @@ let g:gista#command#post#default_public = 0
 
 " BEGIN UltiSnips settings.
 let g:UltiSnipsNoPythonWarning = 1
+let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
+let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
 " END UltiSnips settings.
 
 " Airline buffer tab view. Uncomment to enable.
