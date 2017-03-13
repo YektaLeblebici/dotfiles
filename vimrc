@@ -51,62 +51,52 @@ call plug#end()
 " Styling
 colorscheme molokai
 let g:molokai_original = 1
-set cursorline
-let g:netrw_liststyle=1
-set cmdheight=2
-set showmatch
-set laststatus=2
-set splitbelow
-set splitright
-set scrolloff=8
+set cursorline          " Highlight current line.
+let g:netrw_liststyle=1 " Change netrw browser list style.
+set showcmd             " Show incomplete command in the lower right corner of Vim.
+set cmdheight=2         " Bigger display area for command output.
+set showmatch           " Show matching brackets for a short moment.
+set mat=1               " Blink matching brackets for tenth of a second.
+set laststatus=2        " Always display status line.
+set splitbelow          " Splitting a window will put it below the current one.
+set splitright          " Splitting a window will put it right of the current one.
+set scrolloff=8         " Set scroll offset.
+set lazyredraw          " Screen will not be redrawn unnecessarily.
+set ttyfast             " Improve smoothness of redrawing on a fast terminal connection.
+set ttimeoutlen=10      " Faster switching from insert mode.
+set stal=1              " Show tab page labels only if there are at least two tab pages.
+set switchbuf=useopen,usetab,newtab " Change behavior when switching between buffers.
+autocmd VimResized * :wincmd =      " Automatically scale internal windows on terminal resize.
 
 " Convenience
-set tabstop=4
-"set softtabstop=4
-set shiftwidth=4
-set copyindent
-set wildmenu
-set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj
-set undolevels=1000
-set lazyredraw
-set autoindent
-set smartindent
-set backspace=indent,eol,start
-set encoding=utf-8
-set cinkeys-=0#
-set indentkeys-=0#
-set cinoptions=l1
-set ttyfast
+set tabstop=4           " Number of spaces that a <Tab> counts for. Default is 8.
+set shiftwidth=4        " Number of spaces to use for each step of indentation.
+set copyindent          " Copy the structure of existing lines indent when autoindenting.
+set wildmenu            " Enable enhanced command-line completion.
+set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj " Ignore these patterns on completion.
+set undolevels=1000     " Maximum number of changes that can be undone.
+set autoindent          " Copy indent from current line when starting a new line.
+set smartindent         " Smart autoindenting when starting a new line.
+set backspace=indent,eol,start " Sane backspace options.
+set encoding=utf-8      " Encoding
+set cinkeys-=0#         " Remove # symbol from reindentation list.  
+set indentkeys-=0#      " Remove # symbol from reindentation list.
+set cinoptions=l1       " Change Vim indentation behaviour. See: cinoptions-values
+set formatoptions+=j    " Delete comment character when joining commented lines.
 
 " Search settings
-set incsearch
-set hlsearch
-set ignorecase
+set incsearch           " Highlight where the search pattern matches.
+set hlsearch            " When there is a previous search pattern, highlight all its matches.
+set ignorecase          " Ignore case in search patterns.
 
 " Directories
 " MAKE SURE THEY EXIST!
-set undodir=~/.vim/.undo//
-set backupdir=~/.vim/.backup//
-set directory=~/.vim/.swp//
-
-
-" Delete comment character when joining commented lines.
-set formatoptions+=j
-
-" Faster switching from insert mode.
-set ttimeoutlen=10
+set undodir=~/.vim/.undo//       " Persistent undo history directory.
+set backupdir=~/.vim/.backup//   " Backup directory.
+set directory=~/.vim/.swp//      " Swap file directory.
 
 " Set leader key to SPACE.
 let mapleader=" "
-
-" Automatically scale internal windows on terminal resize.
-autocmd VimResized * :wincmd =
-
-" Show incomplete command in the lower right corner of Vim.
-set showcmd
-
-" Blink matching brackets for tenth of a second.
-set mat=1
 
 " Show visual cues for wrapped lines
 if has('linebreak')
@@ -117,10 +107,6 @@ if has('linebreak')
     " Unknown option: breakindent
   endtry
 endif
-
-" Windows, Tabs and Buffers.
-set switchbuf=useopen,usetab,newtab
-set stal=1
 
 """
 """ <Leader> shortcuts
