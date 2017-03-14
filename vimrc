@@ -14,9 +14,9 @@ filetype plugin indent on
 " necessary flags to the debian/rules file of the 'vim' package and recompile.
 packadd! matchit
 
+" Install vim-plug if not installed already.
 let s:vimplug_exists=expand('~/.vim/autoload/plug.vim')
 
-" Install vim-plug if not installed already.
 if !filereadable(s:vimplug_exists)
   echo "Installing Vim-Plug..."
   echo ""
@@ -27,25 +27,25 @@ if !filereadable(s:vimplug_exists)
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'tomasr/molokai'
-Plug 'kien/ctrlp.vim'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'vim-syntastic/syntastic'
-Plug 'vim-airline/vim-airline'
-Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'majutsushi/tagbar'
-Plug 'gabesoft/vim-ags'
-Plug 'sirver/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-fugitive'
-Plug 'sjl/gundo.vim'
-Plug 'lambdalisue/vim-gista' 
-Plug 'lambdalisue/vim-gista-ctrlp'
-Plug 'easymotion/vim-easymotion'
-Plug 'ahw/vim-hooks'
+Plug 'tomasr/molokai'                   " Colorscheme
+Plug 'kien/ctrlp.vim'                   " CTRL+P file search
+Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
+Plug 'scrooloose/nerdtree'              " Tree explorer
+Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
+Plug 'vim-syntastic/syntastic'          " Syntax checker
+Plug 'vim-airline/vim-airline'          " Enhanced status line
+Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
+Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like  Sublime Text
+Plug 'majutsushi/tagbar'                " Tag browser, ordered by scope
+Plug 'gabesoft/vim-ags'                 " Ag integration
+Plug 'sirver/ultisnips'                 " Snippet support
+Plug 'honza/vim-snippets'               " Preinstalled snippets
+Plug 'tpope/vim-fugitive'               " Git integration
+Plug 'sjl/gundo.vim'                    " Undo tree visualizer
+Plug 'lambdalisue/vim-gista'            " Github Gists support
+Plug 'lambdalisue/vim-gista-ctrlp'      " Gists and CTRL+P integration
+Plug 'easymotion/vim-easymotion'        " Better and simple motions
+Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 call plug#end()
 
 " Styling
@@ -187,11 +187,7 @@ let g:syntastic_check_on_wq = 0
 
 " BEGIN NerdTREE settings.
 let g:NERDTreeRespectWildIgnore=1
-"silent! nnoremap <Leader>p :NERDTreeToggle<CR>
-silent! map <F3> :NERDTreeFind<CR>
-
-" BIND F3 to NERDTree.
-let g:NERDTreeMapActivateNode="<F3>"
+silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
 " END NerdTREE settings.
 
 " BEGIN Vim-Gista settings.
