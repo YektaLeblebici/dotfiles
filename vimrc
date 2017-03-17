@@ -126,8 +126,16 @@ nnoremap <Leader><Right> :tabn<CR>
 nnoremap <Leader><Left> :tabp<CR>
 nnoremap <Leader><CR>  :tab split<CR>
 
-" BIND <Leader> + <BACKSPACE> to dismiss highlighting.
-nnoremap <Leader><BACKSPACE> :nohl<CR>
+" BIND <Leader> + <BACKSPACE> to dismiss highlighting and syntax checking.
+function SetLeaderBackspace()
+    if exists(':SyntasticReset')
+        nnoremap <Leader><BACKSPACE> :nohl<CR>:SyntasticReset<CR>
+    else
+        nnoremap <Leader><BACKSPACE> :nohl<CR>
+endif
+endfunction
+
+au VimEnter * call SetLeaderBackspace()
 
 " BIND <Leader> + v to Vsplit, c to Split.
 nnoremap <Leader>v :vsplit<CR>
