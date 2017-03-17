@@ -84,11 +84,19 @@ set cinkeys-=0#         " Remove # symbol from reindentation list.
 set indentkeys-=0#      " Remove # symbol from reindentation list.
 set cinoptions=l1       " Change Vim indentation behaviour. See: cinoptions-values
 set formatoptions+=j    " Delete comment character when joining commented lines.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 " Search settings
 set incsearch           " Highlight where the search pattern matches.
 set hlsearch            " When there is a previous search pattern, highlight all its matches.
 set ignorecase          " Ignore case in search patterns.
+
+" Clipboard support
+if has('clipboard')
+    if has('unix')
+        set clipboard^=unnamedplus
+    endif
+endif
 
 " Directories
 " MAKE SURE THEY EXIST!
