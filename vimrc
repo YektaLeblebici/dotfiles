@@ -1,5 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" Depends: vim (>=8) (+python), vimplug, exuberant-ctags, 
+" Depends: vim (>=8) (+python), vimplug, exuberant-ctags,
 " silversearcher-ag (>= 0.29.1)
 
 " Common settings
@@ -8,7 +8,7 @@ syntax on
 filetype plugin indent on
 
 " Packages
-" Some packages require Python support for vim: sirver/ultisnips, 
+" Some packages require Python support for vim: sirver/ultisnips,
 " sjl/gundo.vim, lambdalisue/vim-gista, lambdalissue/vim-gista-ctrlp.
 " Debian 'vim' package does not support Python. Try 'vim-nox' package or add
 " necessary flags to the debian/rules file of the 'vim' package and recompile.
@@ -80,7 +80,7 @@ set autoindent          " Copy indent from current line when starting a new line
 set smartindent         " Smart autoindenting when starting a new line.
 set backspace=indent,eol,start " Sane backspace options.
 set encoding=utf-8      " Encoding
-set cinkeys-=0#         " Remove # symbol from reindentation list.  
+set cinkeys-=0#         " Remove # symbol from reindentation list.
 set indentkeys-=0#      " Remove # symbol from reindentation list.
 set cinoptions=l1       " Change Vim indentation behaviour. See: cinoptions-values
 set formatoptions+=j    " Delete comment character when joining commented lines.
@@ -99,10 +99,23 @@ if has('clipboard')
 endif
 
 " Directories
-" MAKE SURE THEY EXIST!
-set undodir=~/.vim/.undo//       " Persistent undo history directory.
-set backupdir=~/.vim/.backup//   " Backup directory.
+set undodir=~/.vim/.undo/       " Persistent undo history directory.
+set backupdir=~/.vim/.backup/   " Backup directory.
 set directory=~/.vim/.swp//      " Swap file directory.
+
+if exists('*mkdir')
+    if !isdirectory(&undodir)
+        call mkdir(&undodir)
+    endif
+
+    if !isdirectory(&backupdir)
+        call mkdir(&backupdir)
+    endif
+
+    if !isdirectory(&directory)
+        call mkdir(&directory)
+    endif
+endif
 
 " Set leader key to SPACE.
 let mapleader=" "
@@ -161,7 +174,7 @@ function! SetPluginBindings()
 
     if exists(':CtrlPGista')
     " BIND <F6> to CtrlP Gista view.
-    	nnoremap <F6> :CtrlPGista<CR>
+        nnoremap <F6> :CtrlPGista<CR>
     endif
 endfunction
 
@@ -180,9 +193,9 @@ autocmd VimEnter * call SetBufferMenu()
 function SetBufferMenu()
     if exists(':CtrlPBuffer')
         nnoremap <F5> :CtrlPBuffer<CR>
-    else 
+    else
         " Old fashioned way.
-        nnoremap <F5> :buffers<CR>:buffer<Space> 
+        nnoremap <F5> :buffers<CR>:buffer<Space>
     endif
 endfunction
 
@@ -207,7 +220,7 @@ silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
 " END NerdTREE settings.
 
 " BEGIN Vim-Gista settings.
-let g:gista#command#post#default_public = 0 
+let g:gista#command#post#default_public = 0
 " END Vim-Gista settings.
 
 " BEGIN UltiSnips settings.
