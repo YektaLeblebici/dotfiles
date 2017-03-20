@@ -30,9 +30,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'                   " Colorscheme
 Plug 'kien/ctrlp.vim'                   " CTRL+P file search
 Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
+Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous syntax checker
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
-Plug 'vim-syntastic/syntastic'          " Syntax checker
 Plug 'vim-airline/vim-airline'          " Enhanced status line
 Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
 Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like  Sublime Text
@@ -139,13 +139,9 @@ nnoremap <Leader><Right> :tabn<CR>
 nnoremap <Leader><Left> :tabp<CR>
 nnoremap <Leader><CR>  :tab split<CR>
 
-" BIND <Leader> + <BACKSPACE> to dismiss highlighting and syntax checking.
+" BIND <Leader> + <BACKSPACE> to dismiss highlighting.
 function SetLeaderBackspace()
-    if exists(':SyntasticReset')
-        nnoremap <Leader><BACKSPACE> :nohl<CR>:SyntasticReset<CR>
-    else
-        nnoremap <Leader><BACKSPACE> :nohl<CR>
-endif
+    nnoremap <Leader><BACKSPACE> :nohl<CR>
 endfunction
 
 au VimEnter * call SetLeaderBackspace()
@@ -203,16 +199,20 @@ endfunction
 """ Plugin settings
 """
 
-" BEGIN Syntastic settings.
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" BEGIN Neomake(-autolint) settings.
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-" END Syntastic settings.
+" Styling
+let g:neomake_error_sign = {
+            \ 'text': '➤',
+            \ 'texthl': 'ErrorMsg',
+            \ }
+hi ErrorMsg ctermbg=235
+hi MyWarningMsg ctermfg=250 ctermbg=235
+let g:neomake_warning_sign = {
+            \ 'text': '➤',
+            \ 'texthl': 'MyWarningMsg',
+            \ }
+" END Neomake(-autolint) settings.
 
 " BEGIN NerdTREE settings.
 let g:NERDTreeRespectWildIgnore=1
