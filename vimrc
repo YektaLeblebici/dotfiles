@@ -66,7 +66,6 @@ set ttyfast             " Improve smoothness of redrawing on a fast terminal con
 set ttimeoutlen=10      " Faster switching from insert mode.
 set stal=1              " Show tab page labels only if there are at least two tab pages.
 set switchbuf=useopen,usetab,newtab " Change behavior when switching between buffers.
-autocmd VimResized * :wincmd =      " Automatically scale internal windows on terminal resize.
 
 " Convenience
 set tabstop=4           " Number of spaces that a <Tab> counts for. Default is 8.
@@ -129,6 +128,21 @@ if has('linebreak')
     " Unknown option: breakindent
   endtry
 endif
+
+" Resize all splits on all tabs when Vim window is resized.
+" Thanks to: http://github.com/cakturk
+command! -nargs=+ -complete=command Tabdo call TabDo(<q-args>)
+
+augroup resize_splits
+    autocmd!
+    autocmd VimResized * Tabdo wincmd =
+augroup END
+
+function! TabDo(command)
+    let l:currTab=tabpagenr()
+    execute 'tabdo ' . a:command
+    execute 'tabn ' . currTab
+endfunction
 
 """
 """ <Leader> shortcuts
