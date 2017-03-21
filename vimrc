@@ -46,6 +46,7 @@ Plug 'lambdalisue/vim-gista'            " Github Gists support
 Plug 'lambdalisue/vim-gista-ctrlp'      " Gists and CTRL+P integration
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
+Plug 'tpope/vim-commentary'             " Easy comments
 call plug#end()
 
 " Styling
@@ -214,8 +215,6 @@ endfunction
 """
 
 " BEGIN Neomake(-autolint) settings.
-
-" Styling
 let g:neomake_error_sign = {
             \ 'text': '➤',
             \ 'texthl': 'ErrorMsg',
