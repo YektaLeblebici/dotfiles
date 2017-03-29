@@ -47,6 +47,7 @@ Plug 'lambdalisue/vim-gista-ctrlp'      " Gists and CTRL+P integration
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 Plug 'tpope/vim-commentary'             " Easy comments
+Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 call plug#end()
 
 " Styling
@@ -187,6 +188,11 @@ function! SetPluginBindings()
     " BIND <F6> to CtrlP Gista view.
         nnoremap <F6> :CtrlPGista<CR>
     endif
+
+    if exists(':NeoCompleteToggle')
+    " BIND <F6> to CtrlP Gista view.
+        nnoremap <F12> :NeoCompleteToggle<CR>
+    endif
 endfunction
 
 au VimEnter * call SetPluginBindings()
@@ -241,6 +247,11 @@ let g:UltiSnipsNoPythonWarning = 1
 let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
 " END UltiSnips settings.
+
+" BEGIN NeoComplete settings.
+let g:neocomplete#max_list = 20
+let g:neocomplete#enable_auto_close_preview = 1
+" END NeoComplete settings.
 
 " Airline buffer tab view. Uncomment to enable.
 "let g:airline#extensions#tabline#enabled = 1
