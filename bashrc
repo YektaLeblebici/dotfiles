@@ -144,10 +144,10 @@ _fasd_prompt_func() {
 }
 
 # add bash hook
-#case $PROMPT_COMMAND in
-#  *_fasd_prompt_func*) ;;
-#  *) PROMPT_COMMAND="_fasd_prompt_func;$PROMPT_COMMAND";;
-#esac
+case $PROMPT_COMMAND in
+  *_fasd_prompt_func*) ;;
+  *) PROMPT_COMMAND="_fasd_prompt_func;$PROMPT_COMMAND";;
+esac
 
 # bash command mode completion
 _fasd_bash_cmd_complete() {
