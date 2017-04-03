@@ -17,3 +17,13 @@ To make powerline and fasd play nice together, I've made a small change, simply 
 > cp powerline.sh /usr/share/powerline/bindings/bash/powerline.sh
 
 **Depends:** powerline, fasd
+
+### i3lock-fancy-multimonitor
+![Screenshot](screenshots/i3lock1.png?raw=true "Screenshot")
+
+Original script taken from https://github.com/guimeira/i3lock-fancy-multimonitor
+
+* I've changed it to pixelate the screen instead of blurring.
+* It now shows failed attempts. (i3lock -f)
+
+**Depends:** i3lock, scrot, imagemagick
