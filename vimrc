@@ -85,6 +85,7 @@ set cinkeys-=0#         " Remove # symbol from reindentation list.
 set indentkeys-=0#      " Remove # symbol from reindentation list.
 set cinoptions=l1       " Change Vim indentation behaviour. See: cinoptions-values
 set formatoptions+=j    " Delete comment character when joining commented lines.
+set ssop-=options       " Not saving session-spesific options, as they become an annoyance later.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 " Search settings

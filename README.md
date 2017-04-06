@@ -22,7 +22,7 @@ Original script taken from https://github.com/guimeira/i3lock-fancy-multimonitor
 
 ### zshrc
 
-Awesome command prompt as I always wanted, using oh-my-zsh.
+Awesome command prompt as I always wanted, using oh-my-zsh. 
 It has autocompletion, fuzzy finder, fasd (frecent file finder), Powerline integration and minor improvements.
 
 ##### How to setup
