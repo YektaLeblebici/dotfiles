@@ -79,9 +79,59 @@ HOMEBREW_NO_ANALYTICS=1
 export PATH="$HOME/.linuxbrew/bin:$PATH"
 
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
-alias insane="fortune | cowsay | lolcat"
+alias insane="fortune | cowsay -f $(ls /usr/share/cowsay/cows/|shuf -n 1) | lolcat"
+# Disabling v (fasd), replaced it with a new v command. (fzf+fasd)
+# alias v="f -e vim -b viminfo"
 
-alias v="f -e vim -b viminfo"
+### FZF Commands
+# Disable all these if you don't want to use FZF.
+# fkill - kill process
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+# fag - ag search with FZF
+alias fag="ag --nobreak --nonumbers --noheading . | fzf"
+
+# flog - git log with FZF
+flog() {
+  git log --graph --color=always \
+      --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
+  fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
+      --bind "ctrl-m:execute:
+                (grep -o '[a-f0-9]\{7\}' | head -1 |
+                xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+                {}
+FZF-EOF"
+}
+
+# fcs - FZF command to get commit sha, useful combined with git commands.
+fcs() {
+  local commits commit
+  commits=$(git log --color=always --pretty=oneline --abbrev-commit --reverse) &&
+  commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse) &&
+  echo -n $(echo "$commit" | sed "s/ .*//")
+}
+
+# fdif - FZF command to get diff between two commits, interactively. 
+# Requires fcs() function uncommented to work.
+fdif(){
+ git diff `fcs` `fcs`
+}
+
+# fv - FZF + fasd to edit recent vim files faster.
+# Don't change this fv() to v(), or all hell may break loose.
+fv(){
+  local file
+  file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
+}
+alias v="fv"
 
 # User configuration
 
