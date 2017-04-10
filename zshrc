@@ -9,6 +9,7 @@
 #  $ZSH_CUSTOM/plugins/fzf/install --bin
 #  git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh
 #  git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+#  git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
 #  Get fasd from: https://github.com/clvv/fasd and simply run "make install"
 
 # If you come from bash you might have to change your $PATH.
@@ -36,10 +37,14 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
-plugins=(git fasd colored-man-pages history extract vagrant fzf-zsh zsh-autosuggestions)
+plugins=(git fasd colored-man-pages history extract vagrant fzf-zsh ssh-agent zsh-autosuggestions zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 zstyle ':completion:*' use-ip true
+
+# Add your identity files below to have them automatically added.
+zstyle :omz:plugins:ssh-agent identities id_rsa
+zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Dircolors
 if [ -x /usr/bin/dircolors ]; then
