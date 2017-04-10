@@ -44,3 +44,9 @@ To make powerline and fasd play nice together, I've made a small change, simply 
 > cp powerline.sh /usr/share/powerline/bindings/bash/powerline.sh
 
 **Depends:** powerline, fasd
+
+### thinkfan.conf
+
+Thinkfan profile for my Thinkpad T420. Prioritizes less noise over overall heat.
+
+**Depends:** thinkfan
