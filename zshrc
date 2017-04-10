@@ -11,6 +11,7 @@
 #  git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 #  git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
 #  Get fasd from: https://github.com/clvv/fasd and simply run "make install"
+#  apt-get install silversearcher-ag (preferably from "testing", package in "jessie" is quite old)
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -45,6 +46,18 @@ zstyle ':completion:*' use-ip true
 # Add your identity files below to have them automatically added.
 zstyle :omz:plugins:ssh-agent identities id_rsa
 zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+# Blue colorscheme for FZF. I may use that in the future.
+# export FZF_DEFAULT_OPTS='--color dark,hl:33,fg+:254,hl+:37 --color info:254,prompt:37,spinner:108,pointer:235,marker:235'
+
+# Use ag as the default source.
+# Depends on installed "ag", comment out these two if not.
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND" 
+
+# Consistent ordering between CTRL+R history search and CTRL+T.
+export FZF_CTRL_R_OPTS="--reverse"
+
 
 # Dircolors
 if [ -x /usr/bin/dircolors ]; then
