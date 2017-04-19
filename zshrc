@@ -38,7 +38,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 #
-plugins=(git fasd colored-man-pages history extract vagrant fzf-zsh ssh-agent zsh-autosuggestions zsh-interactive-cd)
+plugins=(git fasd colored-man-pages history extract vagrant docker fzf-zsh ssh-agent zsh-autosuggestions zsh-interactive-cd)
 
 source $ZSH/oh-my-zsh.sh
 zstyle ':completion:*' use-ip true
