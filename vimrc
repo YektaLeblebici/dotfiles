@@ -48,6 +48,9 @@ Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
+
+" On-demand loaded plugins
+Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 call plug#end()
 
 " Styling
