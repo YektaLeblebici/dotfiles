@@ -41,7 +41,12 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git fasd colored-man-pages history extract vagrant docker fzf-zsh ssh-agent zsh-autosuggestions zsh-interactive-cd catimg)
 
 source $ZSH/oh-my-zsh.sh
+
+## Completion tweaks
 zstyle ':completion:*' use-ip true
+
+# Completion for parent directory.
+zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
 
 # Add your identity files below to have them automatically added.
 zstyle :omz:plugins:ssh-agent identities id_rsa
@@ -57,7 +62,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Consistent ordering between CTRL+R history search and CTRL+T.
 export FZF_CTRL_R_OPTS="--reverse"
-
 
 # Dircolors
 if [ -x /usr/bin/dircolors ]; then
