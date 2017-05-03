@@ -194,7 +194,7 @@ function! SetPluginBindings()
     endif
 
     if exists(':NeoCompleteToggle')
-    " BIND <F6> to CtrlP Gista view.
+    " BIND <F12> to toggle NeoComplete completion.
         nnoremap <F12> :NeoCompleteToggle<CR>
     endif
 endfunction
