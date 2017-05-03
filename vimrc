@@ -233,7 +233,11 @@ endfunction
 """ Plugin settings
 """
 
-" BEGIN Neomake(-autolint) settings.
+" Neomake settings.
+let g:neomake_open_list = 2
+let g:neomake_verbose = 2
+
+" Neomake(-autolint) settings.
 let g:neomake_error_sign = {
             \ 'text': '➤',
             \ 'texthl': 'ErrorMsg',
@@ -244,30 +248,26 @@ let g:neomake_warning_sign = {
             \ 'text': '➤',
             \ 'texthl': 'MyWarningMsg',
             \ }
-" END Neomake(-autolint) settings.
 
-" BEGIN NerdTREE settings.
+" NeoComplete settings.
+let g:neocomplete#max_list = 20
+let g:neocomplete#enable_auto_close_preview = 1
+
+" NerdTREE settings.
 let g:NERDTreeRespectWildIgnore=1
 silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
-" END NerdTREE settings.
 
-" BEGIN Vim-Gista settings.
-let g:gista#command#post#default_public = 0
-" END Vim-Gista settings.
-
-" BEGIN UltiSnips settings.
+" UltiSnips settings.
 let g:UltiSnipsNoPythonWarning = 1
 let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
-" END UltiSnips settings.
 
-" BEGIN NeoComplete settings.
-let g:neocomplete#max_list = 20
-let g:neocomplete#enable_auto_close_preview = 1
-" END NeoComplete settings.
+" Vim-Gista settings.
+let g:gista#command#post#default_public = 0
 
+" Airline settings.
 " Airline buffer tab view. Uncomment to enable.
 "let g:airline#extensions#tabline#enabled = 1
 "
-" Show just the filename
+" Show filenames only. Uncomment to enable.
 "let g:airline#extensions#tabline#fnamemod = ':t'
