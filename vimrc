@@ -193,6 +193,11 @@ function! SetPluginBindings()
         nnoremap <F6> :CtrlPGista<CR>
     endif
 
+    if exists(':Neomake')
+    " BIND <F10> to start Neomake build.
+        nnoremap <F10> :Neomake!<CR>
+    endif
+
     if exists(':NeoCompleteToggle')
     " BIND <F12> to toggle NeoComplete completion.
         nnoremap <F12> :NeoCompleteToggle<CR>
@@ -200,6 +205,10 @@ function! SetPluginBindings()
 endfunction
 
 au VimEnter * call SetPluginBindings()
+
+" Prefer vim-go if exists for Golang files.
+autocmd Filetype go if exists(':GoBuild') | map <buffer> <F10> :GoBuild<CR> | endif
+autocmd Filetype go if exists(':GoRun') | map <buffer> <F9> :GoRun<CR> | endif
 
 " BIND F2 to Paste Mode.
 " This binding will be overriden if Bracketed Paste plugin is enabled.
