@@ -189,7 +189,7 @@ nnoremap <Leader><PageUp> :bn<CR>
 nnoremap <Leader><PageDown> :bp<CR>
 nnoremap <Leader><Delete> :bd<CR>
 
-""" <Leader> - Plugin bindings
+""" Plugin bindings
 
 function! SetPluginBindings()
     " BIND <Leader> + t to TagBar.
@@ -224,6 +224,10 @@ au VimEnter * call SetPluginBindings()
 autocmd Filetype go if exists(':GoBuild') | map <buffer> <F10> :GoBuild<CR> | endif
 autocmd Filetype go if exists(':GoRun') | map <buffer> <F9> :GoRun<CR> | endif
 
+"""
+""" Function key bindings
+"""
+
 " BIND F2 to Paste Mode.
 " This binding will be overriden if Bracketed Paste plugin is enabled.
 set pastetoggle=<F2>
@@ -246,10 +250,6 @@ endfunction
 """
 """ Plugin settings
 """
-
-" Neomake settings.
-let g:neomake_open_list = 2
-let g:neomake_verbose = 2
 
 " Neomake(-autolint) settings.
 let g:neomake_error_sign = {
