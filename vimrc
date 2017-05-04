@@ -150,6 +150,20 @@ function! TabDo(command)
     execute 'tabn ' . currTab
 endfunction
 
+" Set preferred browser.
+let netrw_browsex_viewer='google-chrome-unstable'
+
+"""
+""" Global shortcuts
+"""
+
+" x removes characters cleanly, not messing up clipboard.
+nnoremap x "_d 
+
+" X removes a line completely, not messing up clipboard.
+nnoremap X "_d
+nnoremap XX "_dd
+
 """
 """ <Leader> shortcuts
 """
