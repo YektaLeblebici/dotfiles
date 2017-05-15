@@ -22,6 +22,8 @@ export ZSH=/home/aranel/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # NOTE: This is not being used as its overriden by Powerline.
+
+# I use powerline, not a ZSH_THEME anyway.
 ZSH_THEME="robbyrussell"
 
 # Disable bi-weekly auto-update checks.
@@ -107,6 +109,9 @@ export EDITOR='vim'
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
 export PATH="$HOME/.linuxbrew/bin:$PATH"
+
+# Turns out I am not a cow person.
+export ANSIBLE_NOCOWS=1
 
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
 alias insane="fortune | cowsay -f $(ls /usr/share/cowsay/cows/|shuf -n 1) | lolcat"
