@@ -12,7 +12,11 @@ filetype plugin indent on
 " sjl/gundo.vim, lambdalisue/vim-gista, lambdalissue/vim-gista-ctrlp.
 " Debian 'vim' package does not support Python. Try 'vim-nox' package or add
 " necessary flags to the debian/rules file of the 'vim' package and recompile.
-packadd! matchit
+
+" Packadd packages
+if v:version >= 800
+    packadd! matchit
+endif
 
 " Install vim-plug if not installed already.
 let s:vimplug_exists=expand('~/.vim/autoload/plug.vim')
