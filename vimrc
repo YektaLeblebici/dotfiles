@@ -32,7 +32,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'                   " Colorscheme
-Plug 'kien/ctrlp.vim'                   " CTRL+P file search
+Plug 'ctrlpvim/ctrlp.vim'               " CTRL+P file search
 Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
 Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous syntax checker
 Plug 'scrooloose/nerdtree'              " Tree explorer
