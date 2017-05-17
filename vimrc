@@ -34,7 +34,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'                   " Colorscheme
 Plug 'ctrlpvim/ctrlp.vim'               " CTRL+P file search
 Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
-Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous syntax checker
+Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous syntax checking & jobs
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
