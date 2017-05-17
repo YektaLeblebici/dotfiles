@@ -52,6 +52,8 @@ Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'                 " Fuzzy finder
 
 " On-demand loaded plugins
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
@@ -226,6 +228,14 @@ function! SetPluginBindings()
     " BIND <F12> to toggle NeoComplete completion.
         nnoremap <F12> :NeoCompleteToggle<CR>
     endif
+
+    if exists(':FZF')
+    " FZF Bindings.
+        nnoremap <silent> <c-p> :FZF<CR>
+        nnoremap <silent> <Leader>/ :BLines<CR>
+        nnoremap <silent> <Leader>l :Lines<CR>
+        nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+    endif
 endfunction
 
 au VimEnter * call SetPluginBindings()
@@ -249,8 +259,8 @@ set listchars=tab:>.,nbsp:·,trail:·,precedes:←,extends:→
 " BIND F5 to Buffer menu.
 autocmd VimEnter * call SetBufferMenu()
 function SetBufferMenu()
-    if exists(':CtrlPBuffer')
-        nnoremap <F5> :CtrlPBuffer<CR>
+    if exists(':FZF')
+        nnoremap <F5> :Buffers<CR>
     else
         " Old fashioned way.
         nnoremap <F5> :buffers<CR>:buffer<Space>
@@ -288,6 +298,26 @@ let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
 
 " Vim-Gista settings.
 let g:gista#command#post#default_public = 0
+
+" fzf-vim settings.
+let g:fzf_colors = {
+             \ 'fg':      ['fg', 'Normal'],
+             \ 'bg':      ['bg', 'Normal'],
+             \ 'hl':      ['fg', 'Comment'],
+             \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+             \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+             \ 'hl+':     ['fg', 'Statement'],
+             \ 'info':    ['fg', 'PreProc'],
+             \ 'prompt':  ['fg', 'Conditional'],
+             \ 'pointer': ['fg', 'Exception'],
+             \ 'marker':  ['fg', 'Keyword'],
+             \ 'spinner': ['fg', 'Label'],
+             \ 'header':  ['fg', 'Comment']
+             \ }
+
+let g:fzf_buffers_jump = 1
+
+let g:fzf_layout = { 'down': '~30%' }
 
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
