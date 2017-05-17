@@ -99,6 +99,9 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/.go/bin
 export GOPATH=$HOME/.go
 
+# Local binaries (=pip install --user)
+export PATH=$PATH:$HOME/.local/bin
+
 # Styling
 export TERM=xterm-256color
 export GREP_OPTIONS="--color"
