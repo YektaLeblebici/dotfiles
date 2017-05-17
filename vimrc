@@ -168,6 +168,12 @@ nnoremap x "_d
 nnoremap X "_d
 nnoremap XX "_dd
 
+" Map uppercase WQ and the like to lowercase ones.
+command W w
+command WQ wq
+command Wq wq
+command Q q
+
 """
 """ <Leader> shortcuts
 """
