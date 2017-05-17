@@ -54,7 +54,11 @@ Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
-Plug 'wakatime/vim-wakatime'            " Wakatime integration
+
+" Load wakatime plugin if its configured for this user.
+if filereadable(expand("~/.wakatime.cfg"))
+    Plug 'wakatime/vim-wakatime'            " Wakatime integration
+endif
 
 " On-demand loaded plugins
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
