@@ -171,6 +171,18 @@ fv(){
 }
 alias v="fv"
 
+# cheat - get cheatsheets from cheat.sh
+# :list - lists all cheatsheets, ~keyword searches for keyword.
+cheat(){
+    curl cheat.sh/"$1"
+}
+
+# wttr - get weather from wttr.in
+# usage: wttr <city>
+wttr(){
+    curl wttr.in/"$1"
+}
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
