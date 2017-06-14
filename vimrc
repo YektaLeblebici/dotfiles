@@ -324,6 +324,15 @@ let g:fzf_buffers_jump = 1
 
 let g:fzf_layout = { 'down': '~30%' }
 
+" Airline settings.
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" Default symbol was not shown correctly on rxvt with Hack font.
+" Just replacing it with a similar Powerline character.
+let g:airline_symbols.maxlinenr = ' '
+
 " ALE settings. Uncomment if ALE is enabled.
 " let g:ale_sign_error = '➤'
 " let g:ale_sign_warning = '➤'
