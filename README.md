@@ -38,6 +38,19 @@ After running those, get "fasd" from: https://github.com/clvv/fasd and simply ru
 
 **Depends:** oh-my-zsh, powerline, fasd, fzf, fzf-zsh, silversearcher-ag, zsh-autosuggestions
 
+### Xresources
+
+Xresources file to be used with rxvt-unicode-256color terminal. 
+
+Uses "Hack" font with "Molokai" color theme, with sane behaviour, font rendering and styling configurations. Also uses "vtwheel" extension to improve scroll wheel behavior. 
+
+##### How to setup
+* Get vtwheel extension source from https://aur.archlinux.org/packages/urxvt-vtwheel/ and copy it to ~/.rxvt-ext directory. 
+* Get Hack font from https://github.com/chrissimpkins/Hack and place it under ~/.fonts directory.   
+* Make sure you run "xrdb .Xresources" after making any changes to this file.
+
+**Depends**: vtwheel, Hack font
+
 ### bashrc
 
 Nothing really fancy. Just sane defaults, Powerline and Fasd integration.
