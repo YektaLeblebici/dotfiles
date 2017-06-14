@@ -324,6 +324,20 @@ let g:fzf_buffers_jump = 1
 
 let g:fzf_layout = { 'down': '~30%' }
 
+" ALE settings. Uncomment if ALE is enabled.
+" let g:ale_sign_error = '➤'
+" let g:ale_sign_warning = '➤'
+" hi ALEErrorSign ctermbg=235
+" hi ALEWarningSign ctermfg=250 ctermbg=235
+" let g:ale_echo_msg_error_str = 'E'
+" let g:ale_echo_msg_warning_str = 'W'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_sign_column_always = 1
+" let g:ale_emit_conflict_warnings = 0
+" hi ALEError cterm=underline,bold
+" hi ALEWarning cterm=underline,bold
+" hi ALEInfo cterm=underline,bold
+
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
 "let g:airline#extensions#tabline#enabled = 1
