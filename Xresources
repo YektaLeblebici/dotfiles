@@ -1,0 +1,107 @@
+! .Xresources, optimized for rxvt-unicode terminal.
+! Yekta Leblebici <yekta@iamyekta.com>
+!
+! Perl extensions: vtwheel, selection
+! Place these under ~/.rxvt-ext
+!
+! Font: https://github.com/chrissimpkins/Hack
+! Place font files under ~/.fonts
+
+! Font rendering
+Xft.lcdfilter: lcddefault
+Xft.dpi:        96
+Xft.hinting:    1
+Xft.hintstyle:  hintfull
+Xft.antialias:  1
+Xft.rgba:       rgb
+!Xcursor*size:   24
+
+! Perl extensions
+URxvt.perl-lib: ~/.rxvt-ext
+URxvt*perl-ext-common: vtwheel, selection 
+
+! Fonts
+URxvt*font: xft:Hack:pixelsize=12:style=Regular, xft:Dejavu Sans Mono:pixelsize=12,style=Book
+URxvt*boldFont: xft:Hack:pixelsize=12:style=Bold
+URxvt*italicFont: xft:Hack:pixelsize=12:style=Italic
+URxvt*boldItalicFont: xft:Hack:pixelsize=12:style=Bold\ Italic
+URxvt*letterSpace: -2
+
+! Behaviour
+URxvt*loginShell: true
+Rxvt*vt100*geometry: 80x60
+URxvt*saveLines: 2000
+URxvt*termName: xterm-256color
+URxvt*scrollstyle: xterm
+URxvt*eightBitInput: false
+URxvt*scrollWithBuffer: false
+
+! Appearance
+URxvt*scrollBar: false
+URxvt*internalBorder: 0
+URxvt*externalBorder: 0
+
+! Molokai theme
+URxvt*background: #101010
+URxvt*foreground: #d0d0d0
+URxvt*color0: #101010
+URxvt*color1: #960050
+URxvt*color2: #66aa11
+URxvt*color3: #c47f2c
+URxvt*color4: #30309b
+URxvt*color5: #7e40a5
+URxvt*color6: #3579a8
+URxvt*color7: #9999aa
+URxvt*color8: #303030
+URxvt*color9: #ff0090
+URxvt*color10: #80ff00
+URxvt*color11: #ffba68
+URxvt*color12: #5f5fee
+URxvt*color13: #bb88dd
+URxvt*color14: #4eb4fa
+URxvt*color15: #d0d0d0
+
+! Cursor styling
+URxvt*cursorColor: #FFFFFF
+URxvt*cursorColor2: #FFFFFF
+
+! Wheel behaviour
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! XTerm-like Home and End key behaviour.
+! Copied from http://www.netswarm.net/misc/urxvt-xtermcompat.txt
+*URxvt*keysym.Home:		\033OH
+*URxvt*keysym.End:		\033OF
+
+! Alternative color theme, Linux colors:
+! Colors
+!URxvt*background: #000000
+!URxvt*foreground: #B2B2B2
+! black
+/* 1URxvt*color0:  #000000 */
+/* URxvt*color8:  #686868 */
+/* ! red */
+/* URxvt*color1:  #B21818 */
+/* URxvt*color9:  #FF5454 */
+/* ! green */
+/* URxvt*color2:  #18B218 */
+/* URxvt*color10: #54FF54 */
+/* ! yellow */
+/* URxvt*color3:  #B26818 */
+/* URxvt*color11: #FFFF54 */
+/* ! blue */
+/* URxvt*color4:  #1818B2 */
+/* URxvt*color12: #5454FF */
+/* ! purple */
+/* URxvt*color5:  #B218B2 */
+/* URxvt*color13: #FF54FF */
+/* ! cyan */
+/* URxvt*color6:  #18B2B2 */
+/* URxvt*color14: #54FFFF */
+/* ! white */
+/* URxvt*color7:  #B2B2B2 */
+/* URxvt*color15: #FFFFFF */
+
+!URxvt*charClass: 33:48,35:48,37:48,43:48,45-47:48,64:48,95:48,126:48
