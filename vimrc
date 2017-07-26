@@ -34,7 +34,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'                   " Colorscheme
 Plug 'ctrlpvim/ctrlp.vim'               " CTRL+P file search
 Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
-Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous syntax checking & jobs
+Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
+" Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
@@ -116,7 +117,7 @@ endif
 
 " Directories
 set undodir=~/.vim/.undo/       " Persistent undo history directory.
-set backupdir=~/.vim/.backup/   " Backup directory.
+set backupdir=~/.vim/.backup//   " Backup directory.
 set directory=~/.vim/.swp//      " Swap file directory.
 
 if exists('*mkdir')
@@ -133,10 +134,15 @@ if exists('*mkdir')
     endif
 endif
 
+" Enable undo, backup and swap files.
+set undofile
+set backup
+set swapfile
+
 " Set leader key to SPACE.
 let mapleader=" "
 
-" Show visual cues for wrapped lines
+" Show visual cues for wrapped lines.
 if has('linebreak')
   try
     set breakindent
@@ -333,19 +339,19 @@ endif
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
 
-" ALE settings. Uncomment if ALE is enabled.
-" let g:ale_sign_error = '➤'
-" let g:ale_sign_warning = '➤'
-" hi ALEErrorSign ctermbg=235
-" hi ALEWarningSign ctermfg=250 ctermbg=235
-" let g:ale_echo_msg_error_str = 'E'
-" let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-" let g:ale_sign_column_always = 1
-" let g:ale_emit_conflict_warnings = 0
-" hi ALEError cterm=underline,bold
-" hi ALEWarning cterm=underline,bold
-" hi ALEInfo cterm=underline,bold
+" " ALE settings. Uncomment if ALE is enabled.
+"  let g:ale_sign_error = '➤'
+"  let g:ale_sign_warning = '➤'
+"  hi ALEErrorSign ctermfg=199 ctermbg=235
+"  hi ALEWarningSign ctermfg=250 ctermbg=235
+"  let g:ale_echo_msg_error_str = 'E'
+"  let g:ale_echo_msg_warning_str = 'W'
+"  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+"  let g:ale_sign_column_always = 1
+"  let g:ale_emit_conflict_warnings = 0
+"  hi ALEError cterm=underline,bold
+"  hi ALEWarning cterm=underline,bold
+"  hi ALEInfo cterm=underline,bold
 
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
