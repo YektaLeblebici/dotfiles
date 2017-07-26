@@ -35,6 +35,8 @@ URxvt*termName: xterm-256color
 URxvt*scrollstyle: xterm
 URxvt*eightBitInput: false
 URxvt*scrollWithBuffer: false
+URxvt*scrollTtyOutput: false
+URxvt*scrollTtyKeypress: true
 
 ! Appearance
 URxvt*scrollBar: false
