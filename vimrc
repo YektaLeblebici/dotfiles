@@ -108,12 +108,12 @@ set incsearch           " Highlight where the search pattern matches.
 set hlsearch            " When there is a previous search pattern, highlight all its matches.
 set ignorecase          " Ignore case in search patterns.
 
-" Clipboard support
-if has('clipboard')
-    if has('unix')
-        set clipboard^=unnamedplus
-    endif
-endif
+" " Clipboard support
+" if has('clipboard')
+"     if has('unix')
+"         set clipboard^=unnamedplus
+"     endif
+" endif
 
 " Directories
 set undodir=~/.vim/.undo/       " Persistent undo history directory.
@@ -338,6 +338,24 @@ endif
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
+
+" OS X spesific configuration
+if has("unix")
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+      " iTerm 2 scroll wheel support, somehow does not work if mouse mode not
+      " set.
+      set mouse=a
+
+      " OS X clipboard support
+      if has("clipboard")
+          set clipboard^=unnamed
+      endif
+
+      " Workaround for UltiSnips throwing errors on Insert mode.
+      " au! UltiSnips_AutoTrigger
+  endif
+endif
 
 " " ALE settings. Uncomment if ALE is enabled.
 "  let g:ale_sign_error = '➤'
