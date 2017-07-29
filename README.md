@@ -1,4 +1,3 @@
-
 # Dotfiles
 
 Some of my configuration files and resources I use everyday. I do my best to keep them readable and useful to everyone.
@@ -8,7 +7,25 @@ Some of my configuration files and resources I use everyday. I do my best to kee
 
 Cherry-picked plugins, bunch of customizations and (hopefully) not-too-invasive keybindings. Make sure you've read it first before applying.
 
-**Depends:** vim (>=8) (+python), vimplug, exuberant-ctags, silversearcher-ag (>= 0.29.1)
+**Depends:** vim (>=8) (+python +clipboard), vimplug, exuberant-ctags, silversearcher-ag (>= 0.29.1)
+
+### zshrc
+
+Awesome command prompt I always wanted, using oh-my-zsh. 
+It has autocompletion, fuzzy finder, fasd (frecent file finder), Powerlevel9k theme and minor improvements.
+
+##### How to setup
+* sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 
+* git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
+* brew install ag
+* git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf 
+* $ZSH_CUSTOM/plugins/fzf/install --bin 
+* git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh 
+* git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
+* git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
+* brew install fasd
+
+**Depends:** oh-my-zsh, powerlevel9k, fasd, fzf, fzf-zsh, silversearcher-ag, zsh-autosuggestions
 
 ### i3lock-fancy-multimonitor
 ![Screenshot](screenshots/i3lock1.png?raw=true "Screenshot")
@@ -19,24 +36,6 @@ Original script taken from https://github.com/guimeira/i3lock-fancy-multimonitor
 * It now shows failed attempts. (i3lock -f)
 
 **Depends:** i3lock, scrot, imagemagick
-
-### zshrc
-
-Awesome command prompt as I always wanted, using oh-my-zsh. 
-It has autocompletion, fuzzy finder, fasd (frecent file finder), Powerline integration and minor improvements.
-
-##### How to setup
-* apt-get install powerline 
-* apt-get install silversearcher-ag
-* sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" 
-* git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf 
-* $ZSH_CUSTOM/plugins/fzf/install --bin 
-* git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh 
-* git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-
-After running those, get "fasd" from: https://github.com/clvv/fasd and simply run "make install".
-
-**Depends:** oh-my-zsh, powerline, fasd, fzf, fzf-zsh, silversearcher-ag, zsh-autosuggestions
 
 ### Xresources
 

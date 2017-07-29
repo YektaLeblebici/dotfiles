@@ -3,15 +3,15 @@
 # Depends: oh-my-zsh, powerlevel9k, fasd, fzf, fzf-zsh, zsh-autosuggestions
 #
 # Get dependencies by running:
-#  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 #  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" (Not a great way to do this.)
+#  git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k
 #  git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf 
 #  $ZSH_CUSTOM/plugins/fzf/install --bin
 #  git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh
 #  git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 #  git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
-#  Get fasd from: https://github.com/clvv/fasd and simply run "make install"
-#  apt-get install silversearcher-ag (preferably from "testing", package in "jessie" is quite old)
+#  brew install fasd 
+#  brew install ag
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
