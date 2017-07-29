@@ -115,13 +115,15 @@ alias vi=vim
 
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
-export PATH="$HOME/.linuxbrew/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+# export PATH="$HOME/.linuxbrew/bin:$PATH"
+# export PATH="$HOME/.linuxbrew/sbin:$PATH"
 
 # Turns out I am not a cow person.
 export ANSIBLE_NOCOWS=1
 
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
-alias insane="fortune | cowsay -f $(ls /usr/share/cowsay/cows/|shuf -n 1) | lolcat"
+alias insane="fortune | cowsay | lolcat"
 # Disabling v (fasd), replaced it with a new v command. (fzf+fasd)
 # alias v="f -e vim -b viminfo"
 
@@ -208,3 +210,5 @@ wttr(){
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
