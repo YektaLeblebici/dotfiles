@@ -1,6 +1,6 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" Depends: vim (>=8) (+python), vimplug, exuberant-ctags,
-" silversearcher-ag (>= 0.29.1)
+" Depends: vim (>=8) (+python, +clipboard), vimplug, 
+" exuberant-ctags, ilversearcher-ag (>= 0.29.1)
 
 " Common settings
 set nocompatible
