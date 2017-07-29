@@ -17,7 +17,10 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/home/$USER/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
+
+# 256-color support
+export TERM=xterm-256color
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -106,12 +109,9 @@ export GOPATH=$HOME/.go
 # Local binaries (=pip install --user)
 export PATH=$PATH:$HOME/.local/bin
 
-# Styling
-export TERM=xterm-256color
-export GREP_OPTIONS="--color"
-
 # Editor
 export EDITOR='vim'
+alias vi=vim
 
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
