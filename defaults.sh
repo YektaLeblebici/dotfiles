@@ -11,6 +11,7 @@ defaults write com.apple.dock autohide-time-modifier -float 0.2
 defaults write com.apple.dock magnification -bool true
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Safari
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
