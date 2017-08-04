@@ -20,7 +20,9 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # 256-color support
-export TERM=xterm-256color
+# Setting this here appears to be not a great idea and hinders tmux support.
+# Anyway, comment it out if your terminal app is crap.
+# export TERM=xterm-256color
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
