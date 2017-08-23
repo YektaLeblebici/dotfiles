@@ -118,6 +118,10 @@ alias vi=vim
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
 export PATH="/usr/local/sbin:$PATH"
+
+# Brew paths
+export PATH="/usr/local/opt/curl/bin:$PATH"
+
 # export PATH="$HOME/.linuxbrew/bin:$PATH"
 # export PATH="$HOME/.linuxbrew/sbin:$PATH"
 
