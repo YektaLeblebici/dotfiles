@@ -2,9 +2,9 @@
 # Defaults - Written for OS X Sierra 10.12
 # Yekta Leblebici <yekta@iamyekta.com>
 
-# Finder, Dock and Preferences
+# Finder, Dock and UI Preferences
 defaults write com.apple.Finder AppleShowAllFiles true
-defaults write com.apple.dock expose-animation-duration -float 0.12 && killall Dock
+defaults write com.apple.dock expose-animation-duration -float 0.12
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.2
