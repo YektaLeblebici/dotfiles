@@ -55,6 +55,7 @@ Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
+Plug 'sheerun/vim-polyglot'             " Collection of language packs
 
 " Load wakatime plugin if its configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
