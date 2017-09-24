@@ -43,6 +43,7 @@ brew "rust"
 brew "shellcheck"
 brew "sshrc"
 brew "syncthing", restart_service: true
+brew "telnet"
 brew "the_silver_searcher"
 brew "tmux"
 brew "tree"
