@@ -130,8 +130,12 @@ export ANSIBLE_NOCOWS=1
 
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
 alias insane="fortune | cowsay | lolcat"
-# Disabling v (fasd), replaced it with a new v command. (fzf+fasd)
-# alias v="f -e vim -b viminfo"
+
+# brew-la | Lists brew packages and dependencies, makes it easier for clean-ups.
+# Copied from somewhere, can't remember its source though.
+brew-la() {
+    brew list -1 | while read cask; do echo -ne "\x1B[1;34m $cask \x1B[0m"; brew uses $cask --installed | awk '{printf(" %s ", $0)}'; echo ""; done
+}
 
 ### FZF Commands
 # Disable all these if you don't want to use FZF.
