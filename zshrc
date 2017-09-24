@@ -187,6 +187,22 @@ fv(){
 }
 alias v="fv"
 
+# mdf - Use FZF to search with mdfind (OS X) and save to clipboard.
+# Searches by file name only.
+mdf(){
+    local DIR
+    DIR=$(mdfind -name $1 | fzf )
+    echo $DIR | pbcopy
+}
+
+# mdn - Use FZF to search with mdfind (OS X) and save to clipboard.
+# All indexed files are included in its output.
+mdn(){
+    local DIR
+    DIR=$(mdfind $1 | fzf )
+    echo $DIR | pbcopy
+}
+
 # cheat - get cheatsheets from cheat.sh
 # :list - lists all cheatsheets, ~keyword searches for keyword.
 cheat(){
