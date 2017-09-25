@@ -131,6 +131,12 @@ export ANSIBLE_NOCOWS=1
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
 alias insane="fortune | cowsay | lolcat"
 
+# Pretty CSV viewer
+# Taken from: https://chrisjean.com/view-csv-data-from-the-command-line/
+csview() {
+    cat $1 | sed -e 's/,,/, ,/g' | column -s, -t | less -#5 -N -S
+}
+
 # brew-la | Lists brew packages and dependencies, makes it easier for clean-ups.
 # Copied from somewhere, can't remember its source though.
 brew-la() {
