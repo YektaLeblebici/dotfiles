@@ -137,6 +137,11 @@ csview() {
     cat $1 | sed -e 's/,,/, ,/g' | column -s, -t | less -#5 -N -S
 }
 
+# Generate random password.
+randpassw() {
+    openssl rand -base64 12
+}
+
 # brew-la | Lists brew packages and dependencies, makes it easier for clean-ups.
 # Copied from somewhere, can't remember its source though.
 brew-la() {
@@ -212,13 +217,13 @@ mdn(){
 # cheat - get cheatsheets from cheat.sh
 # :list - lists all cheatsheets, ~keyword searches for keyword.
 cheat(){
-    curl cheat.sh/"$1"
+    curl cheat.sh/"$1" | less
 }
 
 # wttr - get weather from wttr.in
 # usage: wttr <city>
 wttr(){
-    curl wttr.in/"$1"
+    curl wttr.in/"$1" | less
 }
 
 # User configuration
