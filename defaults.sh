@@ -1,5 +1,5 @@
 #!/bin/sh
-# Defaults - Written for OS X Sierra 10.12
+# Defaults - Written for OS X High Sierra 10.13
 # Yekta Leblebici <yekta@iamyekta.com>
 
 # Finder, Dock and UI Preferences
