@@ -191,6 +191,20 @@ command WQ wq
 command Wq wq
 command Q q
 
+""" EasyMotion bindings
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+
+" Most useful one, and I never use 's' key:
+nmap s <Plug>(easymotion-s2)
+
+" I might want this later, but today I feel like it matches
+" a little too much on a 4K screen.
+" let g:EasyMotion_smartcase = 1
+
+" JK motions: Line motions
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+
 """
 """ <Leader> shortcuts
 """
@@ -246,8 +260,8 @@ function! SetPluginBindings()
 
     if exists(':FZF')
     " FZF Bindings.
-        nnoremap <silent> <c-p> :FZF<CR>
-        nnoremap <silent> <Leader>/ :BLines<CR>
+        nnoremap <silent> <Leader>f :FZF<CR>
+        nnoremap <silent> <Leader>b :Buffers<CR>
         nnoremap <silent> <Leader>l :Lines<CR>
         nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
     endif
