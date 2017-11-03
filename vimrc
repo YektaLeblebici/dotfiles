@@ -301,6 +301,16 @@ endfunction
 """
 
 " Neomake(-autolint) settings.
+
+" Somehow dojoteef/neomake-autolint performs better.
+" I won't be using this unless I am out of options.
+" call neomake#configure#automake({
+"   \ 'TextChanged': {},
+"   \ 'TextChangedI': {'delay': 100},
+"   \ 'BufWritePost': {'delay': 0},
+"   \ 'BufWinEnter': {},
+"   \ }, 500)
+
 let g:neomake_error_sign = {
             \ 'text': '➤',
             \ 'texthl': 'ErrorMsg',
@@ -324,6 +334,9 @@ silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
 let g:UltiSnipsNoPythonWarning = 1
 let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
+
+" Gundo.vim settings.
+let g:gundo_prefer_python3 = 1
 
 " Vim-Gista settings.
 let g:gista#command#post#default_public = 0
