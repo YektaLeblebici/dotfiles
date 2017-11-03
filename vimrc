@@ -66,12 +66,16 @@ endif
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 call plug#end()
 
+
 " Styling
 colorscheme molokai
 let g:molokai_original = 1
-set cursorline          " Highlight current line.
 let g:netrw_liststyle=1 " Change netrw browser list style.
-set showcmd             " Show incomplete command in the lower right corner of Vim.
+"  I like these options, yet Vim works slow with tmux and iTerm2
+"  if these are enabled. (not saying it works great even after
+"  disabling them. :/ )
+" set cursorline          " Highlight current line.
+" set showcmd             " Show incomplete command in the lower right corner of Vim.
 set cmdheight=2         " Bigger display area for command output.
 set showmatch           " Show matching brackets for a short moment.
 set mat=1               " Blink matching brackets for tenth of a second.
@@ -169,7 +173,7 @@ function! TabDo(command)
 endfunction
 
 " Set preferred browser.
-let netrw_browsex_viewer='google-chrome-unstable'
+let netrw_browsex_viewer='google-chrome'
 
 """
 """ Global shortcuts
@@ -177,6 +181,7 @@ let netrw_browsex_viewer='google-chrome-unstable'
 
 " x removes characters cleanly, not messing up clipboard.
 nnoremap x "_d 
+
 
 " X removes a line completely, not messing up clipboard.
 nnoremap X "_d
