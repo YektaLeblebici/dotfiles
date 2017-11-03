@@ -32,8 +32,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'tomasr/molokai'                   " Colorscheme
-Plug 'ctrlpvim/ctrlp.vim'               " CTRL+P file search
-Plug 'ekalinin/Dockerfile.vim'          " Dockerfile file type
 Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
 " Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
@@ -48,7 +46,6 @@ Plug 'honza/vim-snippets'               " Preinstalled snippets
 Plug 'tpope/vim-fugitive'               " Git integration
 Plug 'sjl/gundo.vim'                    " Undo tree visualizer
 Plug 'lambdalisue/vim-gista'            " Github Gists support
-Plug 'lambdalisue/vim-gista-ctrlp'      " Gists and CTRL+P integration
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 Plug 'tpope/vim-commentary'             " Easy comments
@@ -56,6 +53,7 @@ Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
 Plug 'sheerun/vim-polyglot'             " Collection of language packs
+Plug 'junegunn/vim-peekaboo'            " Display Vim registers
 
 " Load wakatime plugin if its configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
@@ -231,9 +229,9 @@ function! SetPluginBindings()
         nnoremap <Leader>u :GundoToggle<CR>
     endif
 
-    if exists(':CtrlPGista')
-    " BIND <F6> to CtrlP Gista view.
-        nnoremap <F6> :CtrlPGista<CR>
+    if exists(':Gista')
+    " BIND <F6> to Gista list.
+        nnoremap <F6> :Gista list<CR>
     endif
 
     if exists(':Neomake')
