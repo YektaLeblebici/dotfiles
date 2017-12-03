@@ -31,7 +31,7 @@ if !filereadable(s:vimplug_exists)
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'tomasr/molokai'                   " Colorscheme
+Plug 'flazz/vim-colorschemes'           " Colorschemes
 Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
 " Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
@@ -64,7 +64,9 @@ endif
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
 call plug#end()
 
-
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 " Styling
 colorscheme molokai
 let g:molokai_original = 1
@@ -104,6 +106,7 @@ set indentkeys-=0#      " Remove # symbol from reindentation list.
 set cinoptions=l1       " Change Vim indentation behaviour. See: cinoptions-values
 set formatoptions+=j    " Delete comment character when joining commented lines.
 set ssop-=options       " Not saving session-spesific options, as they become an annoyance later.
+set fillchars=vert:│,fold:─ " Splits look a bit prettier.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 
 " Search settings
