@@ -131,6 +131,9 @@ export ANSIBLE_NOCOWS=1
 # Helps you win your sanity back... Depends: fortune, lolcat, cowsay
 alias insane="fortune | cowsay | lolcat"
 
+# jrnl.sh
+alias jrnlw="jrnl work"
+
 # Pretty CSV viewer
 # Taken from: https://chrisjean.com/view-csv-data-from-the-command-line/
 csview() {
