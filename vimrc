@@ -47,7 +47,6 @@ Plug 'tpope/vim-fugitive'               " Git integration
 Plug 'sjl/gundo.vim'                    " Undo tree visualizer
 Plug 'lambdalisue/vim-gista'            " Github Gists support
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
-Plug 'ahw/vim-hooks'                    " Shell script hooks into autocmd events
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
