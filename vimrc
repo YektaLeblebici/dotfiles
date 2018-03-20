@@ -38,8 +38,8 @@ Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
 Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
-Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like  Sublime Text
-Plug 'majutsushi/tagbar'                " Tag browser, ordered by scope
+Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like Sublime Text
+" Plug 'majutsushi/tagbar'                " Tag browser, ordered by scope
 Plug 'gabesoft/vim-ags'                 " Ag integration
 Plug 'sirver/ultisnips'                 " Snippet support
 Plug 'honza/vim-snippets'               " Preinstalled snippets
@@ -48,11 +48,20 @@ Plug 'sjl/gundo.vim'                    " Undo tree visualizer
 Plug 'lambdalisue/vim-gista'            " Github Gists support
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'tpope/vim-commentary'             " Easy comments
-Plug 'Shougo/neocomplete.vim'           " Enhanced and automatic completion
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
-Plug 'sheerun/vim-polyglot'             " Collection of language packs
+" For some reason, polyglot Python syntax highlighter became dog slow,
+" and made a lot of intrusive changes. I am pinning it for now.
+Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
 Plug 'junegunn/vim-peekaboo'            " Display Vim registers
+Plug 'roxma/nvim-yarp'                  " Dependency for Nvim plugins
+Plug 'roxma/vim-hug-neovim-rpc'         " Dependency for Nvim plugins
+Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion 
+Plug 'Shougo/echodoc.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }                                 " LSP integration
 
 " Load wakatime plugin if its configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
@@ -87,8 +96,10 @@ set ttyfast             " Improve smoothness of redrawing on a fast terminal con
 set ttimeoutlen=10      " Faster switching from insert mode.
 set stal=1              " Show tab page labels only if there are at least two tab pages.
 set switchbuf=useopen,usetab,newtab " Change behavior when switching between buffers.
+set noshowmode          " Remove --INSERT-- line from bottom.
 
 " Convenience
+set hidden
 set tabstop=4           " Number of spaces that a <Tab> counts for. Default is 8.
 set shiftwidth=4        " Number of spaces to use for each step of indentation.
 set expandtab           " Spaces are used instead of <Tab>. To insert a real tab, use CTRL-V<Tab>
@@ -255,6 +266,9 @@ function! SetPluginBindings()
         nnoremap <F10> :Neomake!<CR>
     endif
 
+    " TODO FIXME change this with deoplete#toggle()
+    " I might wnnt to disable automatic activation of
+    " deoplete as it makes first insert a bit slow.
     if exists(':NeoCompleteToggle')
     " BIND <F12> to toggle NeoComplete completion.
         nnoremap <F12> :NeoCompleteToggle<CR>
@@ -328,6 +342,22 @@ let g:neomake_warning_sign = {
 let g:neocomplete#max_list = 20
 let g:neocomplete#enable_auto_close_preview = 1
 
+" Deoplete settings
+" let g:deoplete#enable_at_startup = 1
+" Enable deoplete when InsertEnter.
+let g:deoplete#enable_at_startup = 0
+
+autocmd InsertEnter * call deoplete#enable()
+function g:Multiple_cursors_before()
+ let g:deoplete#disable_auto_complete = 1
+endfunction
+function g:Multiple_cursors_after()
+ let g:deoplete#disable_auto_complete = 0
+endfunction
+
+autocmd CompleteDone * silent! pclose!
+set completeopt-=preview
+
 " NerdTREE settings.
 let g:NERDTreeRespectWildIgnore=1
 silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
@@ -372,7 +402,7 @@ endif
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
 
-" OS X spesific configuration
+" OS X specific configuration
 if has("unix")
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
@@ -390,19 +420,64 @@ if has("unix")
   endif
 endif
 
+" LanguageClient settings
+let g:LanguageClient_serverCommands = {
+    \ 'python': ['pyls'],
+    \ }
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+" LanguageClient bindings
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> lr :call LanguageClient_textDocument_references()<CR>
+nnoremap <silent> lf :call LanguageClient_textDocument_formatting()<CR>
+nnoremap <silent> ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <silent> ln :call LanguageClient_textDocument_rename()<CR>
+
+" LanguageClient linter
+let g:LanguageClient_diagnosticsDisplay =  {
+            \ 1: {
+            \ "name": "Error",
+            \ "texthl": "ALEError",
+            \ "signText": "➤",
+            \"signTexthl": "ALEErrorSign",
+            \ },
+            \ 2: {
+            \ "name": "Warning",
+            \ "texthl": "ALEWarning",
+            \ "signText": "➤",
+            \ "signTexthl": "ALEWarningSign",
+            \ },
+            \ 3: {
+            \ "name": "Information",
+            \ "texthl": "ALEInfo",
+            \ "signText": "ℹ",
+            \  "signTexthl": "ALEInfoSign",
+            \  },
+            \  4: {
+            \ "name": "Hint",
+            \ "texthl": "ALEInfo",
+            \ "signText": "ℹ",
+            \ "signTexthl": "ALEInfoSign",
+            \ },
+            \ }
 " " ALE settings. Uncomment if ALE is enabled.
-"  let g:ale_sign_error = '➤'
-"  let g:ale_sign_warning = '➤'
-"  hi ALEErrorSign ctermfg=199 ctermbg=235
-"  hi ALEWarningSign ctermfg=250 ctermbg=235
-"  let g:ale_echo_msg_error_str = 'E'
-"  let g:ale_echo_msg_warning_str = 'W'
-"  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-"  let g:ale_sign_column_always = 1
-"  let g:ale_emit_conflict_warnings = 0
-"  hi ALEError cterm=underline,bold
-"  hi ALEWarning cterm=underline,bold
-"  hi ALEInfo cterm=underline,bold
+let g:ale_sign_error = '➤'
+let g:ale_sign_warning = '➤'
+hi ALEErrorSign ctermfg=199 ctermbg=235
+hi ALEWarningSign ctermfg=250 ctermbg=235
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_column_always = 1
+let g:ale_emit_conflict_warnings = 0
+hi ALEError cterm=underline,bold
+hi ALEWarning cterm=underline,bold
+hi ALEInfo cterm=underline,bold
+
+let g:LanguageClient_diagnosticsEnable = 0
 
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
