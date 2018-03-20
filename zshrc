@@ -37,6 +37,10 @@ POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND="black"
 POWERLEVEL9K_STATUS_OK_BACKGROUND="blue"
 POWERLEVEL9K_STATUS_OK_FOREGROUND="blue"
 POWERLEVEL9K_STATUS_VERBOSE=false
+POWERLEVEL9K_DIR_PATH_SEPARATOR="%F{black}  %F{black}"
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=4
+POWERLEVEL9K_SHORTEN_DELIMITER="…"
+POWERLEVEL9K_SHORTEN_STRATEGY="truncate_middle"
 
 # Disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
@@ -114,6 +118,10 @@ export PATH=$PATH:$HOME/.local/bin
 # Editor
 export EDITOR='vim'
 alias vi=vim
+
+# Lang
+# export LANG=C
+export LANG="en_US.UTF-8"
 
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
@@ -228,27 +236,3 @@ cheat(){
 wttr(){
     curl wttr.in/"$1" | less
 }
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
