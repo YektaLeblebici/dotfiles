@@ -243,6 +243,9 @@ nnoremap <Leader><PageUp> :bn<CR>
 nnoremap <Leader><PageDown> :bp<CR>
 nnoremap <Leader><Delete> :bd<CR>
 
+" BIND <Leader> + h to remove trailing whitespaces.
+nnoremap <Leader>h :%s/\s\+$//e<CR>
+
 """ Plugin bindings
 
 function! SetPluginBindings()
