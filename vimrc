@@ -32,8 +32,8 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'           " Colorschemes
-Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
-" Plug 'w0rp/ale'                         " Asynchronous syntax checking
+" Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
+Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
@@ -351,9 +351,9 @@ let g:neocomplete#enable_auto_close_preview = 1
 " Deoplete settings
 " let g:deoplete#enable_at_startup = 1
 " Enable deoplete when InsertEnter.
-let g:deoplete#enable_at_startup = 0
+let g:deoplete#enable_at_startup = 1
 
-autocmd InsertEnter * call deoplete#enable()
+" autocmd InsertEnter * call deoplete#enable()
 function g:Multiple_cursors_before()
  let g:deoplete#disable_auto_complete = 1
 endfunction
@@ -469,6 +469,9 @@ let g:LanguageClient_diagnosticsDisplay =  {
             \ "signTexthl": "ALEInfoSign",
             \ },
             \ }
+
+let g:LanguageClient_diagnosticsEnable = 0
+
 " " ALE settings. Uncomment if ALE is enabled.
 let g:ale_sign_error = '➤'
 let g:ale_sign_warning = '➤'
@@ -483,7 +486,9 @@ hi ALEError cterm=underline,bold
 hi ALEWarning cterm=underline,bold
 hi ALEInfo cterm=underline,bold
 
-let g:LanguageClient_diagnosticsEnable = 0
+let g:ale_linters = {
+\   'python': ['pyls'],
+\}
 
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
