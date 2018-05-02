@@ -234,11 +234,11 @@ mdn(){
 # cheat - get cheatsheets from cheat.sh
 # :list - lists all cheatsheets, ~keyword searches for keyword.
 cheat(){
-    curl cheat.sh/"$1" | less
+    curl -s cheat.sh/"$1" | less
 }
 
 # wttr - get weather from wttr.in
 # usage: wttr <city>
 wttr(){
-    curl wttr.in/"$1" | less
+    curl -s wttr.in/"$1" | less
 }
