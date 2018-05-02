@@ -75,13 +75,16 @@ call plug#end()
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
 " Styling
 colorscheme molokai
-let g:molokai_original = 1
-let g:netrw_liststyle=1 " Change netrw browser list style.
-"  I like these options, yet Vim works slow with tmux and iTerm2
-"  if these are enabled. (not saying it works great even after
-"  disabling them. :/ )
+let g:molokai_original=1
+let g:netrw_banner=0    " Hide netrw banner.
+let g:netrw_liststyle=3 " Change netrw browser list style.
+let g:netrw_browse_split=4 " Open on previous window.
+let g:netrw_winsize = -30
+
+"  I like these options, yet Vim works slow with tmux if these are enabled.
 " set cursorline          " Highlight current line.
 " set showcmd             " Show incomplete command in the lower right corner of Vim.
 set cmdheight=2         " Bigger display area for command output.
