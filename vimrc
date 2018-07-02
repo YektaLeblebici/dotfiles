@@ -392,12 +392,12 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_autoStart = 1
 
 " LanguageClient bindings
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> lr :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> lf :call LanguageClient_textDocument_formatting()<CR>
-nnoremap <silent> ls :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> ln :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> <Leader>ld :call LanguageClient_textDocument_definition()<CR>
+nnoremap <silent> <Leader>lr :call LanguageClient_textDocument_references()<CR>
+nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_formatting()<CR>
+nnoremap <silent> <Leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+nnoremap <silent> <Leader>ln :call LanguageClient_textDocument_rename()<CR>
 
 " LanguageClient linter
 let g:LanguageClient_diagnosticsDisplay =  {
@@ -445,6 +445,10 @@ hi ALEInfo cterm=underline,bold
 
 let g:ale_linters = {
 \   'python': ['pyls'],
+\}
+
+let g:ale_fixers = {
+\   'python': ['yapf'],
 \}
 
 " Airline settings.
