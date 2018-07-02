@@ -32,14 +32,12 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'           " Colorschemes
-" Plug 'neomake/neomake' | Plug 'dojoteef/neomake-autolint' " Asynchronous jobs & linter
 Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
 Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
 Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like Sublime Text
-" Plug 'majutsushi/tagbar'                " Tag browser, ordered by scope
 Plug 'gabesoft/vim-ags'                 " Ag integration
 Plug 'sirver/ultisnips'                 " Snippet support
 Plug 'honza/vim-snippets'               " Preinstalled snippets
@@ -58,6 +56,7 @@ Plug 'roxma/nvim-yarp'                  " Dependency for Nvim plugins
 Plug 'roxma/vim-hug-neovim-rpc'         " Dependency for Nvim plugins
 Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion 
 Plug 'Shougo/echodoc.vim'
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }  " Table alignment
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -267,19 +266,6 @@ function! SetPluginBindings()
         nnoremap <F6> :Gista list<CR>
     endif
 
-    if exists(':Neomake')
-    " BIND <F10> to start Neomake build.
-        nnoremap <F10> :Neomake!<CR>
-    endif
-
-    " TODO FIXME change this with deoplete#toggle()
-    " I might wnnt to disable automatic activation of
-    " deoplete as it makes first insert a bit slow.
-    if exists(':NeoCompleteToggle')
-    " BIND <F12> to toggle NeoComplete completion.
-        nnoremap <F12> :NeoCompleteToggle<CR>
-    endif
-
     if exists(':FZF')
     " FZF Bindings.
         nnoremap <silent> <Leader>f :FZF<CR>
@@ -321,32 +307,6 @@ endfunction
 """
 """ Plugin settings
 """
-
-" Neomake(-autolint) settings.
-
-" Somehow dojoteef/neomake-autolint performs better.
-" I won't be using this unless I am out of options.
-" call neomake#configure#automake({
-"   \ 'TextChanged': {},
-"   \ 'TextChangedI': {'delay': 100},
-"   \ 'BufWritePost': {'delay': 0},
-"   \ 'BufWinEnter': {},
-"   \ }, 500)
-
-let g:neomake_error_sign = {
-            \ 'text': '➤',
-            \ 'texthl': 'ErrorMsg',
-            \ }
-hi ErrorMsg ctermbg=235
-hi MyWarningMsg ctermfg=250 ctermbg=235
-let g:neomake_warning_sign = {
-            \ 'text': '➤',
-            \ 'texthl': 'MyWarningMsg',
-            \ }
-
-" NeoComplete settings.
-let g:neocomplete#max_list = 20
-let g:neocomplete#enable_auto_close_preview = 1
 
 " Deoplete settings
 " let g:deoplete#enable_at_startup = 1
@@ -396,7 +356,6 @@ let g:fzf_colors = {
              \ }
 
 let g:fzf_buffers_jump = 1
-
 let g:fzf_layout = { 'down': '~30%' }
 
 " Airline settings.
