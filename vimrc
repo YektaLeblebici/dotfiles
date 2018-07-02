@@ -120,18 +120,34 @@ set formatoptions+=j    " Delete comment character when joining commented lines.
 set ssop-=options       " Not saving session-spesific options, as they become an annoyance later.
 set fillchars=vert:│,fold:─ " Splits look a bit prettier.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+set mouse=a             " Enable mouse support.
 
 " Search settings
 set incsearch           " Highlight where the search pattern matches.
 set hlsearch            " When there is a previous search pattern, highlight all its matches.
 set ignorecase          " Ignore case in search patterns.
 
-" " Clipboard support
-" if has('clipboard')
-"     if has('unix')
-"         set clipboard^=unnamedplus
-"     endif
-" endif
+" OS specific configuration
+if has('unix')
+  let s:uname = system("uname -s")
+  if s:uname == "Darwin\n"
+
+      " OS X clipboard support
+      if has('clipboard')
+          set clipboard^=unnamed
+      endif
+
+  endif
+
+  if s:uname == "Linux\n"
+
+     " Linux clipboard support
+     if has('clipboard')
+        set clipboard^=unnamedplus
+     endif
+
+  endif
+endif
 
 " Directories
 set undodir=~/.vim/.undo/       " Persistent undo history directory.
@@ -366,24 +382,6 @@ endif
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
-
-" OS X specific configuration
-if has("unix")
-  let s:uname = system("uname -s")
-  if s:uname == "Darwin\n"
-      " iTerm 2 scroll wheel support, somehow does not work if mouse mode not
-      " set.
-      set mouse=a
-
-      " OS X clipboard support
-      if has("clipboard")
-          set clipboard^=unnamed
-      endif
-
-      " Workaround for UltiSnips throwing errors on Insert mode.
-      " au! UltiSnips_AutoTrigger
-  endif
-endif
 
 " LanguageClient settings
 let g:LanguageClient_serverCommands = {
