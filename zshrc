@@ -136,8 +136,9 @@ export PATH="/usr/local/sbin:$PATH"
 # Brew paths
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
-# export PATH="$HOME/.linuxbrew/bin:$PATH"
-# export PATH="$HOME/.linuxbrew/sbin:$PATH"
+# Linuxbrew
+export PATH="$HOME/.linuxbrew/bin:$PATH" # LINUX
+export PATH="$HOME/.linuxbrew/sbin:$PATH" # LINUX
 
 # Turns out I am not a cow person.
 export ANSIBLE_NOCOWS=1
