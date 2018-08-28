@@ -8,11 +8,7 @@ syntax on
 filetype plugin indent on
 
 " Packages
-" Some packages require Python support for vim: sirver/ultisnips,
-" sjl/gundo.vim, lambdalisue/vim-gista, lambdalissue/vim-gista-ctrlp.
-" Debian 'vim' package does not support Python. Try 'vim-nox' package or add
-" necessary flags to the debian/rules file of the 'vim' package and recompile.
-
+" Some packages require +python3 support.
 " Packadd packages
 if v:version >= 800
     packadd! matchit
@@ -287,6 +283,7 @@ function! SetPluginBindings()
         nnoremap <silent> <Leader>f :FZF<CR>
         nnoremap <silent> <Leader>b :Buffers<CR>
         nnoremap <silent> <Leader>l :Lines<CR>
+        nnoremap <silent> <Leader>m :Marks<CR>
         nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
     endif
 endfunction
