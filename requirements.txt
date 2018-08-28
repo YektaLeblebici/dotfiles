@@ -1,9 +1,9 @@
-boto3==1.7.62
-botocore==1.10.62
+boto3==1.7.71
+botocore==1.10.71
 flake8==3.5.0
 flake8-polyfill==1.0.2
 grip==4.5.2
-ipython==6.4.0
+ipython==6.5.0
 ipython-genutils==0.2.0
 isort==4.3.4
 jedi==0.12.1
@@ -11,7 +11,7 @@ mccabe==0.6.1
 mypy==0.620
 neovim==0.2.6
 pep8==1.7.1
-pex==1.4.4
+pex==1.4.5
 pipenv==2018.7.1
 pudb==2018.1
 pycodestyle==2.4.0
