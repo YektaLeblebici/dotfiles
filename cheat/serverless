@@ -1,0 +1,3 @@
+# Serverless
+
+serverless create --template aws-python3 --name myproject

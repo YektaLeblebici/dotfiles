@@ -79,7 +79,7 @@ zstyle ':completion:*' use-ip true
 zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
 
 # Add your identity files below to have them automatically added.
-zstyle :omz:plugins:ssh-agent identities id_rsa id_work_rsa
+zstyle :omz:plugins:ssh-agent identities id_rsa
 zstyle :omz:plugins:ssh-agent agent-forwarding on
 
 # Blue colorscheme for FZF. I may use that in the future.
@@ -148,6 +148,9 @@ alias insane="fortune | cowsay | lolcat"
 
 # jrnl.sh
 alias jrnlw="jrnl work"
+
+# cheat
+alias cheat="CHEATCOLORS=true cheat"
 
 # Pretty CSV viewer
 # Taken from: https://chrisjean.com/view-csv-data-from-the-command-line/
