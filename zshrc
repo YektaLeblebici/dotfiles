@@ -64,6 +64,7 @@ plugins=(git \
          docker \
          fzf-zsh \
          ssh-agent \
+         gpg-agent \
          zsh-autosuggestions \
          zsh-interactive-cd \
          catimg \
