@@ -235,9 +235,9 @@ mdn(){
     echo $DIR | pbcopy
 }
 
-# cheat - get cheatsheets from cheat.sh
+# cheatsh - get cheatsheets from cheat.sh
 # :list - lists all cheatsheets, ~keyword searches for keyword.
-cheat(){
+cheatsh(){
     curl -s cheat.sh/"$1" | less
 }
 
