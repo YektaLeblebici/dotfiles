@@ -1,3 +1,17 @@
 # Serverless
 
-serverless create --template aws-python3 --name myproject
+# Frequently used
+serverless create --template aws-python3 --name <myproject>
+sls invoke -f <functionname>
+sls deploy
+
+
+# serverless-python-requirements
+sls plugin install -n serverless-python-requirements
+
+then add this section to serverless.yml:
+```
+custom:
+  pythonRequirements:
+    dockerizePip: true
+```

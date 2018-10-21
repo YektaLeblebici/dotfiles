@@ -1,0 +1,8 @@
+# jq
+
+Simply use it by piping it like this:
+$ aws s3 ls | jq '.'
+
+
+# How I located a CloudFront distribution ID by the specific origin bucket name:
+aws cloudfront list-distributions | jq -r '.DistributionList.Items[] | {cid: .Id, bucket: .Origins.Items[].Id} | select(.bucket | contains("a-bucket-name")) | .cid'

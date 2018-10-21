@@ -1,0 +1,7 @@
+# pipenv
+
+pipenv --python 3.7
+pipenv shell
+pipenv install (--upgrade) packagename
+pipenv lock --requirements > requirements.txt
+
