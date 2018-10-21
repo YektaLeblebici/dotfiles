@@ -3,8 +3,6 @@
 Some of my configuration files and resources I use everyday. I do my best to keep them readable and useful to everyone.
 
 ## vimrc
-![Screenshot](screenshots/vim1.png?raw=true "Screenshot")
-
 Cherry-picked plugins, bunch of customizations and (hopefully) not-too-invasive keybindings. Make sure you've read it first before applying.
 
 **Depends:** vim (>=8) (+python +clipboard), vimplug, exuberant-ctags, silversearcher-ag (>= 0.29.1)
@@ -39,5 +37,5 @@ My OS X settings and tweaks as a shell script.
 
 ## Brewfile
 
-CLI stuff and Casks I use on OS X.  
+CLI stuff and Casks I use on OS X.
 I do my best to install all my GUI applications with "brew cask".
