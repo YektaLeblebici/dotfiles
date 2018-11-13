@@ -345,6 +345,7 @@ silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
 let g:UltiSnipsNoPythonWarning = 1
 let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
 let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", $HOME.'/.vim/mysnippets']
 
 " Gundo.vim settings.
 let g:gundo_prefer_python3 = 1
