@@ -1,0 +1,21 @@
+## Docker
+
+# start a container with an interactive shell
+docker run -it <image_name> /bin/sh
+
+# "shell" into a running container
+docker exec -it <container_name> /bin/sh
+
+# inspect 
+docker inspect <container_name> || <image_full_name> || <anything_else>
+
+# Copy files/folders between a container and your host
+docker cp foo.txt mycontainer:/foo.txt
+
+## Swarm
+
+# Run a Swarm service:
+docker service create --name nginx --publish published=80,target=80 nginx
+
+# List nodes
+docker node ls
