@@ -1,0 +1,24 @@
+# Packages installed by user
+VirtualBox
+borgbackup
+caps2esc
+docker-ce
+evince
+fbreader
+feh
+gimp
+google-chrome-stable
+google-noto-emoji-fonts
+grive2
+keepassx
+keybase
+openvpn
+overgrive
+perf
+strace
+vagrant
+wireshark
+xclip
+xfce4-screenshooter
+firefox
+https://prerelease.keybase.io/keybase_amd64.rpm
