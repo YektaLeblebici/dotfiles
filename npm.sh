@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PACKAGES=( serverless )
+PACKAGES=( serverless markdownlint markdownlint-cli terminalizer )
 
 npm install -g "${PACKAGES[@]}"
 
