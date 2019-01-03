@@ -263,9 +263,9 @@ nnoremap <Leader>h :%s/\s\+$//e<CR>
 """ Plugin bindings
 
 function! SetPluginBindings()
-    " BIND <Leader> + t to TagBar.
-    if exists(':Tagbar')
-        nnoremap <Leader>t :Tagbar<CR>
+
+    if exists(':Ag')
+        cnoreabbrev ag Ag
     endif
 
     " BIND <Leader> + u to Gundo.vim toggle.
