@@ -1,0 +1,60 @@
+! Perl extensions
+URxvt.perl-lib: ~/.rxvt-ext
+URxvt*perl-ext-common: vtwheel, selection 
+
+! Fonts
+URxvt*font: xft:Hack:pixelsize=14:style=Regular, xft:Dejavu Sans Mono:pixelsize=12,style=Book
+URxvt*boldFont: xft:Hack:pixelsize=14:style=Bold
+URxvt*italicFont: xft:Hack:pixelsize=14:style=Italic
+URxvt*boldItalicFont: xft:Hack:pixelsize=14:style=Bold\ Italic
+URxvt*letterSpace: -1
+
+! Behaviour
+URxvt*loginShell: true
+Rxvt*vt100*geometry: 80x60
+URxvt*saveLines: 2000
+URxvt*termName: xterm-256color
+URxvt*scrollstyle: xterm
+URxvt*eightBitInput: false
+URxvt*scrollWithBuffer: false
+URxvt*scrollTtyOutput: false
+URxvt*scrollTtyKeypress: true
+
+! Appearance
+URxvt*scrollBar: false
+URxvt*internalBorder: 0
+URxvt*externalBorder: 0
+
+! Molokai theme
+URxvt*background: #161616
+URxvt*foreground: #c0c0c0
+URxvt*color0: #171717
+URxvt*color1: #fe3a7b
+URxvt*color2: #9cdf29
+URxvt*color3: #e2d568
+URxvt*color4: #0089d3
+URxvt*color5: #9032ff
+URxvt*color6: #46aed3
+URxvt*color7: #c0c0c0
+URxvt*color8: #5d5d5d
+URxvt*color9: #f974a3
+URxvt*color10: #b5df66
+URxvt*color11: #fff074
+URxvt*color12: #00b6ff
+URxvt*color13: #b594ff
+URxvt*color14: #54d1ff
+URxvt*color15: #ffffff
+
+! Cursor styling
+URxvt*cursorColor: #FFFFFF
+URxvt*cursorColor2: #FFFFFF
+
+! Wheel behaviour
+URxvt.secondaryScreen: 1
+URxvt.secondaryScroll: 0
+URxvt.secondaryWheel: 1
+
+! XTerm-like Home and End key behaviour.
+! Copied from http://www.netswarm.net/misc/urxvt-xtermcompat.txt
+*URxvt*keysym.Home:		\033OH
+*URxvt*keysym.End:		\033OF
