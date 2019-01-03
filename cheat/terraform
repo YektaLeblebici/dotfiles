@@ -1,8 +1,2 @@
 # terraform
 
-
-# passing lists to modules
-
-outside module: var = "${join(",", var.subnet_ids)}"
-inside module:  var = ["${split(",", var.subnet_ids)}"]
-

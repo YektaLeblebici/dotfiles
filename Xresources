@@ -1,6 +1,6 @@
 ! Perl extensions
 URxvt.perl-lib: ~/.rxvt-ext
-URxvt*perl-ext-common: vtwheel, selection 
+URxvt*perl-ext-common: vtwheel, selection
 
 ! Fonts
 URxvt*font: xft:Hack:pixelsize=14:style=Regular, xft:Dejavu Sans Mono:pixelsize=12,style=Book
