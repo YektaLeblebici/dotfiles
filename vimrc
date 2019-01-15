@@ -427,7 +427,7 @@ let g:LanguageClient_diagnosticsDisplay =  {
 
 let g:LanguageClient_diagnosticsEnable = 0
 
-" " ALE settings. Uncomment if ALE is enabled.
+" ALE settings. Uncomment if ALE is enabled.
 let g:ale_sign_error = '➤'
 let g:ale_sign_warning = '➤'
 hi ALEErrorSign ctermfg=199 ctermbg=235
@@ -448,6 +448,10 @@ let g:ale_linters = {
 let g:ale_fixers = {
 \   'python': ['yapf'],
 \}
+
+" vim-go settings
+let g:go_fmt_fail_silently = 1 " Using ALE for syntax checking.
+
 
 " Airline settings.
 " Airline buffer tab view. Uncomment to enable.
