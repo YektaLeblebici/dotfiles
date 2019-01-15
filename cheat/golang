@@ -1,0 +1,8 @@
+# Deep pretty printer
+
+$ go get -u github.com/davecgh/go-spew/spew
+
+Then `import "github.com/davecgh/go-spew/spew"` and use `spew.Dump(myVar1, myVar2, ...)`
+
+
+
