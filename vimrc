@@ -264,28 +264,34 @@ nnoremap <Leader>h :%s/\s\+$//e<CR>
 
 function! SetPluginBindings()
 
+    " Ag abbreviation
     if exists(':Ag')
         cnoreabbrev ag Ag
     endif
 
-    " BIND <Leader> + u to Gundo.vim toggle.
+    " Bind <Leader> + u to Gundo.vim toggle.
     if exists(':GundoToggle')
         nnoremap <Leader>u :GundoToggle<CR>
     endif
 
+    " Bind <F6> to Gista list.
     if exists(':Gista')
-    " BIND <F6> to Gista list.
         nnoremap <F6> :Gista list<CR>
     endif
 
+    " FZF bindings
     if exists(':FZF')
-    " FZF Bindings.
         nnoremap <silent> <Leader>f :FZF<CR>
         nnoremap <silent> <Leader>b :Buffers<CR>
         nnoremap <silent> <Leader>l :Lines<CR>
         nnoremap <silent> <Leader>m :Marks<CR>
-        nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
     endif
+
+    " vim-go bindings
+    if exists(':GoBuild')
+        nnoremap <silent> <Leader>ge :GoIfErr<CR>
+    endif
+
 endfunction
 
 au VimEnter * call SetPluginBindings()
