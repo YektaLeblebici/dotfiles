@@ -1,17 +1,21 @@
-snippet output
-output "$1" {
-  value = "$2"
+snippet resource
+resource "$1" "$2" {
+  $3
 }
 endsnippet
 
-snippet resource
-resource "$1" "$2" {
+snippet data
+data "$1" "$2" {
+  $3
 }
+
 endsnippet
 
 snippet provider
 provider $1 {
-  version = "~> $2""
+  version = "~> $2"
+
+  $3
 }
 endsnippet
 
@@ -20,5 +24,17 @@ module "$1" {
   source = "$2"
 
   $3
+}
+endsnippet
+
+snippet variable
+variable "$1" {
+  $2
+}
+endsnippet
+
+snippet output
+output "$1" {
+  value = "$2"
 }
 endsnippet
