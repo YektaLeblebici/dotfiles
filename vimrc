@@ -290,6 +290,7 @@ function! SetPluginBindings()
     " vim-go bindings
     if exists(':GoBuild')
         nnoremap <silent> <Leader>ge :GoIfErr<CR>
+        nnoremap <silent> <Leader>gr :GoImports<CR>
     endif
 
 endfunction
