@@ -384,9 +384,18 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
+" Let's try and see if this causes trouble.
+let g:airline_highlighting_cache = 1
+
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
+
+" Airline buffer tab view. Uncomment to enable.
+"let g:airline#extensions#tabline#enabled = 1
+"
+" Show filenames only. Uncomment to enable.
+"let g:airline#extensions#tabline#fnamemod = ':t'
 
 " LanguageClient settings
 let g:LanguageClient_serverCommands = {
@@ -458,11 +467,3 @@ let g:ale_fixers = {
 
 " vim-go settings
 let g:go_fmt_fail_silently = 1 " Using ALE for syntax checking.
-
-
-" Airline settings.
-" Airline buffer tab view. Uncomment to enable.
-"let g:airline#extensions#tabline#enabled = 1
-"
-" Show filenames only. Uncomment to enable.
-"let g:airline#extensions#tabline#fnamemod = ':t'
