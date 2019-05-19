@@ -21,8 +21,6 @@ future==0.16.0
 futures==3.2.0
 idna==2.7
 jedi==0.12.1
-Jinja2==2.10
-jinja2-time==0.2.0
 jmespath==0.9.3
 libxml2-python==2.9.7
 localstack-client==0.6
@@ -38,12 +36,9 @@ pyflakes==1.6.0
 Pygments==2.2.0
 python-dateutil==2.7.3
 python-language-server==0.19.0
-PyYAML==3.13
 radon==2.2.0
-requests==2.19.1
 rsa==3.4.2
 s3transfer==0.1.13
 six==1.11.0
-urllib3==1.23
 whichcraft==0.4.1
 yapf==0.22.0
