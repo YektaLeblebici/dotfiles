@@ -71,7 +71,12 @@ plugins=(git \
          copybuffer \
          fancy-ctrl-z)
 
+# History
+HIST_STAMPS="mm/dd/yyyy"
+
+# Oh my zsh
 source $ZSH/oh-my-zsh.sh
+
 
 ## Completion tweaks
 zstyle ':completion:*' use-ip true
@@ -138,8 +143,9 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # Linuxbrew
-export PATH="$HOME/.linuxbrew/bin:$PATH" # LINUX
-export PATH="$HOME/.linuxbrew/sbin:$PATH" # LINUX
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
+export MANPATH="/home/linuxbrew/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="/home/linuxbrew/.linuxbrew/share/info:$INFOPATH"
 
 # Turns out I am not a cow person.
 export ANSIBLE_NOCOWS=1
