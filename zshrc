@@ -72,7 +72,7 @@ plugins=(git \
          fancy-ctrl-z)
 
 # History
-HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd.mm.yyyy"
 
 # Oh my zsh
 source $ZSH/oh-my-zsh.sh
