@@ -69,7 +69,6 @@ plugins=(git \
          zsh-interactive-cd \
          catimg \
          copybuffer \
-         aws \
          fancy-ctrl-z)
 
 HIST_STAMPS="dd.mm.yyyy"
