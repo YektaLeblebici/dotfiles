@@ -1,5 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" Depends: vim (>=8) (+python, +clipboard), vimplug, 
+" depends: vim (>=8) (+python, +clipboard), vimplug,
 " exuberant-ctags, ilversearcher-ag (>= 0.29.1)
 
 " Common settings
@@ -39,7 +39,6 @@ Plug 'sirver/ultisnips'                 " Snippet support
 Plug 'honza/vim-snippets'               " Preinstalled snippets
 Plug 'tpope/vim-fugitive'               " Git integration
 Plug 'sjl/gundo.vim'                    " Undo tree visualizer
-Plug 'lambdalisue/vim-gista'            " Github Gists support
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
@@ -50,8 +49,9 @@ Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language pa
 Plug 'junegunn/vim-peekaboo'            " Display Vim registers
 Plug 'roxma/nvim-yarp'                  " Dependency for Nvim plugins
 Plug 'roxma/vim-hug-neovim-rpc'         " Dependency for Nvim plugins
-Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion 
+Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
 Plug 'Shougo/echodoc.vim'
+Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }  " Table alignment
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
@@ -117,6 +117,7 @@ set ssop-=options       " Not saving session-spesific options, as they become an
 set fillchars=vert:│,fold:─ " Splits look a bit prettier.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set mouse=a             " Enable mouse support.
+set nomodeline          " Disable modeline, more convenient and secure.
 
 " Search settings
 set incsearch           " Highlight where the search pattern matches.
@@ -274,11 +275,6 @@ function! SetPluginBindings()
         nnoremap <Leader>u :GundoToggle<CR>
     endif
 
-    " Bind <F6> to Gista list.
-    if exists(':Gista')
-        nnoremap <F6> :Gista list<CR>
-    endif
-
     " FZF bindings
     if exists(':FZF')
         nnoremap <silent> <Leader>f :FZF<CR>
@@ -293,6 +289,11 @@ function! SetPluginBindings()
         nnoremap <silent> <Leader>gr :GoImports<CR>
     endif
 
+    " ALE bindings
+    if exists(':ALEInfo')
+        nnoremap <silent> <Leader>af :ALEFix<CR>
+    endif
+
 endfunction
 
 au VimEnter * call SetPluginBindings()
@@ -300,6 +301,21 @@ au VimEnter * call SetPluginBindings()
 " Prefer vim-go if exists for Golang files.
 autocmd Filetype go if exists(':GoBuild') | map <buffer> <F10> :GoBuild<CR> | endif
 autocmd Filetype go if exists(':GoRun') | map <buffer> <F9> :GoRun<CR> | endif
+
+" FZF :Registers
+function! GetRegisters()
+  redir => cout
+  silent registers
+  redir END
+  return split(cout, "\n")[1:]
+endfunction
+function! UseRegister(line)
+  let var_a = getreg(a:line[1], 1, 1)
+  call append(line('.'), var_a)
+endfunction
+command! Registers call fzf#run(fzf#wrap({
+        \ 'source': GetRegisters(),
+        \ 'sink': function('UseRegister')}))
 
 """
 """ Function key bindings
@@ -327,6 +343,11 @@ endfunction
 """
 """ Plugin settings
 """
+
+" Editorconfig
+let g:editorconfig_blacklist = {
+    \ 'filetype': ['git.*', 'fugitive'],
+    \ 'pattern': ['\.un~$']}
 
 " Deoplete settings
 " let g:deoplete#enable_at_startup = 1
@@ -357,9 +378,6 @@ let g:UltiSnipsSnippetDirectories = ["UltiSnips", $HOME.'/.vim/mysnippets']
 " Gundo.vim settings.
 let g:gundo_prefer_python3 = 1
 
-" Vim-Gista settings.
-let g:gista#command#post#default_public = 0
-
 " fzf-vim settings.
 let g:fzf_colors = {
              \ 'fg':      ['fg', 'Normal'],
@@ -384,18 +402,9 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
-" Let's try and see if this causes trouble.
-let g:airline_highlighting_cache = 1
-
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
-
-" Airline buffer tab view. Uncomment to enable.
-"let g:airline#extensions#tabline#enabled = 1
-"
-" Show filenames only. Uncomment to enable.
-"let g:airline#extensions#tabline#fnamemod = ':t'
 
 " LanguageClient settings
 let g:LanguageClient_serverCommands = {
@@ -443,7 +452,7 @@ let g:LanguageClient_diagnosticsDisplay =  {
 
 let g:LanguageClient_diagnosticsEnable = 0
 
-" ALE settings. Uncomment if ALE is enabled.
+" ALE settings
 let g:ale_sign_error = '➤'
 let g:ale_sign_warning = '➤'
 hi ALEErrorSign ctermfg=199 ctermbg=235
@@ -457,12 +466,23 @@ hi ALEError cterm=underline,bold
 hi ALEWarning cterm=underline,bold
 hi ALEInfo cterm=underline,bold
 
+" let g:ale_linters = {
+" \   'python': ['flake8', 'pylint'],
+" \}
+
 let g:ale_linters = {
 \   'python': ['pyls'],
+\   'yaml': ['yamllint'],
+\}
+
+let g:ale_type_map = {
+\  'flake8' : { 'ES': 'WS', 'E': 'W'},
 \}
 
 let g:ale_fixers = {
-\   'python': ['yapf'],
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['yapf', 'isort'],
+\   'yaml': ['prettier'],
 \}
 
 " vim-go settings
