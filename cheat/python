@@ -18,3 +18,8 @@ python -m smtpd -n -c DebuggingServer localhost:1025
 
 # Pretty print a json
 python -mjson.tool
+
+# Frequently used
+ 
+if __name__ == "__main__":
+

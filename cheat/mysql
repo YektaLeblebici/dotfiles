@@ -1,0 +1,4 @@
+# Create a user and give some permissions to him
+
+CREATE USER 'username'@'%' IDENTIFIED BY 'passwordhere';
+GRANT SELECT,INSERT,UPDATE,DELETE ON databasename.tablename TO 'username'@'%';
