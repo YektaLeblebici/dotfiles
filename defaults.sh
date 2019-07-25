@@ -12,6 +12,8 @@ defaults write com.apple.dock magnification -bool true
 defaults write com.apple.dock mru-spaces -bool false
 defaults write com.apple.dock orientation bottom
 defaults write com.apple.dock show-process-indicators -bool true
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.dock tilesize -int 44
 
 # Keyboard settings
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
@@ -21,6 +23,7 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # Screensaver
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 300
+
 # Safari
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
