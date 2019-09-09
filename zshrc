@@ -51,11 +51,14 @@ DISABLE_UPDATE_PROMPT=true
 # much, much faster.
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
+# Adding date & time stamps to 'history' command.
+HIST_STAMPS="dd.mm.yyyy"
+
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#
+# TODO ssh-agent plugin is too slow, adds 0.2sec~ to startup.
 plugins=(git \
          fasd \
          colored-man-pages \
