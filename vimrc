@@ -10,8 +10,12 @@ filetype plugin indent on
 " Packages
 " Some packages require +python3 support.
 " Packadd packages
-if v:version >= 800
-    packadd! matchit
+if has('nvim')
+  runtime! macros/matchit.vim
+else
+    if v:version >= 800
+        packadd! matchit
+    endif
 endif
 
 " Install vim-plug if not installed already.
@@ -34,11 +38,10 @@ Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
 Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
 Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like Sublime Text
-Plug 'gabesoft/vim-ags'                 " Ag integration
 Plug 'sirver/ultisnips'                 " Snippet support
 Plug 'honza/vim-snippets'               " Preinstalled snippets
 Plug 'tpope/vim-fugitive'               " Git integration
-Plug 'sjl/gundo.vim'                    " Undo tree visualizer
+Plug 'mbbill/undotree'                  " Undo tree visualizer
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
@@ -47,8 +50,6 @@ Plug 'junegunn/fzf.vim'                 " Fuzzy finder
 " and made a lot of intrusive changes. I am pinning it for now.
 Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
 Plug 'junegunn/vim-peekaboo'            " Display Vim registers
-Plug 'roxma/nvim-yarp'                  " Dependency for Nvim plugins
-Plug 'roxma/vim-hug-neovim-rpc'         " Dependency for Nvim plugins
 Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
 Plug 'Shougo/echodoc.vim'
 Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
@@ -58,6 +59,10 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }                                 " LSP integration
 
+if !has('nvim')
+    Plug 'roxma/nvim-yarp'                  " Nvim compatibility plugin
+    Plug 'roxma/vim-hug-neovim-rpc'         " Nvim compatibility plugin
+endif
 " Load wakatime plugin if its configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
     Plug 'wakatime/vim-wakatime'            " Wakatime integration
@@ -105,6 +110,7 @@ set copyindent          " Copy the structure of existing lines indent when autoi
 set wildmenu            " Enable enhanced command-line completion.
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj " Ignore these patterns on completion.
 set undolevels=1000     " Maximum number of changes that can be undone.
+set history=100         " Maximum number of command and search patterns history.
 set autoindent          " Copy indent from current line when starting a new line.
 set smartindent         " Smart autoindenting when starting a new line.
 set backspace=indent,eol,start " Sane backspace options.
@@ -118,6 +124,14 @@ set fillchars=vert:│,fold:─ " Splits look a bit prettier.
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set mouse=a             " Enable mouse support.
 set nomodeline          " Disable modeline, more convenient and secure.
+set noautoread          " Don't autoread changes made to files outside of vim.
+set belloff=all         " Disable bell completely.
+set complete=w,b,u,t,i  " Completion behavior.
+set fsync               " Every :w is followed by fsync()
+set shortmess=filnxtToOF " Messages to be avoided.
+set noshowcmd           " Don't show command in the last line of the screen.
+set nosmarttab          " Tab always inserts blanks according to 'tabstop' or 'softtabstop'.
+
 
 " Search settings
 set incsearch           " Highlight where the search pattern matches.
@@ -350,19 +364,7 @@ let g:editorconfig_blacklist = {
     \ 'pattern': ['\.un~$']}
 
 " Deoplete settings
-" let g:deoplete#enable_at_startup = 1
-" Enable deoplete when InsertEnter.
 let g:deoplete#enable_at_startup = 1
-
-" autocmd InsertEnter * call deoplete#enable()
-function g:Multiple_cursors_before()
- let g:deoplete#disable_auto_complete = 1
-endfunction
-function g:Multiple_cursors_after()
- let g:deoplete#disable_auto_complete = 0
-endfunction
-
-autocmd CompleteDone * silent! pclose!
 set completeopt-=preview
 
 " NerdTREE settings.
