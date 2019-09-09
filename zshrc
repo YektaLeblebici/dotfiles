@@ -74,7 +74,23 @@ plugins=(git \
          copybuffer \
          fancy-ctrl-z)
 
-HIST_STAMPS="dd.mm.yyyy"
+# OS-specific plugins
+case "$OSTYPE" in
+  darwin*)
+      # For some reason aws plugin is extremely slow
+      # on my Fedora VM.
+      plugins+=('aws')
+    ;;
+esac
+
+# OS-specific configuration
+case "$OSTYPE" in
+  darwin*)
+      alias sed=gsed
+    ;;
+esac
+
+
 # oh-my-zsh!
 source $ZSH/oh-my-zsh.sh
 
