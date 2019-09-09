@@ -1,6 +1,6 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: vim (>=8) (+python, +clipboard), vimplug,
-" exuberant-ctags, ilversearcher-ag (>= 0.29.1)
+" depends: neovim (>=0.3.8) || vim (>=8.1) (+python, +clipboard), vimplug,
+" silversearcher-ag (>= 0.29.1)
 
 " Common settings
 set nocompatible
