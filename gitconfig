@@ -1,0 +1,16 @@
+[user]
+	name = Yekta Leblebici
+	mail = yekta@iamyekta.com
+	email = yekta@iamyekta.com
+	signingkey = 4ADEA1ACE8794F19
+[github]
+	user = YektaLeblebici
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
