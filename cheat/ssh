@@ -1,0 +1,4 @@
+# ssh
+
+# show info about a key, with MD5 hash. (because that's how AWS console shows keys)
+ssh-keygen -E md5 -lf ~/.ssh/somekey.pub

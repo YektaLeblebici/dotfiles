@@ -3,6 +3,7 @@
 ## SHOW Things with psql
 Show databases: \l
 Show tables: \dt
+Describe table: \d+ <tablename>
 Show users/roles: \du 
 Show schemas and perms: \dn+
 Show functions: \df+

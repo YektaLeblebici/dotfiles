@@ -15,3 +15,6 @@ git log -S'<a term in the source>'
 
 # Show changes for a specific file
 git log -p <file_name>
+
+# Git repo stats per author
+git shortlog -sne
