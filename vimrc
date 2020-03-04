@@ -1,6 +1,6 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: neovim (>=0.3.8) || vim (>=8.1) (+python, +clipboard), vimplug,
-" silversearcher-ag (>= 0.29.1)
+" depends: vim (>=8) (+python, +clipboard), vimplug,
+" exuberant-ctags, ilversearcher-ag (>= 0.29.1)
 
 " Common settings
 set nocompatible
@@ -187,6 +187,9 @@ set swapfile
 " Set leader key to SPACE.
 let mapleader=" "
 
+" '_' character will not be regarded as part of a word.
+set iskeyword-=_
+
 " Show visual cues for wrapped lines.
 if has('linebreak')
   try
@@ -365,7 +368,7 @@ let g:editorconfig_blacklist = {
 
 " Deoplete settings
 let g:deoplete#enable_at_startup = 1
-set completeopt-=preview
+set completeopt=menu,menuone,noinsert,noselect
 
 " NerdTREE settings.
 let g:NERDTreeRespectWildIgnore=1
@@ -407,6 +410,11 @@ endif
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
+
+" Shorten longer branch names.
+let g:airline#extensions#branch#displayed_head_limit = 12
+let g:airline#extensions#branch#format = 2
+
 
 " LanguageClient settings
 let g:LanguageClient_serverCommands = {
