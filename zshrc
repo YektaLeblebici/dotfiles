@@ -150,9 +150,12 @@ export GOPATH=$HOME/.go
 # Local binaries (=pip install --user)
 export PATH=$PATH:$HOME/.local/bin
 
-# Homebrew
+# homebrew
 HOMEBREW_NO_ANALYTICS=1
 export PATH="/usr/local/sbin:$PATH"
+
+# awscli
+export AWS_PAGER=""
 
 # Brew paths
 export PATH="/usr/local/opt/curl/bin:$PATH"
@@ -181,7 +184,7 @@ csview() {
 
 # Generate random password.
 randpassw() {
-    openssl rand -base64 24
+    openssl rand -base64 48 | tr -d "=+/" | cut -c1-32
 }
 
 # brew-la | Lists brew packages and dependencies, makes it easier for clean-ups.
