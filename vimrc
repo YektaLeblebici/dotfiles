@@ -542,6 +542,7 @@ hi ALEInfo cterm=underline,bold
 let g:ale_linters = {
 \   'python': ['pyls'],
 \   'yaml': ['yamllint'],
+\   'go': ['gofmt', 'golint', 'gobuild', 'govet'],
 \}
 
 let g:ale_type_map = {
