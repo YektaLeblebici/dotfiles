@@ -1,0 +1,17 @@
+# Lambda
+
+
+
+## Installing packages to a Lambda function directory
+$ pip install -r requirements.txt -t .
+
+If this fails with DistutilsOptionError, create a `setup.cfg` in that directory with contents:
+```
+[install]
+prefix=
+```
+
+then remove it when you're done.
+
+Source: https://stackoverflow.com/questions/24257803/distutilsoptionerror-must-supply-either-home-or-prefix-exec-prefix-not-both
+

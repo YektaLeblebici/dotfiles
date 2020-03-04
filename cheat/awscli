@@ -1,0 +1,22 @@
+# awscli
+
+## Example config:
+
+In .aws/config
+```
+[default]
+region = eu-central-1
+
+
+[profile prodA]
+role_arn = arn:aws:iam::123123:role/AccountAccessRole
+source_profile = myprodcreds
+```
+
+In .aws/credentials:
+```
+[myprodcreds]
+aws_access_key_id=ABCD
+aws_secret_access_key=abcd
+```
+

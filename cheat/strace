@@ -1,0 +1,4 @@
+# strace
+
+# prettifies strace output, shows network conns & files instead of file descriptors:
+$ strace -yy

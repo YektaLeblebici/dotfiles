@@ -1,0 +1,26 @@
+# EC2
+
+## Push your SSH pubkey to an EC2 instance.
+aws send-ssh-public-key --instance-id <value> --instance-os-user <value> --ssh-public-key <value> --availability-zone <value>
+
+## Allocate a specific Elastic IP address.
+aws ec2 allocate-address --address <value>
+
+# Athena
+
+## Frequently used Athena queries
+SELECT * FROM "default"."cloudtrail_logs_something_something" WHERE eventsource = 's3.amazonaws.com' AND errorcode = 'AccessDenied' ORDER BY eventtime DESC limit 100
+
+
+# KMS
+
+## Encrypt
+aws kms encrypt --key-id alias/<value> --plaintext $(echo secretvaluehere | base64 -) --output text --query CiphertextBlob
+
+# CloudWatch
+
+## Summary utilization metric
+IF(cpu > 80, 1, 0) OR IF(memory > 80, 1, 0) OR IF(network > 80, 1, 0)
+
+# AWS services & approaches
+- https://www.trek10.com/blog/amplify-console-static-hosting-feature-review/

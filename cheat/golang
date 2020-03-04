@@ -5,4 +5,19 @@ $ go get -u github.com/davecgh/go-spew/spew
 Then `import "github.com/davecgh/go-spew/spew"` and use `spew.Dump(myVar1, myVar2, ...)`
 
 
+# Type switch with empty interfaces
+#
+#
+```
+func switch_it(a interface{}) {
+    switch a.(type) {
+        case int:
+            fmt.Printf("a is now an int and equals %d\n", a)
+        case bool, string:
+            // ...
+        default:
+            // ...
+    }
+}
+```
 

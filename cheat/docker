@@ -12,6 +12,11 @@ docker inspect <container_name> || <image_full_name> || <anything_else>
 # Copy files/folders between a container and your host
 docker cp foo.txt mycontainer:/foo.txt
 
+## Docker Compose
+
+# Teardown services with images:
+docker-compose down --rmi all -v
+
 ## Swarm
 
 # Run a Swarm service:

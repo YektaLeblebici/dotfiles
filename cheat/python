@@ -23,3 +23,15 @@ python -mjson.tool
  
 if __name__ == "__main__":
 
+# Argparse default vars from Environment
+parser = argparse.ArgumentParser(
+    description="Here comes the description")
+parser.add_argument('--region', help="AWS region",
+                    default=os.environ.get('AWS_DEFAULT_REGION', None))
+parser.add_argument('--profile', help="AWS profile name",
+                    default=os.environ.get('AWS_PROFILE', None))
+parser.add_argument('path', help="Path of example file")
+args = parser.parse_args()
+
+if not all(hasattr(args, x) for x in ["profile", "region"]):
+    args.exit(status=1, message=args.print_usage())

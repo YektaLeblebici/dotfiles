@@ -6,5 +6,18 @@ Show tables: \dt
 Describe table: \d+ <tablename>
 Show users/roles: \du 
 Show schemas and perms: \dn+
+Show permissions: \z
 Show functions: \df+
 Show extensions: \dx
+
+
+# Dump tables
+pg_dump -h localhost -p 5432 -U myuser -W --table="table_name" --column-inserts dbname > table.sql
+# Useful options: --no-acl, --disable-triggers, --data-only, --schema-only
+# For performance: --jobs
+# --table and --schema are being used for filtering. Remove both for full dump.
+
+# Import tables
+# For plaintext dumps:
+psql -hlocalhost -p5432 --user myuser dbname < table.sql
+# For non-plaintext dumps, consider pg_restore
