@@ -90,6 +90,9 @@ case "$OSTYPE" in
     ;;
 esac
 
+# Lang
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # oh-my-zsh!
 source $ZSH/oh-my-zsh.sh
@@ -103,6 +106,12 @@ zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(
 # Add your identity files below to have them automatically added.
 zstyle :omz:plugins:ssh-agent identities id_rsa
 zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+# Keybinds
+bindkey "^[[1;2D" backward-word
+bindkey "^[[1;2C" forward-word
+bindkey "^[[1;2A" beginning-of-line
+bindkey "^[[1;2B" end-of-line
 
 # Use ag as the default source.
 # Depends on installed "ag", comment out these two if not.
@@ -126,15 +135,12 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export EDITOR='nvim'
 alias vi=nvim
 
-# Lang
-# export LANG=C
-export LANG="en_US.UTF-8"
-
 # Git aliases
 # (overrides "git" plugin)
 alias gd='git diff --color-moved'
 alias gdca='git diff --cached --color-moved'
 alias gdw='git diff --word-diff --color-moved'
+alias gp='git push origin HEAD'
 
 # Golang
 export PATH=$PATH:/usr/local/go/bin
