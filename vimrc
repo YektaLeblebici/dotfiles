@@ -35,8 +35,6 @@ Plug 'w0rp/ale'                         " Asynchronous syntax checking
 Plug 'scrooloose/nerdtree'              " Tree explorer
 Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
 Plug 'vim-airline/vim-airline'          " Enhanced status line
-Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
-Plug 'terryma/vim-multiple-cursors'     " Multiple cursors, like Sublime Text
 Plug 'sirver/ultisnips'                 " Snippet support
 Plug 'honza/vim-snippets'               " Preinstalled snippets
 Plug 'tpope/vim-fugitive'               " Git integration
@@ -47,7 +45,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
 " For some reason, polyglot Python syntax highlighter became dog slow,
 " and made a lot of intrusive changes. I am pinning it for now.
-Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
 Plug 'junegunn/vim-peekaboo'            " Display Vim registers
 Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
 Plug 'Shougo/echodoc.vim'
@@ -61,14 +58,18 @@ Plug 'autozimu/LanguageClient-neovim', {
 if !has('nvim')
     Plug 'roxma/nvim-yarp'                  " Nvim compatibility plugin
     Plug 'roxma/vim-hug-neovim-rpc'         " Nvim compatibility plugin
+    Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
+    Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
 endif
-" Load wakatime plugin if its configured for this user.
+
+" Load wakatime plugin if it's configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
     Plug 'wakatime/vim-wakatime'            " Wakatime integration
 endif
 
 " On-demand loaded plugins
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
+Plug 'jvirtanen/vim-hcl', { 'for': 'tf' }
 call plug#end()
 
 if executable('ag')
