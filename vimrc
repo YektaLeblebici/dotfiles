@@ -81,15 +81,16 @@ endif
 " Styling
 colorscheme molokai
 let g:molokai_original=1
-let g:netrw_banner=0    " Hide netrw banner.
-let g:netrw_liststyle=3 " Change netrw browser list style.
-let g:netrw_browse_split=4 " Open on previous window.
-let g:netrw_winsize = -30
+let g:netrw_banner       = 0 " Hide netrw banner.
+let g:netrw_liststyle    = 3 " Change netrw browser list style.
+let g:netrw_browse_split = 4 " Open on previous window.
+let g:netrw_winsize      = -30
+
+" Highlighting
+let python_space_error_highlight = 1
 
 "  I like these options, yet Vim works slow with tmux if these are enabled.
-" set cursorline          " Highlight current line.
-" set showcmd             " Show incomplete command in the lower right corner of Vim.
-set cmdheight=2         " Bigger display area for command output.
+set cmdheight=1         " Bigger display area for command output.
 set showmatch           " Show matching brackets for a short moment.
 set mat=1               " Blink matching brackets for tenth of a second.
 set laststatus=2        " Always display status line.
@@ -133,6 +134,8 @@ set fsync               " Every :w is followed by fsync()
 set shortmess=filnxtToOF " Messages to be avoided.
 set noshowcmd           " Don't show command in the last line of the screen.
 set nosmarttab          " Tab always inserts blanks according to 'tabstop' or 'softtabstop'.
+set listchars=tab:\ \ ,nbsp:·,trail:·,precedes:←,extends:→
+set list                " Show special characters for whitespaces and wrapped lines
 
 
 " Search settings
@@ -343,9 +346,8 @@ command! Registers call fzf#run(fzf#wrap({
 " This binding will be overriden if Bracketed Paste plugin is enabled.
 set pastetoggle=<F2>
 
-" BIND F4 to Inspection Mode. :)
-silent! nmap <F4> :set invnumber<CR>:set invlist<CR>
-set listchars=tab:>.,nbsp:·,trail:·,precedes:←,extends:→
+" BIND F4 to toggle line numbers.
+silent! nmap <F4> :set invnumber
 
 " BIND F5 to Buffer menu.
 autocmd VimEnter * call SetBufferMenu()
