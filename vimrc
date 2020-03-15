@@ -1,6 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: vim (>=8) (+python, +clipboard), vimplug,
-" exuberant-ctags, ilversearcher-ag (>= 0.29.1)
+" depends: nvim (>=0.4.3), vimplug, ag (>= 2.2.0)
 
 " Common settings
 set nocompatible
@@ -281,7 +280,6 @@ nnoremap <Leader>h :%s/\s\+$//e<CR>
 """ Plugin bindings
 
 function! SetPluginBindings()
-
     " Ag abbreviation
     if exists(':Ag')
         cnoreabbrev ag Ag
