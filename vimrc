@@ -469,6 +469,11 @@ if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
 
+" Choose specific Airline extensions for better performance.
+let g:airline_extensions = ['ale', 'branch', 'fugitiveline', 'keymap', 'languageclient',
+            \'netrw', 'quickfix', 'term', 'undotree', 'whitespace',
+            \'wordcount']
+
 " Default symbol was not shown correctly on rxvt with Hack font.
 " Just replacing it with a similar Powerline character.
 let g:airline_symbols.maxlinenr = ' '
