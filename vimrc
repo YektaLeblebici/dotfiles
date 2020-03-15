@@ -50,6 +50,8 @@ Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
 Plug 'Shougo/echodoc.vim'
 Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }  " Table alignment
+" Might enable this after https://github.com/camspiers/lens.vim/issues/17
+" Plug 'camspiers/lens.vim'               " Automatic window resizing
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
