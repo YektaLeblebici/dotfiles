@@ -52,6 +52,7 @@ Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
 Plug 'godlygeek/tabular', { 'on': 'Tabularize' }  " Table alignment
 " Might enable this after https://github.com/camspiers/lens.vim/issues/17
 " Plug 'camspiers/lens.vim'               " Automatic window resizing
+Plug 'Vimjas/vim-python-pep8-indent'    " PEP8-compatible Python indentation
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
