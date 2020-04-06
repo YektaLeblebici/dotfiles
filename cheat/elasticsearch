@@ -1,0 +1,14 @@
+# Elasticsearch
+
+
+## Show health
+curl https://elasticsearch/_cat/health\?v
+
+## Show allocation
+curl https://elasticsearch/_cat/allocation\?v
+
+## List indices
+curl https://elasticsearch/_cat/indices\?v
+
+## Drop indices
+curl -XDELETE https://elasticsearch/_cat/indices/<index>

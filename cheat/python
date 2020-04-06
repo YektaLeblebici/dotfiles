@@ -35,3 +35,6 @@ args = parser.parse_args()
 
 if not all(hasattr(args, x) for x in ["profile", "region"]):
     args.exit(status=1, message=args.print_usage())
+
+# Union of iterables with no duplicates, as a list
+list(set().union(itr1, itr2))

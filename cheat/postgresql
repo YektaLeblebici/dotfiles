@@ -10,6 +10,9 @@ Show permissions: \z
 Show functions: \df+
 Show extensions: \dx
 
+## Storage usage by database
+SELECT pg_size_pretty(pg_database_size('db_name_here'));
+
 
 # Dump tables
 pg_dump -h localhost -p 5432 -U myuser -W --table="table_name" --column-inserts dbname > table.sql

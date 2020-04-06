@@ -1,3 +1,7 @@
+# AWS
+
+List of principals: https://gist.github.com/shortjared/4c1e3fe52bdfa47522cfe5b41e5d6f22
+
 # EC2
 
 ## Push your SSH pubkey to an EC2 instance.
@@ -21,6 +25,15 @@ aws kms encrypt --key-id alias/<value> --plaintext $(echo secretvaluehere | base
 
 ## Summary utilization metric
 IF(cpu > 80, 1, 0) OR IF(memory > 80, 1, 0) OR IF(network > 80, 1, 0)
+
+# CW Insights queries
+
+## Show AccessDenied events for SomeRole in cloudtrail logs.
+fields @timestamp, @message
+| filter userIdentity.sessionContext.sessionIssuer.userName LIKE "SomeRole"
+| filter errorCode LIKE "AccessDenied"
+| sort @timestamp desc
+| limit 100
 
 # AWS services & approaches
 - https://www.trek10.com/blog/amplify-console-static-hosting-feature-review/
