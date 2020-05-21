@@ -20,7 +20,6 @@ python -m smtpd -n -c DebuggingServer localhost:1025
 python -mjson.tool
 
 # Frequently used
- 
 if __name__ == "__main__":
 
 # Argparse default vars from Environment
@@ -38,3 +37,6 @@ if not all(hasattr(args, x) for x in ["profile", "region"]):
 
 # Union of iterables with no duplicates, as a list
 list(set().union(itr1, itr2))
+
+# Exactly one item:
+https://more-itertools.readthedocs.io/en/stable/_modules/more_itertools/more.html#one

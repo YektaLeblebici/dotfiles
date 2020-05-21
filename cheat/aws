@@ -15,7 +15,6 @@ aws ec2 allocate-address --address <value>
 ## Frequently used Athena queries
 SELECT * FROM "default"."cloudtrail_logs_something_something" WHERE eventsource = 's3.amazonaws.com' AND errorcode = 'AccessDenied' ORDER BY eventtime DESC limit 100
 
-
 # KMS
 
 ## Encrypt
@@ -27,6 +26,7 @@ aws kms encrypt --key-id alias/<value> --plaintext $(echo secretvaluehere | base
 IF(cpu > 80, 1, 0) OR IF(memory > 80, 1, 0) OR IF(network > 80, 1, 0)
 
 # CW Insights queries
+https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/CWL_QuerySyntax.html
 
 ## Show AccessDenied events for SomeRole in cloudtrail logs.
 fields @timestamp, @message
@@ -34,6 +34,13 @@ fields @timestamp, @message
 | filter errorCode LIKE "AccessDenied"
 | sort @timestamp desc
 | limit 100
+
+## Parse messages.
+FIELDS @message
+| PARSE @message "[*] *" as loggingType, loggingMessage
+| FILTER loggingType in ["ERROR", "CRITICAL"]
+| DISPLAY loggingMessage
+
 
 # AWS services & approaches
 - https://www.trek10.com/blog/amplify-console-static-hosting-feature-review/

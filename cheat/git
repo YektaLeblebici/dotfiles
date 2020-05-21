@@ -16,5 +16,13 @@ git log -S'<a term in the source>'
 # Show changes for a specific file
 git log -p <file_name>
 
+# Show file in a different branch
+git show master:path/to/file
+
+# View historical changes
+git whatchanged --since="9 months ago"
+git whatchanged --since="9 months ago" -- README.md
+git whatchanged --since="2 weeks ago" --patch
+
 # Git repo stats per author
 git shortlog -sne
