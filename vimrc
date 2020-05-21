@@ -284,6 +284,19 @@ nnoremap <Leader><Delete> :bd<CR>
 " BIND <Leader> + h to remove trailing whitespaces.
 nnoremap <Leader>h :%s/\s\+$//e<CR>
 
+" BIND <Leader> + t* for toggling different options.
+nnoremap <silent> <Leader>tv :call VirtualeditToggle()<CR>
+
+""" Toggle functions
+
+function! VirtualeditToggle()
+    if &virtualedit == ""
+        set virtualedit=all
+    else
+        set virtualedit=""
+    endif
+endfunction
+
 """ Plugin bindings
 
 function! SetPluginBindings()
@@ -552,6 +565,7 @@ let g:ale_linters = {
 \   'python': ['pyls'],
 \   'yaml': ['yamllint'],
 \   'go': ['gofmt', 'golint', 'gobuild', 'govet'],
+\   'hcl': ['tflint'],
 \}
 
 let g:ale_type_map = {

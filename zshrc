@@ -127,6 +127,7 @@ alias gd='git diff --color-moved'
 alias gdca='git diff --cached --color-moved'
 alias gdw='git diff --word-diff --color-moved'
 alias gp='git push origin HEAD'
+alias gst='git status --column'
 
 # Golang
 export PATH=$PATH:/usr/local/go/bin
@@ -212,7 +213,7 @@ fbr() {
   local branches branch
   branches=$(git --no-pager branch --all -vv) &&
   branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //")
+  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //" | rev | cut -d "/" -f1 | rev)
 }
 
 # fcs - FZF command to get commit sha, useful combined with git commands.
