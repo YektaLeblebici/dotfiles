@@ -40,3 +40,16 @@ list(set().union(itr1, itr2))
 
 # Exactly one item:
 https://more-itertools.readthedocs.io/en/stable/_modules/more_itertools/more.html#one
+
+# Named tuple
+```
+EmployeeRecord = namedtuple('EmployeeRecord', 'name, age, title, department, paygrade')
+
+import csv
+for emp in map(EmployeeRecord._make, csv.reader(open("employees.csv", "rb"))):
+    print(emp.name, emp.title)
+```
+
+>>> t = [11, 22]
+>>> Point._make(t)
+Point(x=11, y=22)

@@ -2,3 +2,8 @@
 
 # prettifies strace output, shows network conns & files instead of file descriptors:
 $ strace -yy
+
+# Frequently used
+
+## File access
+$ strace -fe trace=creat,open,openat,unlink,unlinkat ./program

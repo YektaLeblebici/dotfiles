@@ -19,6 +19,12 @@ git log -p <file_name>
 # Show file in a different branch
 git show master:path/to/file
 
+# Compare two branches by changed lines
+git diff --stat master..otherbranch
+
+# Change parent of a branch to master
+git rebase --onto master <current_parent>
+
 # View historical changes
 git whatchanged --since="9 months ago"
 git whatchanged --since="9 months ago" -- README.md

@@ -10,5 +10,9 @@ curl https://elasticsearch/_cat/allocation\?v
 ## List indices
 curl https://elasticsearch/_cat/indices\?v
 
+## List nodes
+curl https://elasticsearch/_nodes/_all
+
 ## Drop indices
 curl -XDELETE https://elasticsearch/_cat/indices/<index>
+

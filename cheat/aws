@@ -10,6 +10,9 @@ aws send-ssh-public-key --instance-id <value> --instance-os-user <value> --ssh-p
 ## Allocate a specific Elastic IP address.
 aws ec2 allocate-address --address <value>
 
+# ECS & ECR
+docker login --username AWS -p $(aws ecr get-login-password) <aws_account_id>.dkr.ecr.<region>.amazonaws.com
+
 # Athena
 
 ## Frequently used Athena queries
@@ -41,6 +44,11 @@ FIELDS @message
 | FILTER loggingType in ["ERROR", "CRITICAL"]
 | DISPLAY loggingMessage
 
+# Basics
 
-# AWS services & approaches
+## IAM self-managing user policy with enforced MFA
+https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html
+
+## AWS services & approaches
 - https://www.trek10.com/blog/amplify-console-static-hosting-feature-review/
+
