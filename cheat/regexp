@@ -1,0 +1,23 @@
+# regexp
+
+
+# characters
+\s -> whitespace special character
+\S -> any non-whitespace
+\D -> any non-digit
+\W -> any non-alphanumeric
+* -> zero or more
++ -> one or more
+^ -> beginning
+$ -> end
+
+
+
+## match a group of chars
+[mtc]an --> matches man, tan, can
+[^b]an --> does not match starting with b
+s{3,5}up -> match from sssup to ssssssup
+
+# capture group
+(.*).pdf$
+^I love (cats|dogs)

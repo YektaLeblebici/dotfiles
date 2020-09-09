@@ -1,0 +1,9 @@
+
+# PKCS12 to ACM
+
+openssl pkcs12 -in <file> -out out.txt
+openssl rsa -in priv.key -out unenc.key
+
+
+
+

@@ -1,0 +1,75 @@
+# AWS Service control policies
+
+Simple policies to begin with:
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyDangerousPrivs",
+            "Effect": "Deny",
+            "Action": [
+                "cloudtrail:StopLogging",
+                "cloudtrail:DeleteTrail",
+                "cloudtrail:UpdateTrail",
+                "organizations:LeaveOrganization",
+                "organizations:AcceptHandshake",
+                "organizations:DeclineHandshake"
+            ],
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "DenyModificationToAccessRole",
+            "Effect": "Deny",
+            "Action": [
+                "iam:AttachRolePolicy",
+                "iam:DeleteRole",
+                "iam:DeleteRolePermissionsBoundary",
+                "iam:DeleteRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:PutRolePermissionsBoundary",
+                "iam:PutRolePolicy",
+                "iam:UpdateAssumeRolePolicy",
+                "iam:UpdateRole",
+                "iam:UpdateRoleDescription"
+            ],
+            "Resource": [
+                "arn:aws:iam::*:role/AccountAccessRole"
+            ]
+        }
+    ]
+}
+```
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "*",
+            "Resource": [
+                "*"
+            ]
+        },
+        {
+            "Sid": "DenyAWSUserCreation",
+            "Effect": "Deny",
+            "Action": [
+                "iam:UpdateAccessKey",
+                "iam:CreateAccessKey",
+                "iam:ChangePassword",
+                "iam:CreateUser",
+                "iam:CreateLoginProfile",
+                "iam:UpdateLoginProfile"
+            ],
+            "Resource": [
+                "*"
+            ]
+        }
+    ]
+}
+```
