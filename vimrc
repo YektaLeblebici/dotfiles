@@ -80,11 +80,12 @@ let g:netrw_banner       = 0 " Hide netrw banner.
 let g:netrw_liststyle    = 3 " Change netrw browser list style.
 let g:netrw_browse_split = 4 " Open on previous window.
 let g:netrw_winsize      = -30
+" Set preferred browser.
+let netrw_browsex_viewer='google-chrome'
 
 " Highlighting
 let python_space_error_highlight = 1
 
-"  I like these options, yet Vim works slow with tmux if these are enabled.
 set cmdheight=1         " Bigger display area for command output.
 set showmatch           " Show matching brackets for a short moment.
 set mat=1               " Blink matching brackets for tenth of a second.
@@ -132,31 +133,27 @@ set nosmarttab          " Tab always inserts blanks according to 'tabstop' or 's
 set listchars=tab:\ \ ,nbsp:·,trail:·,precedes:←,extends:→
 set list                " Show special characters for whitespaces and wrapped lines
 
-
 " Search settings
 set incsearch           " Highlight where the search pattern matches.
 set hlsearch            " When there is a previous search pattern, highlight all its matches.
 set ignorecase          " Ignore case in search patterns.
+set inccommand=nosplit  " In-place preview while substitution.
 
 " OS specific configuration
 if has('unix')
   let s:uname = system("uname -s")
   if s:uname == "Darwin\n"
-
       " OS X clipboard support
       if has('clipboard')
           set clipboard^=unnamed
       endif
-
   endif
 
   if s:uname == "Linux\n"
-
      " Linux clipboard support
      if has('clipboard')
         set clipboard^=unnamedplus
      endif
-
   endif
 endif
 
@@ -225,9 +222,6 @@ function! TabDo(command)
     execute 'tabdo ' . a:command
     execute 'tabn ' . currTab
 endfunction
-
-" Set preferred browser.
-let netrw_browsex_viewer='google-chrome'
 
 """
 """ Global shortcuts
@@ -333,14 +327,11 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
 END
 
 """ EasyMotion bindings
+
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
 " Most useful one, and I never use 's' key:
 nmap s <Plug>(easymotion-s2)
-
-" I might want this later, but today I feel like it matches
-" a little too much on a 4K screen.
-" let g:EasyMotion_smartcase = 1
 
 " JK motions: Line motions
 map <Leader>j <Plug>(easymotion-j)
@@ -366,11 +357,6 @@ au VimEnter * call SetLeaderBackspace()
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>c :split<CR>
 
-" BIND <Leader> + PageUp/PageDown for managing buffers.
-nnoremap <Leader><PageUp> :bn<CR>
-nnoremap <Leader><PageDown> :bp<CR>
-nnoremap <Leader><Delete> :bd<CR>
-
 " BIND <Leader> + h to remove trailing whitespaces.
 nnoremap <Leader>h :%s/\s\+$//e<CR>
 
@@ -395,16 +381,10 @@ function! SetPluginBindings()
         cnoreabbrev ag Ag
     endif
 
-    " Bind <Leader> + u to Gundo.vim toggle.
-    if exists(':GundoToggle')
-        nnoremap <Leader>u :GundoToggle<CR>
-    endif
-
     " FZF bindings
     if exists(':FZF')
         nnoremap <silent> <Leader>f :FZF<CR>
         nnoremap <silent> <Leader>b :Buffers<CR>
-        nnoremap <silent> <Leader>l :Lines<CR>
         nnoremap <silent> <Leader>m :Marks<CR>
     endif
 
@@ -445,18 +425,7 @@ command! Registers call fzf#run(fzf#wrap({
 set pastetoggle=<F2>
 
 " BIND F4 to toggle line numbers.
-silent! nmap <F4> :set invnumber
-
-" BIND F5 to Buffer menu.
-autocmd VimEnter * call SetBufferMenu()
-function SetBufferMenu()
-    if exists(':FZF')
-        nnoremap <F5> :Buffers<CR>
-    else
-        " Old fashioned way.
-        nnoremap <F5> :buffers<CR>:buffer<Space>
-    endif
-endfunction
+silent! nmap <F4> :set invnumber<CR>
 
 """
 """ Custom/helper commands
