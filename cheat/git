@@ -6,6 +6,10 @@ git checkout <branch_name> -- <file_path>
 # skip worktree
 # see: https://medium.com/@igloude/git-skip-worktree-and-how-i-used-to-hate-config-files-e84a44a8c859
 git update-index --skip-worktree <file_name>
+# to restore:
+git update-index --no-skip-worktree <file_name>
+# to list all skipped:
+git ls-files -v|grep '^S'
 
 # cleanup old remote branches
 git remote prune origin

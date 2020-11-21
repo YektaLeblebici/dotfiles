@@ -13,12 +13,24 @@ Show extensions: \dx
 ## Storage usage by database
 SELECT pg_size_pretty(pg_database_size('db_name_here'));
 
+# Turn off pager & header/footer
+\pset pager off
+\pset tuples_only
+
 
 # Dump tables
 pg_dump -h localhost -p 5432 -U myuser -W --table="table_name" --column-inserts dbname > table.sql
 # Useful options: --no-acl, --disable-triggers, --data-only, --schema-only
 # For performance: --jobs
 # --table and --schema are being used for filtering. Remove both for full dump.
+
+## Replication
+# List
+SELECT * FROM pg_catalog.pg_replication_slots;
+# Drop
+select pg_drop_replication_slot('slot_name_here');
+# Set max slot WAL size (psql >=13)
+"max_slot_wal_keep_size" option. 0 means unlimited.
 
 # Import tables
 # For plaintext dumps:

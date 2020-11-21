@@ -1,0 +1,20 @@
+# Vim
+
+
+## Diff open windows
+- do `:diffthis` in each window
+- `:diffoff!` stop diff
+- `:windo diffthis` to diff all visible windows
+
+## Open file from different branch
+:Gedit master:filename
+
+## Sessions
+:mks # in current Vim
+vim -S Session.vim  # in new Vim
+
+## Profiling
+:profile start profile.log
+:profile func *
+:profile file *
+:profile stop

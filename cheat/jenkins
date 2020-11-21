@@ -1,0 +1,10 @@
+# Jenkins
+
+## Clean up builds by build number
+builds = Jenkins.instance.getItemByFullName('full/path/master').builds
+for(build in builds) { 
+  if (build.number < 150){
+  println(build)
+  build.delete()
+  }
+}

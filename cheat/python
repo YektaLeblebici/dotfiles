@@ -7,6 +7,9 @@
 # Interactive mode, starts after script the completed.
 python -i script.py
 
+# ipython3 interactive w/ pdb handler
+ipython3 -i --pdb main.py
+
 ## Simple HTTP server
 # Python v2.7
 python -m SimpleHTTPServer
