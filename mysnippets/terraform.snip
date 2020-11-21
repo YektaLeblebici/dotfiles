@@ -1,0 +1,37 @@
+snippet resource
+options head
+    resource "${1}" "${2}" {
+      ${3}
+    }
+
+snippet data
+options head
+    data "${1}" "${2}" {
+      ${3}
+    }
+
+snippet provider
+options head
+    provider ${1} {
+      version = "~> ${2}"
+    }
+
+snippet module
+options head
+    module "${1}" {
+      source = "${2}"
+
+      ${3}
+    }
+
+snippet variable
+options head
+    variable "${1}" {
+      ${2}
+    }
+
+snippet output
+options head
+    output "${1}" {
+      value = "${2}"
+    }

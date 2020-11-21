@@ -1,5 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: nvim (>=0.4.3), vimplug, ag (>= 2.2.0)
+" depends: neovim (>=v0.5.0-1b8867ab3), vimplug, ag (>= 2.2.0)
 
 " Common settings
 set nocompatible
@@ -31,37 +31,31 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'flazz/vim-colorschemes'           " Colorschemes
-Plug 'w0rp/ale'                         " Asynchronous syntax checking
-Plug 'scrooloose/nerdtree'              " Tree explorer
-Plug 'jistr/vim-nerdtree-tabs'          " better NERDTree and tabs integration
-Plug 'vim-airline/vim-airline'          " Enhanced status line
-Plug 'sirver/ultisnips'                 " Snippet support
+Plug 'itchyny/lightline.vim'            " Enhanced status line
 Plug 'honza/vim-snippets'               " Preinstalled snippets
+Plug 'Shougo/neosnippet.vim'            " Snippets
+Plug 'Shougo/neosnippet-snippets'       " Snippet library
 Plug 'tpope/vim-fugitive'               " Git integration
 Plug 'mbbill/undotree'                  " Undo tree visualizer
 Plug 'easymotion/vim-easymotion'        " Better and simple motions
 Plug 'tpope/vim-commentary'             " Easy comments
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'                 " Fuzzy finder
-" For some reason, polyglot Python syntax highlighter became dog slow,
-" and made a lot of intrusive changes. I am pinning it for now.
 Plug 'junegunn/vim-peekaboo'            " Display Vim registers
 Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
-Plug 'Shougo/echodoc.vim'
 Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }  " Table alignment
-" Might enable this after https://github.com/camspiers/lens.vim/issues/17
-" Plug 'camspiers/lens.vim'               " Automatic window resizing
 Plug 'Vimjas/vim-python-pep8-indent'    " PEP8-compatible Python indentation
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }                                 " LSP integration
+Plug 'neovim/nvim-lspconfig'            " LSP integration with built-in LSP
+Plug 'Shougo/deoplete-lsp'              " Deoplete integration with LSP
+Plug 'nvim-treesitter/nvim-treesitter'  " Treesitter integration
+Plug 'nvim-treesitter/nvim-treesitter-refactor'
 
 if !has('nvim')
     Plug 'roxma/nvim-yarp'                  " Nvim compatibility plugin
     Plug 'roxma/vim-hug-neovim-rpc'         " Nvim compatibility plugin
     Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
+    " For some reason, polyglot Python syntax highlighter became dog slow,
+    " and made a lot of intrusive changes. I am pinning it for now.
     Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
 endif
 
@@ -190,6 +184,17 @@ set undofile
 set backup
 set swapfile
 
+
+" Install LSP servers and Treesitter parsers.
+function SetupLsp()
+    if !isdirectory(expand("~/.cache/nvim/lspconfig/yamlls"))
+      LspInstall yamlls
+    endif
+
+    TSInstall all
+endfunction
+au VimEnter * call SetupLsp()
+
 " Set leader key to SPACE.
 let mapleader=" "
 
@@ -229,11 +234,10 @@ let netrw_browsex_viewer='google-chrome'
 """
 
 " x removes characters cleanly, not messing up clipboard.
-nnoremap x "_d 
-
+nnoremap x "_x
 
 " X removes a line completely, not messing up clipboard.
-nnoremap X "_d
+nnoremap X "_x
 nnoremap XX "_dd
 
 " Map uppercase WQ and the like to lowercase ones.
@@ -241,6 +245,92 @@ command W w
 command WQ wq
 command Wq wq
 command Q q
+
+"""
+""" LSP & Treesitter
+"""
+
+" LSP integration
+:lua << END
+    local on_attach = function(client, bufnr)
+      vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+    end
+
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, {
+        virtual_text = false,
+        update_in_insert = false
+      }
+    )
+
+    require'lspconfig'.pyls.setup{
+        settings = {
+            pyls = {
+                plugins = {
+                    preload = {
+                        enabled = true
+                    },
+                    pylint = {
+                        enabled = true
+                    },
+                    rope_completion = {
+                        enabled = true
+                    },
+                    yapf = {
+                        enabled = true
+                    }
+                }
+            }
+        },
+        on_attach=on_attach
+    }
+    require'lspconfig'.yamlls.setup{}
+END
+
+set signcolumn=yes  " Always show sign column, prevents it from flashing when linter updates
+set updatetime=100  " Faster updates for hover/linter
+
+" LSP bindings
+nnoremap <silent> <Leader>le    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <Leader>lh    <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <Leader>li    <cmd>lua vim.lsp.buf.incoming_calls()<CR>
+nnoremap <silent> <Leader>lo    <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
+nnoremap <silent> <Leader>lr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <Leader>ln    <cmd>lua vim.lsp.buf.rename()<CR>
+
+" LSP linter configuration & styling
+hi LinterErrorSign ctermfg=199 ctermbg=235
+hi LinterWarningSign ctermfg=250 ctermbg=235
+call sign_define("LspDiagnosticsSignError", {"text" : "➤", "texthl" : "LinterErrorSign"})
+call sign_define("LspDiagnosticsSignWarning", {"text" : "➤", "texthl" : "LinterWarningSign"})
+call sign_define("LspDiagnosticsSignInformation", {"text" : "ℹ", "texthl" : "LspDiagnosticsInformation"})
+call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagnosticsHint"})
+
+" Treesitter configuration
+:lua << END
+    require'nvim-treesitter.configs'.setup {
+      ensure_installed = "maintained",
+      highlight = {
+        enable = true,
+      },
+      indent = {
+        enable = true
+      },
+    }
+
+    require'nvim-treesitter.configs'.setup {
+      refactor = {
+        smart_rename = {
+          enable = true,
+          keymaps = {
+            smart_rename = "grr",
+          },
+        },
+      },
+    }
+END
 
 """ EasyMotion bindings
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -323,12 +413,6 @@ function! SetPluginBindings()
         nnoremap <silent> <Leader>ge :GoIfErr<CR>
         nnoremap <silent> <Leader>gr :GoImports<CR>
     endif
-
-    " ALE bindings
-    if exists(':ALEInfo')
-        nnoremap <silent> <Leader>af :ALEFix<CR>
-    endif
-
 endfunction
 
 au VimEnter * call SetPluginBindings()
@@ -412,22 +496,25 @@ let g:editorconfig_blacklist = {
     \ 'filetype': ['git.*', 'fugitive'],
     \ 'pattern': ['\.un~$']}
 
-" Deoplete settings
+" Deoplete autocompletion
 let g:deoplete#enable_at_startup = 1
 set completeopt=menu,menuone,noinsert,noselect
 
-" NerdTREE settings.
-let g:NERDTreeRespectWildIgnore=1
-silent! nnoremap <F3> :NERDTreeTabsToggle<CR>
+" Neosnippets
+let g:neosnippet#enable_complete_done = 1
+let g:neosnippet#snippets_directory = '~/.vim/mysnippets'
 
-" UltiSnips settings.
-let g:UltiSnipsNoPythonWarning = 1
-let g:snips_author = 'Yekta Leblebici <yekta@iamyekta.com>'
-let g:UltiSnipsSnippetsDir = '~/.vim/mysnippets'
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", $HOME.'/.vim/mysnippets']
+" SuperTab-like snippets behavior
+imap <expr><TAB>
+ \ pumvisible() ? "\<C-n>" :
+ \ neosnippet#expandable_or_jumpable() ?
+ \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
-" Gundo.vim settings.
-let g:gundo_prefer_python3 = 1
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
 
 " fzf-vim settings.
 let g:fzf_colors = {
@@ -446,137 +533,42 @@ let g:fzf_colors = {
              \ }
 
 let g:fzf_buffers_jump = 1
+let g:fzf_layout = { 'down': '~30%' }
 
-" FZF window styling
-" TODO There's a bug in windows, they are
-" getting stuck.
-" if has('nvim')
-"     let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+" Lightline settings.
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
+      \ },
+      \ 'component': {
+      \   'lineinfo': '%3l:%-2v%<',
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'LightlineGitbranch',
+      \   'fileformat': 'LightlineFileformat',
+      \   'filetype': 'LightlineFiletype',
+      \   'filename': 'LightlineFilename',
+      \ },
+      \ }
 
-"     function! FloatingFZF()
-"       let buf = nvim_create_buf(v:false, v:true)
-"       call setbufvar(buf, '&signcolumn', 'no')
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
 
-"       let height = float2nr(10)
-"       let width = float2nr(80)
-"       let horizontal = float2nr((&columns - width) / 2)
-"       let vertical = 1
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'n/a') : ''
+endfunction
 
-"       let opts = {
-"             \ 'relative': 'editor',
-"             \ 'row': vertical,
-"             \ 'col': horizontal,
-"             \ 'width': width,
-"             \ 'height': height,
-"             \ 'style': 'minimal'
-"             \ }
+function! LightlineGitbranch()
+  return winwidth(0) > 90 ? fugitive#head()[0:10] : ''
+endfunction
 
-"       call nvim_open_win(buf, v:true, opts)
-"     endfunction
-" else
-    let g:fzf_layout = { 'down': '~30%' }
-" endif
-
-
-" Airline settings.
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" Choose specific Airline extensions for better performance.
-let g:airline_extensions = ['ale', 'branch', 'fugitiveline', 'keymap', 'languageclient',
-            \'netrw', 'quickfix', 'term', 'undotree', 'whitespace',
-            \'wordcount']
-
-" Default symbol was not shown correctly on rxvt with Hack font.
-" Just replacing it with a similar Powerline character.
-let g:airline_symbols.maxlinenr = ' '
-
-" Shorten longer branch names.
-let g:airline#extensions#branch#displayed_head_limit = 12
-let g:airline#extensions#branch#format = 2
-
-
-" LanguageClient settings
-let g:LanguageClient_serverCommands = {
-    \ 'python': ['pyls'],
-    \ }
-
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-
-" LanguageClient bindings
-nnoremap <silent> <Leader>lh :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> <Leader>ld :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <Leader>lr :call LanguageClient_textDocument_references()<CR>
-nnoremap <silent> <Leader>lf :call LanguageClient_textDocument_formatting()<CR>
-nnoremap <silent> <Leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-nnoremap <silent> <Leader>ln :call LanguageClient_textDocument_rename()<CR>
-
-" LanguageClient linter
-let g:LanguageClient_diagnosticsDisplay =  {
-            \ 1: {
-            \ "name": "Error",
-            \ "texthl": "ALEError",
-            \ "signText": "➤",
-            \"signTexthl": "ALEErrorSign",
-            \ },
-            \ 2: {
-            \ "name": "Warning",
-            \ "texthl": "ALEWarning",
-            \ "signText": "➤",
-            \ "signTexthl": "ALEWarningSign",
-            \ },
-            \ 3: {
-            \ "name": "Information",
-            \ "texthl": "ALEInfo",
-            \ "signText": "ℹ",
-            \  "signTexthl": "ALEInfoSign",
-            \  },
-            \  4: {
-            \ "name": "Hint",
-            \ "texthl": "ALEInfo",
-            \ "signText": "ℹ",
-            \ "signTexthl": "ALEInfoSign",
-            \ },
-            \ }
-
-let g:LanguageClient_diagnosticsEnable = 0
-
-" ALE settings
-let g:ale_sign_error = '➤'
-let g:ale_sign_warning = '➤'
-hi ALEErrorSign ctermfg=199 ctermbg=235
-hi ALEWarningSign ctermfg=250 ctermbg=235
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_sign_column_always = 1
-let g:ale_emit_conflict_warnings = 0
-hi ALEError cterm=underline,bold
-hi ALEWarning cterm=underline,bold
-hi ALEInfo cterm=underline,bold
-
-" let g:ale_linters = {
-" \   'python': ['flake8', 'pylint'],
-" \}
-
-let g:ale_linters = {
-\   'python': ['pyls'],
-\   'yaml': ['yamllint'],
-\   'go': ['gofmt', 'golint', 'gobuild', 'govet'],
-\   'hcl': ['tflint'],
-\}
-
-let g:ale_type_map = {
-\  'flake8' : { 'ES': 'WS', 'E': 'W'},
-\}
-
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['yapf', 'isort'],
-\   'yaml': ['prettier'],
-\}
+function! LightlineFilename()
+  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+  let modified = &modified ? ' +' : ''
+  return filename . modified
+endfunction
 
 " vim-go settings
 let g:go_fmt_fail_silently = 1 " Using ALE for syntax checking.
