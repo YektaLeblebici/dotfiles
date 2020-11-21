@@ -76,15 +76,13 @@ endif
 " Styling
 colorscheme molokai
 let g:molokai_original=1
-let g:netrw_banner       = 0 " Hide netrw banner.
-let g:netrw_liststyle    = 3 " Change netrw browser list style.
-let g:netrw_browse_split = 4 " Open on previous window.
+let g:netrw_banner       = 0             " Hide netrw banner.
+let g:netrw_liststyle    = 3             " Change netrw browser list style.
+let g:netrw_browse_split = 4             " Open on previous window.
 let g:netrw_winsize      = -30
-" Set preferred browser.
-let netrw_browsex_viewer='google-chrome'
+let netrw_browsex_viewer='google-chrome' " Set preferred browser.
+let python_space_error_highlight = 1     " Python whitespace highlighting.
 
-" Highlighting
-let python_space_error_highlight = 1
 
 set cmdheight=1         " Bigger display area for command output.
 set showmatch           " Show matching brackets for a short moment.
