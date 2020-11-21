@@ -5,12 +5,12 @@
 # Get dependencies by running:
 #  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" (Not a great way to do this.)
 #  git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-#  git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf 
+#  git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf
 #  $ZSH_CUSTOM/plugins/fzf/install --bin
 #  git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh
 #  git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 #  git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
-#  brew install fasd 
+#  brew install fasd
 #  brew install ag
 
 # If you come from bash you might have to change your $PATH.
@@ -50,7 +50,6 @@ plugins=(git \
          fasd \
          colored-man-pages \
          extract \
-         vagrant \
          docker \
          fzf-zsh \
          ssh-agent \
@@ -62,13 +61,13 @@ plugins=(git \
          fancy-ctrl-z)
 
 # OS-specific plugins
-case "$OSTYPE" in
-  darwin*)
-      # For some reason aws plugin is extremely slow
-      # on my Fedora VM.
-      plugins+=('aws')
-    ;;
-esac
+# case "$OSTYPE" in
+#   darwin*)
+#       # For some reason aws plugin is extremely slow
+#       # on my Fedora VM.
+#       plugins+=('aws')
+#     ;;
+# esac
 
 # OS-specific configuration
 case "$OSTYPE" in
@@ -111,7 +110,7 @@ export FZF_CTRL_R_OPTS="--reverse"
 # Colors
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'                                                
+    alias ls='ls --color=auto'
 fi
 
 alias grep='grep --color'
