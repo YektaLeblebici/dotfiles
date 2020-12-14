@@ -276,7 +276,15 @@ command Q q
         },
         on_attach=on_attach
     }
-    require'lspconfig'.yamlls.setup{}
+
+    require'lspconfig'.yamlls.setup{
+        on_attach=on_attach
+    }
+
+    require'lspconfig'.gopls.setup{
+        on_attach=on_attach
+    }
+
 END
 
 set signcolumn=yes  " Always show sign column, prevents it from flashing when linter updates
@@ -538,4 +546,5 @@ function! LightlineFilename()
 endfunction
 
 " vim-go settings
-let g:go_fmt_fail_silently = 1 " Using ALE for syntax checking.
+let g:go_fmt_fail_silently = 1
+let g:go_gopls_enabled = 0     " Built-in LSP will be used
