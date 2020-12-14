@@ -2,8 +2,11 @@ cheat==2.5.1
 flake8==3.8.4
 ipython==7.19.0
 isort==5.5.1
+pylint==2.6.0
+rope==0.18.0
 pipenv==2020.11.15
 pynvim==0.4.2
-python-language-server==0.34.1
+python-language-server==0.36.1
 radon==4.2.0
 yapf==0.30.0
+pydocstyle=5.1.1
