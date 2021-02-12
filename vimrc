@@ -1,5 +1,6 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: neovim (>=v0.5.0-1b8867ab3), vimplug, ag (>= 2.2.0)
+" depends: neovim (>=v0.5.0-1b8867ab3), vimplug, ag (>= 2.2.0),
+" terraform-ls
 
 " Common settings
 set nocompatible
@@ -49,6 +50,7 @@ Plug 'neovim/nvim-lspconfig'            " LSP integration with built-in LSP
 Plug 'Shougo/deoplete-lsp'              " Deoplete integration with LSP
 Plug 'nvim-treesitter/nvim-treesitter'  " Treesitter integration
 Plug 'nvim-treesitter/nvim-treesitter-refactor'
+Plug 'hashivim/vim-terraform'
 
 if !has('nvim')
     Plug 'roxma/nvim-yarp'                  " Nvim compatibility plugin
@@ -66,7 +68,7 @@ endif
 
 " On-demand loaded plugins
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-Plug 'jvirtanen/vim-hcl', { 'for': 'tf' }
+" Plug 'jvirtanen/vim-hcl', { 'for': 'tf' }
 call plug#end()
 
 if executable('ag')
@@ -256,6 +258,7 @@ command Q q
     )
 
     require'lspconfig'.pyls.setup{
+        on_attach=on_attach,
         settings = {
             pyls = {
                 plugins = {
@@ -273,8 +276,7 @@ command Q q
                     }
                 }
             }
-        },
-        on_attach=on_attach
+        }
     }
 
     require'lspconfig'.yamlls.setup{
@@ -283,6 +285,11 @@ command Q q
 
     require'lspconfig'.gopls.setup{
         on_attach=on_attach
+    }
+
+    require'lspconfig'.terraformls.setup{
+        on_attach=on_attach,
+        filetypes = { "terraform","hcl" }
     }
 
 END
