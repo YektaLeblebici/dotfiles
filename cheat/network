@@ -1,0 +1,6 @@
+
+# tcpdump
+
+sudo tcpdump -i eth0 -nn -v tcp port 80 or tcp port 443 -w dump.pcap
+sudo tcpdump -i eth0 dst 4.4.4.4
+sudo tcpdump -i eth0 src 4.4.4.4

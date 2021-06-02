@@ -20,3 +20,5 @@ aws_access_key_id=ABCD
 aws_secret_access_key=abcd
 ```
 
+## Print number of applied patches newer than 90 days
+aws ssm describe-instance-patches --instance-id i-abcdabcd --output json --query 'length(Patches[?InstalledTime>=`2020-12-09`])'

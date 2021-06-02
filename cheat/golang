@@ -21,3 +21,17 @@ func switch_it(a interface{}) {
 }
 ```
 
+# go templates example
+
+```
+{{ with .List }}
+    {{ range . }}
+        <tr>
+            <td>{{ .Name }}</td>
+            <td>{{ if .Done }}Yes{{ else }}No{{ end }}</td>
+        </tr>
+    {{ end }} 
+{{ end }}
+```
+
+doc: https://golang.org/pkg/text/template/

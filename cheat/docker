@@ -1,5 +1,15 @@
 ## Docker
 
+# Reach VM's files in Docker for Mac
+docker run -it --privileged --pid=host debian nsenter -t 1 -m -u -n -i sh
+
+# Strace a process in another container
+docker run -it --rm --pid=container:somename \
+  --net=container:somename \
+  --cap-add sys_admin \
+  --cap-add sys_ptrace \
+  debian # or some image with strace preinstalled
+
 # start a container with an interactive shell
 docker run -it <image_name> /bin/sh
 

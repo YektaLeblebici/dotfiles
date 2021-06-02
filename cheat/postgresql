@@ -36,3 +36,37 @@ select pg_drop_replication_slot('slot_name_here');
 # For plaintext dumps:
 psql -hlocalhost -p5432 --user myuser dbname < table.sql
 # For non-plaintext dumps, consider pg_restore
+
+# Get all table stats
+SELECT * FROM pg_stat_all_tables;
+
+# Show running queries
+SELECT pid, age(query_start, clock_timestamp()), usename, query  FROM pg_stat_activity WHERE query != '<IDLE>' AND query NOT ILIKE '%pg_stat_activity%' ORDER BY query_start desc;
+
+# Kill running query
+SELECT pg_cancel_backend(<pid>);
+
+# Cache hit ratio
+select sum(blks_hit)*100/sum(blks_hit+blks_read) as hit_ratio from pg_stat_database;
+
+# Unused indexes
+select * from pg_stat_all_indexes where idx_scan = 0;
+
+# Show table sizes
+SELECT nspname || '.' || relname AS "relation", pg_size_pretty(pg_total_relation_size(C.oid)) AS "total_size" FROM pg_class C LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace) WHERE nspname NOT IN ('pg_catalog', 'information_schema') AND C.relkind <> 'i' AND nspname !~ '^pg_toast' ORDER BY pg_total_relation_size(C.oid) DESC;
+
+# Long running transactions
+select client_addr, usename, datname, clock_timestamp() - xact_start as xact_age, clock_timestamp() - query_start as query_age, query from pg_stat_activity order by xact_start, query_start;
+
+# List connections
+select client_addr, usename, datname, count(*) from pg_stat_activity group by 1,2,3 order by 4 desc;
+
+# Manual vacuum & analyze
+VACUUM (VERBOSE, ANALYZE);
+
+# Last vacuum & analyze time
+select relname, last_vacuum, last_autovacuum, last_analyze, last_autoanalyze from pg_stat_user_tables;
+
+# Total number of dead tuples need to be vacuumed per table
+select n_dead_tup, schemaname, relname from pg_stat_all_tables;
+

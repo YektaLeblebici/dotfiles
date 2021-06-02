@@ -1,0 +1,11 @@
+
+# DNS
+
+Intercept queries:
+https://eu-central-1.console.aws.amazon.com/route53resolver/home?region=eu-central-1#/query-logging
+
+```
+fields query_name, @timestamp, @message
+| sort @timestamp desc
+| limit 2000
+```

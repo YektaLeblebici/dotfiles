@@ -1,0 +1,50 @@
+# rego
+
+## Simple functions
+
+has_field(obj, field) {
+    obj[field]
+}
+
+contains(elements, elem) {
+  elements[_] = elem
+}
+
+## OR
+```
+probably_a_pizza {
+  any([input.shape == 'circle', input.shape == 'circular_sector'])
+  input.ingredients[_] == 'cheese'
+  input.ingredients[_] == 'tomato_sauce'
+}
+```
+
+or you can chain rules.
+
+## Walk nested structures
+```
+messages[message] {
+  [_, value] := walk(walk_input)
+  message = value.message
+}
+
+deny {
+  swear_words := {"hawaii", "pineapple"}
+  contains(lower(messages[_]), swear_words[_])
+}
+```
+
+
+## For Terraform:
+
+## Find resources with no tags
+untaggable_resources = ["aws_some_resource"]
+
+deny[msg] {
+    some r
+    not contains(untaggable_resources, r)
+    resource := input.resource[r][n]
+    not has_field(resource, "tags")
+
+    msg = sprintf("Resource `%v` `%v` has no tags", [r,n])
+}

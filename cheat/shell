@@ -1,7 +1,16 @@
 # shell
 
 ## simple xargs example
-find . -type f | xargs -I '{}' sh -c 'echo this file: {}'
+$ find . -type f | xargs -I '{}' sh -c 'echo this file: {}'
 
 ## Print each character in a new line
-echo 'abcabc' | grep -o .
+$ echo 'abcabc' | grep -o .
+
+# Count of occurences
+$ cat /tmp/allpatches | jq '.Patches[] | .Severity' | uniq -c
+
+350 "Critical"
+4724 "Important"
+7369 "Medium"
+1249 "Low"
+17899 ""

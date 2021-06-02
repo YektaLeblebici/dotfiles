@@ -1,2 +1,24 @@
 # terraform
 
+# Style
+- Generally prefer `for_each` over `count`, except for simple conditionals.
+
+
+# List of values in a map
+output "all_arns" {
+ value = values(aws_iam_user.example)[*].arn
+}
+
+# List comprehension
+output "short_upper_names" {
+ value = [for name in var.names : upper(name) if length(name) < 5]
+}
+
+# Check if a resource exists, if not use another
+user_data = (
+ length(data.template_file.user_data[*]) > 0
+ ? data.template_file.user_data[0].rendered
+ : data.template_file.user_data_new[0].rendered
+ )
+
+

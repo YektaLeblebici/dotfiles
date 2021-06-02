@@ -1,0 +1,5 @@
+
+# dtrace
+
+## I/O
+sudo opensnoop -n <process_name>

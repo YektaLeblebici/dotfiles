@@ -1,0 +1,10 @@
+# AWS SSM
+
+# Show all AmazonLinux2.0 patches 
+$ aws ssm describe-available-patches --filter "Key=PRODUCT,Values=AmazonLinux2.0"
+
+Note: CLI and boto3 documentation seems to be wrong about the correct value for PRODUCT key. I luckily found this one from Web Console.
+
+# Check patch states of all EC2 instances
+$ aws ssm describe-instance-patch-states --instance-ids $(aws ec2 describe-instances | jq -r ".Reservations[].Instances[].InstanceId")
+

@@ -1,0 +1,44 @@
+# k8s
+
+## Recommended labels
+app.kubernetes.io/name: mysql
+app.kubernetes.io/instance: mysql-abcxzy
+app.kubernetes.io/version: "5.7.21"
+app.kubernetes.io/component: database
+app.kubernetes.io/part-of: wordpress
+app.kubernetes.io/managed-by: helm
+
+## Kubectl
+
+kubectl get pods --field-selector status.phase=Running
+kubectl get statefulsets,services --all-namespaces --field-selector metadata.namespace!=default
+(All resources support metadata.name and metadata.namespace)
+
+kubectl apply: You can specify the --record flag to write the command executed in the resource annotation kubernetes.io/change-cause. 
+
+kubectl apply|delete -f filename.yaml
+
+
+## Deployment
+
+kubectl rollout status
+
+
+
+## DNS
+
+Service: <service-name>.<namespace-name>.svc.cluster.local
+Pod: pod-ip-address.my-namespace.pod.cluster.local
+Pod w/ Deployment: pod-ip-address.deployment-name.my-namespace.svc.cluster.local
+
+
+
+
+
+## Namespaces
+
+- pass `--namespace` or do set-context.
+
+### Show objects that are not namespaced
+kubectl api-resources --namespaced=false
+

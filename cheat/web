@@ -1,0 +1,39 @@
+# web
+
+## curl HEAD
+curl -I https://example.com
+
+## Check CORS
+curl -H "Access-Control-Request-Method: GET" -H "Origin: https://origin.example.com" --head https://example.com/some/path
+
+## Basic CORS in nginx
+
+This one allows credentials, to be used with dockerize:
+
+```
+.. (for each method supported) ..
+
+      # A way of having conditionals with AND in nginx.
+      # IfIsEvil, so if logic doesn't require this can be written with map instead.
+      set $cors "";
+
+      if ($http_origin = "{{ .Env.CORS_ORIGIN_URL }}"){
+          set $cors "O";
+      }
+
+      if ($request_method = 'OPTIONS'){
+          set $cors "${cors}M";
+      }
+
+      if ($cors = OM){
+        add_header 'Access-Control-Allow-Origin' '{{ .Env.CORS_ORIGIN_URL }}' always;
+        add_header 'Access-Control-Allow-Methods' 'HEAD,DELETE,POST,GET,OPTIONS,PUT' always;
+        add_header 'Access-Control-Allow-Headers' 'DNT,user-agent,origin,x-requested-with,if-modified-since,cache-control,range,access-control-request-headers,content-type,access-control-request-method,accept,authorization,x-xsrf-token,x-csrf-token' always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+
+        # OPTIONS should return successful status.
+        return 204;
+      }
+```
+
+To hide upstream headers: `proxy_hide_header Header-Name`

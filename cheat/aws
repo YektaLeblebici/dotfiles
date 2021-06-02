@@ -2,6 +2,13 @@
 
 List of principals: https://gist.github.com/shortjared/4c1e3fe52bdfa47522cfe5b41e5d6f22
 
+## MFA
+
+- aws sts get-session-token --serial-number arn:aws:iam::<account-id>:mfa/<device-name> --token-code <token>
+- AWS_ACCESS_KEY_ID=<FROM_THE_OUTPUT> AWS_SECRET_ACCESS_KEY=<FROM THE OUTPUT> AWS_SESSION_TOKEN=<FROM_THE_OUTPUT> aws s3 ls
+
+or eval `awsume -s`
+
 # EC2
 
 ## Push your SSH pubkey to an EC2 instance.
@@ -48,6 +55,8 @@ FIELDS @message
 
 ## IAM self-managing user policy with enforced MFA
 https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_aws_my-sec-creds-self-manage.html
+
+- This policy needs iam:ChangePassword as well, otherwise new users can't pick their first passwords and get stuck.
 
 ## AWS services & approaches
 - https://www.trek10.com/blog/amplify-console-static-hosting-feature-review/

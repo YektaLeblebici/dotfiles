@@ -1,0 +1,7 @@
+# AWS Today I Learned
+
+
+## API Gateway
+- httpMethod for Lambda proxy integration must be POST.
+- MethodSetting requires HttpMethod and ResourcePath in StageDescription, even if docs say otherwise. 
+    - Workaround: - ResourcePath: "/*" HttpMethod: "*"

@@ -1,0 +1,7 @@
+# Useful tools
+
+
+* gossm start|ssh|scp
+* eval `awsume -s <profile_name>`
+* awslogs get --start='15min' --watch <log_group_name>
+    * --query=<key_name> to filter JSON
