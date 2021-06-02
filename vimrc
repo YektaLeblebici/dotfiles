@@ -38,19 +38,13 @@ Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
 Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
 Plug 'Vimjas/vim-python-pep8-indent'    " PEP8-compatible Python indentation
 Plug 'neovim/nvim-lspconfig'            " LSP integration with built-in LSP
+Plug 'kabouzeid/nvim-lspinstall', { 'branch': 'stable' }  " Language server installer
 Plug 'Shougo/deoplete-lsp'              " Deoplete integration with LSP
 Plug 'nvim-treesitter/nvim-treesitter'  " Treesitter integration
-Plug 'nvim-treesitter/nvim-treesitter-refactor'
-Plug 'hashivim/vim-terraform'
+Plug 'nvim-treesitter/nvim-treesitter-refactor' " Refactoring with Treesitter
+Plug 'hashivim/vim-terraform'           " Terraform integration
+Plug 'tsandall/vim-rego'                " Rego highlighting
 
-if !has('nvim')
-    Plug 'roxma/nvim-yarp'                  " Nvim compatibility plugin
-    Plug 'roxma/vim-hug-neovim-rpc'         " Nvim compatibility plugin
-    Plug 'ConradIrwin/vim-bracketed-paste'  " Automatic paste mode
-    " For some reason, polyglot Python syntax highlighter became dog slow,
-    " and made a lot of intrusive changes. I am pinning it for now.
-    Plug 'sheerun/vim-polyglot', { 'commit': '11f5325' } " Collection of language packs
-endif
 
 " Load wakatime plugin if it's configured for this user.
 if filereadable(expand("~/.wakatime.cfg"))
@@ -313,7 +307,8 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
         enable = true,
       },
       indent = {
-        enable = true
+        enable = true,
+        disable = {"python"}
       },
     }
 
@@ -541,3 +536,6 @@ endfunction
 " vim-go settings
 let g:go_fmt_fail_silently = 1
 let g:go_gopls_enabled = 0     " Built-in LSP will be used
+
+" terraform
+let g:terraform_fmt_on_save=1
