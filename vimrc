@@ -3,20 +3,11 @@
 " terraform-ls
 
 " Common settings
-set nocompatible
 syntax on
 filetype plugin indent on
 
 " Packages
-" Some packages require +python3 support.
-" Packadd packages
-if has('nvim')
-  runtime! macros/matchit.vim
-else
-    if v:version >= 800
-        packadd! matchit
-    endif
-endif
+runtime! macros/matchit.vim
 
 " Install vim-plug if not installed already.
 let s:vimplug_exists=expand('~/.vim/autoload/plug.vim')
@@ -94,7 +85,6 @@ set splitbelow          " Splitting a window will put it below the current one.
 set splitright          " Splitting a window will put it right of the current one.
 set scrolloff=8         " Set scroll offset.
 set lazyredraw          " Screen will not be redrawn unnecessarily.
-set ttyfast             " Improve smoothness of redrawing on a fast terminal connection.
 set ttimeoutlen=10      " Faster switching from insert mode.
 set stal=1              " Show tab page labels only if there are at least two tab pages.
 set switchbuf=useopen,usetab,newtab " Change behavior when switching between buffers.
