@@ -1,5 +1,13 @@
+# Mac and OS X
+
+# Day-to-day usage
+
+caffeinate -i # Prevent sleep
+caffeinate -d # Prevent the display from turning off
 
 # dtrace
 
 ## I/O
 sudo opensnoop -n <process_name>
+
+
