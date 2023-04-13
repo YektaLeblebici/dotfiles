@@ -524,11 +524,6 @@ endfun
 """ Plugin settings
 """
 
-" Editorconfig
-let g:editorconfig_blacklist = {
-    \ 'filetype': ['git.*', 'fugitive'],
-    \ 'pattern': ['\.un~$']}
-
 " Deoplete autocompletion
 let g:deoplete#enable_at_startup = 1
 set completeopt=menu,menuone,noinsert,noselect
