@@ -235,6 +235,13 @@ command WQ wq
 command Wq wq
 command Q q
 
+" Make Y copy from cursor to the end of the line
+map Y y$
+
+" Keep search matches in the middle of the screen
+nnoremap n nzz
+nnoremap N Nzz
+
 " Scratch buffer
 command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
 
