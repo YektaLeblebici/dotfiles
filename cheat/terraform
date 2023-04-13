@@ -21,4 +21,27 @@ user_data = (
  : data.template_file.user_data_new[0].rendered
  )
 
+# Flatten nested structure for for_each
+network_subnets = flatten([
+    for network_key, network in var.networks : [
+      for subnet_key, subnet in network.subnets : {
+        network_key = network_key
+        subnet_key  = subnet_key
+        network_id  = aws_vpc.example[network_key].id
+        cidr_block  = subnet.cidr_block
+      }
+    ]
+  ])
 
+resource "aws_subnet" "example" {
+  # local.network_subnets is a list, so we must now project it into a map
+  # where each key is unique. We'll combine the network and subnet keys to
+  # produce a single unique key per instance.
+  for_each = {
+    for subnet in local.network_subnets : "${subnet.network_key}.${subnet.subnet_key}" => subnet
+  }
+
+  vpc_id            = each.value.network_id
+  availability_zone = each.value.subnet_key
+  cidr_block        = each.value.cidr_block
+}

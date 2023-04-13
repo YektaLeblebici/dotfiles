@@ -1,0 +1,12 @@
+
+
+
+## Troubleshooting permissions:
+
+An example:
+```
+logName=("projects/PROJECTNAMEHERE/logs/cloudaudit.googleapis.com%2Factivity" OR "projects/PROJECTNAMEHERE/logs/cloudaudit.googleapis.com%2Fdata_access")
+resource.type="gcs_bucket"
+resource.labels.bucket_name="some-bucket-name-here"
+protoPayload.methodName="storage.objects.create"
+```

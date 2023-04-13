@@ -1,0 +1,2 @@
+# Run job manually
+$ kubectl create job --from=cronjob/name-of-cronjob name-of-job

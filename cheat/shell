@@ -3,6 +3,9 @@
 ## simple xargs example
 $ find . -type f | xargs -I '{}' sh -c 'echo this file: {}'
 
+## Run a command for all files in a directory recursively
+$ find ./ -type f -exec python3 /some/path/convertgh.py {} \;
+
 ## Print each character in a new line
 $ echo 'abcabc' | grep -o .
 

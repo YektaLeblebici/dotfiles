@@ -1,0 +1,4 @@
+# Move from one pool to another
+
+kubectl cordon <node from previous pool>
+kubectl drain --force --ignore-daemonsets --delete-emptydir-data --grace-period=60 node/<node from previous pool>

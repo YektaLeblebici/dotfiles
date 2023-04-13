@@ -1,0 +1,4 @@
+# Best practices
+
+
+* Be aware of https://kubernetes.io/docs/reference/access-authn-authz/authorization/#privilege-escalation-via-pod-creation

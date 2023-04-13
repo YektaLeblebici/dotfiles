@@ -1,0 +1,15 @@
+# jsonnet
+
+# comprehensions
+example here: https://jsonnet.org/learning/tutorial.html
+
+# standard library
+std.get()
+std.prune()
+
+
+# k8s-libsonnet library
+local k = (import 'github.com/jsonnet-libs/k8s-libsonnet/1.20/main.libsonnet');
+
+where to find the implementations (example):
+https://github.com/jsonnet-libs/k8s-libsonnet/blob/main/1.20/_gen/rbac/v1/roleBinding.libsonnet

@@ -5,5 +5,17 @@ $ strace -yy
 
 # Frequently used
 
+## Track by specific system call group
+
+-e trace=ipc – Track communication between processes (IPC)
+-e trace=memory – Track memory syscalls
+-e trace=network – Track memory syscalls
+-e trace=process – Track process calls (like fork, exec)
+-e trace=signal – Track process signal handling (like HUP, exit)
+-e trace=file – Track file related syscalls
+
 ## File access
-$ strace -fe trace=creat,open,openat,unlink,unlinkat ./program
+$ strace -fe trace=file,creat,open,openat,unlink,unlinkat ./program
+
+With descriptors:
+$ strace -fe trace=file,desc,creat,open,openat,unlink,unlinkat ./program

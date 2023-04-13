@@ -1,0 +1,192 @@
+# kubectl
+
+https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands
+https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+Use `kubectl explain <resource>.<attr>` for man pages.
+
+## Context
+kubectl config get-contexts                          # display list of contexts 
+kubectl config current-context                       # display the current-context
+kubectl config use-context my-cluster-name           # set the default context to my-cluster-name
+
+aws eks update-kubeconfig --name cluster-name-here   # for EKS
+
+## Get
+$ kubectl get <type> --all-namespaces # (or use -n)
+$ kubectl get pod specific-pod-name --show-labels
+$ kubectl get pods -o wide  # more info
+
+Get: nodes | pods | componentstatus  deployment | service | ...
+
+Get all running pods in namespace using --selector:
+$ kubectl get pods --field-selector=status.phase=Running
+
+Get all pending pods (because couldn't be scheduled etc):
+$ kubectl get pods -A --field-selector=status.phase=Pending
+
+List PersistentVolumes sorted by capacity:
+$ kubectl get pv --sort-by=.spec.capacity.storage
+
+-o json : output as json
+
+List resources from a directory with kustomization.yaml:
+$ kubectl get -k dir/
+
+Return a specific part:
+$ kubectl get -o template pod/web-pod-13je7 --template={{.status.phase}}
+
+## Describe
+$ kubectl describe pods/nginx
+$ kubectl describe pods
+$ kubectl describe pod -l name=myLabel
+
+## Delete
+kubectl delete service foo
+
+## Apply
+kubectl apply -f ./file.yaml
+kubectl apply -k dir/ # Apply resources from a directory containing kustomization.yaml
+
+Also see: --recursive, --prune (alpha), --dry-run
+
+- https://kubernetes.io/docs/reference/using-api/server-side-apply/
+
+## Logs
+kubectl logs -f -n default -l app=someapp --all-containers
+kubectl logs -p -c containername somepod
+
+If `-p` is set, rint the logs for the previous instance of the container in a pod if it exists.
+
+Also: --timestamps, --selector, --prefix, --since
+
+## Port forwarding
+kubectl port-forward -n default svc/someservice 8000:80
+
+## Events
+kubectl get events -n default --sort-by=.metadata.creationTimestamp
+
+## Enter a pod and exec command
+kubectl exec -it -n default podnamehere -- /bin/sh
+
+## Copy files and directories to and from containers
+
+$ kubectl cp /tmp/foo <some-pod>:/tmp/bar -c <specific-container>
+$ kubectl cp <some-namespace>/<some-pod>:/tmp/foo /tmp/bar
+
+Careful: If `-c` is omitted, uses the kubectl.kubernetes.io/default-container annotation for selecting the container to be attached or the first container in the pod will be chosen
+
+## Debug
+
+if EphemeralContainers is enabled an no shell is installed:
+
+$ kubectl debug -it somepod --image=busybox --target=somepod
+
+If `debug` is used on a node:
+
+$ kubectl debug node/mynode -it --image=busybox
+
+Creates a new pod that runs in the node's host namespaces and can access the node's filesystem.
+
+Create a copy of mypod adding a debug container and changing container images:
+
+$ kubectl debug mypod -it --copy-to=my-debugger --image=debian --set-image=app=app:debug,sidecar=sidecar:debug
+
+Create a copy of "myapp" pod, with a new container in it based on ubuntu with tools you need, and share process namespace so you can reach running processes:
+
+$ kubectl debug myapp -it --image=ubuntu --share-processes --copy-to=myapp-debug
+
+
+
+
+
+
+## Patch
+Details: https://kubernetes.io/docs/reference/generated/kubectl/kubectl-commands#patch
+
+kubectl patch node k8s-node-1 -p '{"spec":{"unschedulable":true}}'
+
+## Edit
+Edit a resource from the default editor.
+
+$ kubectl edit svc/someservice
+
+## run
+
+$ kubectl run hazelcast --image=hazelcast/hazelcast --env="DNS_DOMAIN=cluster" --env="POD_NAMESPACE=default"
+$ kubectl run -i -t busybox --image=busybox --restart=Never
+$ kubectl run hazelcast --image=hazelcast/hazelcast --port=5701
+
+## diff
+Diff configurations specified by filename or stdin between the current online configuration, and the configuration as it would be if applied.
+
+$ kubectl diff -f pod.json
+
+## expose
+Expose a resource as a new Kubernetes service.
+
+Looks up a deployment, service, replica set, replication controller or pod by name and uses the selector for that resource as the selector for a new service on the specified port.
+
+Possible resources: pod (po), service (svc), replicationcontroller (rc), deployment (deploy), replicaset (rs)
+
+$ kubectl expose rc nginx --port=80 --target-port=8000
+$ kubectl expose pod some-pod --port=444 --name=frontend
+
+
+# cordon, drain, uncordon
+kubectl cordon my-node # Mark my-node as unschedulable
+kubectl drain my-node  # Drain my-node in preparation for maintenance
+kubectl uncordon my-node # Mark my-node as schedulable
+
+## rollout
+Valid resource types include: deployments |  daemonsets | statefulsets
+
+# Rolling update "www" containers of "frontend" deployment, updating the image:
+kubectl set image deployment/frontend www=image:v2
+
+kubectl rollout status deployment/abc
+kubectl rollout history deployment/abc
+kubectl rollout undo deployment/abc
+kubectl rollout undo deployment/abc --to-revision=2 # Rollback to a specific revision
+
+kubectl rollout resume deployment/nginx
+kubectl rollout restart deployment/nginx
+kubectl rollout pause deployment/nginx
+
+## scale
+kubectl scale --replicas=3 rs/foo
+
+# label
+kubectl label pods foo unhealthy=true
+kubectl label --overwrite pods foo status=unhealthy # overwrite if already exists
+kubectl label pods --all status=unhealthy
+
+# annotate
+All Kubernetes objects support the ability to store additional data with the object as annotations. Annotations are key/value pairs that can be larger than labels and include arbitrary string values such as structured JSON. Tools and system extensions may use annotations to store their own data.
+
+$ kubectl annotate pods foo description='my frontend'
+$ kubectl annotate --overwrite pods foo description='my frontend running nginx'
+$ kubectl annotate pods foo description- # removes annotation
+
+
+# info
+kubectl cluster-info
+kubectl cluster-info dump
+
+kubectl api-resources -o wide
+
+## AuthN / AuthZ
+#
+### Check all auth
+kubectl auth can-i '*' '*'
+
+Specific: $ kubectl auth can-i VERB [TYPE | TYPE/NAME | NONRESOURCEURL]
+
+### View all verbs for each api resource
+$ kubectl api-resources --sort-by name -o wide
+
+### reconcile
+This is preferred to 'apply' for RBAC resources so that semantically-aware merging of rules and subjects is done.
+
+$ kubectl auth reconcile -f FILENAME
+

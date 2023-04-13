@@ -1,0 +1,4 @@
+# Kustomize
+
+# Build kustomization file and deploy it with `kubectl`:
+kustomize build . | kubectl apply -f -

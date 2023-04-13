@@ -1,0 +1,11 @@
+# helm
+
+## Install
+
+$ helm install <name> -f telepresence.yml --namespace <namespace> <source/package> --dry-run --debug
+
+## Fetch
+
+Download a chart as .tgz, so you can extract it:
+
+$ helm fetch datawire/telepresence

@@ -1,0 +1,11 @@
+# argocd
+
+
+## CLI 
+
+
+## Connect through port-forward
+$ argocd --port-forward --port-forward-namespace MYNAMESPACE app list
+
+## Diff app with local changes
+$ argocd --port-forward --port-forward-namespace MYNAMESPACE app diff MY_APP_NAME --hard-refresh --exit-code=false --loglevel error --server-side-generate --local $(pwd)

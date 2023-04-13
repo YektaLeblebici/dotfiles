@@ -1,3 +1,9 @@
+# How to test local changes with github imports
+
+In `go.mod`, add:
+
+`replace github.com/acme/bar => /path/to/local/bar`
+
 # Deep pretty printer
 
 $ go get -u github.com/davecgh/go-spew/spew

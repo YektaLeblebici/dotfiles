@@ -1,0 +1,35 @@
+# Telepresence 2
+
+
+## Install
+
+$ helm install traffic-manager -f telepresence.yml --namespace ambassador datawire/telepresence
+
+## Frequently used commands
+
+$ telepresence connect
+$ telepresence quit
+$ telepresence status
+$ telepresence list -n namespace_name
+$ telepresence uninstall --all-agents  # Cleanup traffic-agents after intercept is done
+
+# Manually rollback a botched interrupt
+
+$ telepresence uninstall -n some-namespace --agent name-of-service
+
+If that does not work:
+
+$ kubectl rollout undo deployment/name-of-deployment
+$ kubectl edit service/name-of-service  # and then remove the pod name "tx-" from ports, and the annotation
+
+# Troubleshooting
+$ telepresence loglevel debug
+$ telepresence gather-logs
+
+Consider:
+* is traffic-agent injected?
+* does traffic-manager have network connection here?
+
+# Useful env. vars
+- TELEPRESENCE_REGISTRY
+- TELEPRESENCE_AGENT_IMAGE

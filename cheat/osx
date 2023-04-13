@@ -10,4 +10,7 @@ caffeinate -d # Prevent the display from turning off
 ## I/O
 sudo opensnoop -n <process_name>
 
+# Network troubleshooting
+
+$ dscacheutil -q host -a name google.com
 

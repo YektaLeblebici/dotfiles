@@ -1,0 +1,40 @@
+# k8s resources
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+type: Opaque
+data:
+  USER_NAME: YWRtaW4=
+  SOME_SECRET_PASS: MWYyZDFlMmU2N2Rm
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: someservice
+  annotations: []
+    # Some popular ones:
+    # kubernetes.io/ingress.class:
+    # cert-manager.io/cluster-issuer:
+    # Check IngressController docs for many other options.
+spec:
+  # ingressClassName: nginx
+  tls:
+    - hosts:
+        - someservice.mycompany.com
+      secretName: name-of-tls-secret
+  rules:
+  - host: someservice.mycompany.com # could be omitted
+    http:
+      paths:
+      - path: /testpath
+        pathType: Prefix
+        # Prefix matches recursively as well. Other opts: Exact, ImplementationSpecific (for resources)
+        backend:
+          service:
+            name: servicenamehere
+            port:
+              number: 80
+---

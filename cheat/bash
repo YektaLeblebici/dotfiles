@@ -1,0 +1,12 @@
+# Bash
+
+## declare
+
+Typed-like behaviour. You can
+
+
+* Readonly: `declare –r varname`
+* Integer and default val: `declare -i bar=1`
+
+## Run in each dir
+$ ls -d */ | xargs -I {} bash -c "cd '{}' && pwd

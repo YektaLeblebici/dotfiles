@@ -1,0 +1,11 @@
+# kubernetes developer cheatsheet
+
+
+$ kubectl explain deployment.spec
+
+# Find apiVersion for a resource kind:
+$ kubectl api-resources | grep namespace
+
+
+# Port forward to reach a service or pod
+$ kubectl -n port-forward service/helloserv-service 8080:80

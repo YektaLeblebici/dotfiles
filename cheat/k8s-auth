@@ -1,0 +1,38 @@
+# Kubernetes authZ/authN
+
+# Shows if I have permissions to make a request or not
+$ kubectl auth can-i create deployments --namespace dev
+
+For a declarative version, see: SelfSubjectAccessReview
+
+
+# Testing/troubleshooting RBAC
+Create a test serviceAccount and bind a role to it. Then:
+$ kubectl auth can-i create jobs --namespace mynamespace --as system:serviceaccount:default:rbac-test-sa
+
+# Impersonation
+Use `--as` and `--as-group` to impersonate a user/group for impersonating access.
+
+## Create an example YAML
+$ kubectl create clusterrole cr --verb=get,list --resource=namespaces --dry-run -o yaml | vi -
+$ kubectl create clusterrolebinding crb --clusterrole=namespaces-view --user=some.user@example.com --dry-run -o yaml | vi -
+
+## Use ServiceAccount token in .kube/config:
+
+```
+users:
+    - name: some-service-acct-user
+      user:
+        token: eyJhbG[...]
+
+contexts:
+    - context:
+        cluster: some-cluster
+        user: some-service-acct-user
+      name: my-context
+```
+
+
+
+
+

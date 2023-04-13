@@ -1,0 +1,3 @@
+#tmux 
+
+<prefix> ! --> break pane to its own window

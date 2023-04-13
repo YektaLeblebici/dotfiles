@@ -1,0 +1,4 @@
+# AWS EKS
+
+- aws eks list-clusters
+- aws eks update-kubeconfig --name name-of-the-cluster

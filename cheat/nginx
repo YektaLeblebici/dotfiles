@@ -1,0 +1,11 @@
+
+
+## nginx-ingress
+
+### Redirecting traffic to another endpoint
+```
+metadata:
+    annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+        nginx.ingress.kubernetes.io/permanent-redirect: http://api.example.com$request_uri
+```

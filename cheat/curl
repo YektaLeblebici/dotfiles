@@ -1,0 +1,5 @@
+# curl
+
+## Modifying name resolving if HTTPS so SNI applies:
+$ curl -v --resolve example.com:443:123.123.123.123 https://example.com
+$ curl --connect-to www.example.com:80:load1.example.com:80 http://www.example.com

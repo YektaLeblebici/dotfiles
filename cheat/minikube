@@ -1,0 +1,5 @@
+# minikube
+
+
+Print env. vars that configure docker client to use minikube cluster:
+$ minikube docker-env

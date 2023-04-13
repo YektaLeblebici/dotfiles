@@ -18,3 +18,6 @@ vim -S Session.vim  # in new Vim
 :profile func *
 :profile file *
 :profile stop
+
+## Run command, sending the buffer as input:
+:%! base64

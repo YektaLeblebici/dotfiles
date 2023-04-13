@@ -1,0 +1,11 @@
+# Google Cloud Platform
+
+# Interactive mode!
+$ gcloud beta interactive
+
+# Get links to resources
+
+$ gcloud sql instances list --uri
+https://sqladmin.googleapis.com/sql/v1beta4/projects/[...]
+
+-> Sometimes `describe` also outputs a `selfLink`.

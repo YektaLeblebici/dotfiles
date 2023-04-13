@@ -1,0 +1,12 @@
+# aws-vault
+
+https://github.com/99designs/aws-vault/blob/master/USAGE.md
+
+$ aws-vault list
+$ aws-vault login someprofilename  # browser
+$ aws-vault exec someprofilename
+
+# --no-session
+AWS Vault will typically create temporary credentials using a combination of GetSessionToken and AssumeRole, depending on the config. The GetSessionToken call is made with MFA if available, and the resulting session is cached in the backend vault and can be used to assume roles from different profiles without further MFA prompts.
+
+If you wish to skip the GetSessionToken call, you can use the --no-session flag.

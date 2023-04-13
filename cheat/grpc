@@ -1,0 +1,12 @@
+## grpcurl
+
+### Get list of services exposed by a server
+$ grpcurl --plaintext someservice.namespace:80 list
+$ grpcurl someservice.namespace:443 list
+
+### Describe
+$ grpcurl pricing-grpc.pricing:443 describe company.v1.SomeService.SomeMethod
+[...]
+
+### Invoke
+$ grpcurl grpc.server.com:443 my.custom.server.Service/Method
