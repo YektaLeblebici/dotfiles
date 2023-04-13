@@ -61,6 +61,13 @@ if executable('ag')
 endif
 
 " Styling
+" if has('termguicolors')
+"   set termguicolors
+" endif
+
+" set background=dark
+"
+
 colorscheme molokai
 let g:molokai_original=1
 let g:netrw_banner       = 0             " Hide netrw banner.
