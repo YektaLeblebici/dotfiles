@@ -1,6 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: neovim (>=v0.5.0-1b8867ab3), vimplug, ag (>= 2.2.0),
-" terraform-ls
+" depends: neovim (>=v0.9.0), ag (>= 2.2.0), rg (>=13.0.0)
 
 " Common settings
 syntax on
