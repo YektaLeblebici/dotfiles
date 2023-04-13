@@ -139,7 +139,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 # homebrew
 HOMEBREW_NO_ANALYTICS=1
-export PATH="/usr/local/sbin:$PATH"
+export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 # awscli
 export AWS_PAGER=""
