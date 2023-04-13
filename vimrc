@@ -235,6 +235,9 @@ command WQ wq
 command Wq wq
 command Q q
 
+" Scratch buffer
+command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile
+
 """
 """ LSP & Treesitter
 """
