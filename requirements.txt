@@ -1,7 +1,7 @@
 awsume==4.5.0
 cheat==2.5.1
 flake8==3.8.4
-ipython==7.31.0
+ipython==8.10.0
 isort==5.5.1
 pylint==2.6.0
 rope==0.18.0
