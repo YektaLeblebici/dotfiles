@@ -36,6 +36,11 @@ defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool 
 defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 defaults write -g WebKitDeveloperExtras -bool true
 
+# Google Chrome
+
+## Disable two-finger back-forward gesture.
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
+
 # Force restart Dock.
 killall Dock
 
