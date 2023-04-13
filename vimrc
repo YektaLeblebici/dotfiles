@@ -70,13 +70,7 @@ endif
 
 colorscheme molokai
 let g:molokai_original=1
-let g:netrw_banner       = 0             " Hide netrw banner.
-let g:netrw_liststyle    = 3             " Change netrw browser list style.
-let g:netrw_browse_split = 4             " Open on previous window.
-let g:netrw_winsize      = -30
-let netrw_browsex_viewer='google-chrome' " Set preferred browser.
 let python_space_error_highlight = 1     " Python whitespace highlighting.
-
 
 set cmdheight=1         " Bigger display area for command output.
 set showmatch           " Show matching brackets for a short moment.
@@ -130,6 +124,12 @@ set hlsearch            " When there is a previous search pattern, highlight all
 set ignorecase          " Ignore case in search patterns.
 set inccommand=nosplit  " In-place preview while substitution.
 
+" Netrw
+let g:netrw_banner       = 0             " Hide netrw banner.
+let g:netrw_liststyle    = 3             " Change netrw browser list style.
+let g:netrw_browse_split = 4             " Open on previous window.
+let g:netrw_winsize      = -30
+let netrw_browsex_viewer='google-chrome' " Set preferred browser.
 " OS specific configuration
 if has('unix')
   let s:uname = system("uname -s")
