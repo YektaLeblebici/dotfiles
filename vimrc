@@ -130,6 +130,10 @@ let g:netrw_liststyle    = 3             " Change netrw browser list style.
 let g:netrw_browse_split = 4             " Open on previous window.
 let g:netrw_winsize      = -30
 let netrw_browsex_viewer='google-chrome' " Set preferred browser.
+" Vex is like Vexplore, but always opens CWD
+command! Vex exe 'Vexplore' getcwd()
+cnoreabbrev vex Vex
+
 " OS specific configuration
 if has('unix')
   let s:uname = system("uname -s")
