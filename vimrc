@@ -585,7 +585,7 @@ function! LightlineFiletype()
 endfunction
 
 function! LightlineGitbranch()
-  return winwidth(0) > 90 ? fugitive#head()[0:10] : ''
+  return winwidth(0) > 90 ? FugitiveHead()[0:10] : ''
 endfunction
 
 function! LightlineFilename()
