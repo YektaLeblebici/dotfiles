@@ -310,3 +310,23 @@ function kubectlgetall {
     kubectl -n ${1} get --ignore-not-found ${i}
   done
 }
+
+# Create new branch from JIRA ticket
+# Usage: jnewb(ranch) <branchname>
+jnewb(){
+    local BRANCH_NAME
+    local BRANCH_PREFIX
+    local TASK_ID
+    BRANCH_PREFIX=$(jira me | cut -d'.' -f1)
+    TASKS=$(jira issue list --plain --no-headers -q"status not in ('Done', 'Canceled')"  -a $(jira me))
+    TASK_ID=$(echo $TASKS | fzf | cut -f2)
+
+    BRANCH_NAME="${BRANCH_PREFIX}/${TASK_ID}"
+
+    if test -n "$1"
+    then
+    BRANCH_NAME="${BRANCH_NAME}_${1}"
+    fi
+
+    git checkout -b ${BRANCH_NAME}
+}
