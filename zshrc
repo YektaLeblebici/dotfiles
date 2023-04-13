@@ -144,6 +144,10 @@ export PATH="/usr/local/sbin:$PATH"
 # awscli
 export AWS_PAGER=""
 
+# gcloud
+source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 # Brew paths
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
