@@ -271,26 +271,26 @@ command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswa
         -- For example, a handler override for the `rust_analyzer`:
         ["pylsp"] = function ()
             require("lspconfig").pylsp.setup{
-        on_attach=on_attach,
-        settings = {
-            pyls = {
-                plugins = {
-                    preload = {
-                        enabled = true
-                    },
-                    pylint = {
-                        enabled = true
-                    },
-                    rope_completion = {
-                        enabled = true
-                    },
-                    yapf = {
-                        enabled = true
+                on_attach=on_attach,
+                settings = {
+                    pyls = {
+                        plugins = {
+                            preload = {
+                                enabled = true
+                            },
+                            pylint = {
+                                enabled = true
+                            },
+                            rope_completion = {
+                                enabled = true
+                            },
+                            yapf = {
+                                enabled = true
+                            }
+                        }
                     }
                 }
             }
-        }
-    }
         end,
         ["yamlls"] = function ()
             require("lspconfig").yamlls.setup{
@@ -298,19 +298,19 @@ command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswa
                 settings = {
                     yaml = {
                         schemas = { kubernetes = {"*.yml", "*.yaml"} }
-    }
+                    }
                 }
             }
         end,
         ["gopls"] = function ()
             require("lspconfig").gopls.setup{
-        on_attach=on_attach
-    }
+                on_attach=on_attach
+            }
         end,
         ["terraformls"] = function ()
             require("lspconfig").terraformls.setup{
-        on_attach=on_attach,
-        filetypes = { "terraform","hcl" }
+                on_attach=on_attach,
+                filetypes = { "terraform","hcl" }
             }
         end,
 
