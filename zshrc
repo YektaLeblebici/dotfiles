@@ -141,6 +141,9 @@ export PATH=$PATH:$HOME/.local/bin
 HOMEBREW_NO_ANALYTICS=1
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
+# rancher desktop
+export PATH="${PATH}:${HOME}/.rd/bin"
+
 # awscli
 export AWS_PAGER=""
 
