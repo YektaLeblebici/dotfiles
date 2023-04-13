@@ -54,6 +54,7 @@ plugins=(git \
          catimg \
          copybuffer \
          fancy-ctrl-z \
+         gcloud \
      )
 
 # OS-specific plugins
