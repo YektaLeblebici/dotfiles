@@ -22,28 +22,32 @@ if !filereadable(s:vimplug_exists)
 endif
 
 call plug#begin('~/.vim/plugged')
-Plug 'flazz/vim-colorschemes'           " Colorschemes
-Plug 'itchyny/lightline.vim'            " Enhanced status line
-Plug 'honza/vim-snippets'               " Preinstalled snippets
-Plug 'Shougo/neosnippet.vim'            " Snippets
-Plug 'Shougo/neosnippet-snippets'       " Snippet library
-Plug 'tpope/vim-fugitive'               " Git integration
-Plug 'mbbill/undotree'                  " Undo tree visualizer
-Plug 'easymotion/vim-easymotion'        " Better and simple motions
-Plug 'tpope/vim-commentary'             " Easy comments
+Plug 'flazz/vim-colorschemes'            " Colorschemes
+Plug 'itchyny/lightline.vim'             " Enhanced status line
+Plug 'honza/vim-snippets'                " Preinstalled snippets
+Plug 'Shougo/neosnippet.vim'             " Snippets
+Plug 'Shougo/neosnippet-snippets'        " Snippet library
+Plug 'tpope/vim-fugitive'                " Git integration
+Plug 'mbbill/undotree'                   " Undo tree visualizer
+Plug 'ggandor/lightspeed.nvim'           " Better and simpler motions
+Plug 'tpope/vim-commentary'              " Easy comments
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'                 " Fuzzy finder
-Plug 'junegunn/vim-peekaboo'            " Display Vim registers
-Plug 'Shougo/deoplete.nvim'             " Enhanced asynchronous completion
-Plug 'sgur/vim-editorconfig'            " Editorconfig integration in VimScript
-Plug 'Vimjas/vim-python-pep8-indent'    " PEP8-compatible Python indentation
-Plug 'neovim/nvim-lspconfig'            " LSP integration with built-in LSP
-Plug 'kabouzeid/nvim-lspinstall', { 'branch': 'stable' }  " Language server installer
-Plug 'Shougo/deoplete-lsp'              " Deoplete integration with LSP
-Plug 'nvim-treesitter/nvim-treesitter'  " Treesitter integration
+Plug 'junegunn/fzf.vim'                  " Fuzzy finder
+Plug 'Shougo/deoplete.nvim'              " Enhanced asynchronous completion
+Plug 'Vimjas/vim-python-pep8-indent'     " PEP8-compatible Python indentation
+Plug 'Shougo/deoplete-lsp'               " Deoplete integration with LSP
+Plug 'nvim-treesitter/nvim-treesitter'   " Treesitter integration
 Plug 'nvim-treesitter/nvim-treesitter-refactor' " Refactoring with Treesitter
-Plug 'hashivim/vim-terraform'           " Terraform integration
-Plug 'tsandall/vim-rego'                " Rego highlighting
+Plug 'hashivim/vim-terraform'            " Terraform integration
+Plug 'tsandall/vim-rego'                 " Rego highlighting
+Plug 'towolf/vim-helm'                   " Helm filetype
+Plug 'windwp/nvim-spectre'               " Interactive search & replace
+Plug 'nvim-lua/plenary.nvim'             " Common dependency for multiple plugins
+Plug 'jghauser/mkdir.nvim'               " Automatically create directories
+Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' } " Fuzzy finder
+Plug 'williamboman/mason.nvim'           " Portable package manager for Neovim
+Plug 'williamboman/mason-lspconfig.nvim' " Mason and lspconfig integration
+Plug 'neovim/nvim-lspconfig'             " LSP integration with built-in LSP
 
 
 " Load wakatime plugin if it's configured for this user.
@@ -53,7 +57,6 @@ endif
 
 " On-demand loaded plugins
 Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries', 'for': 'go' }
-" Plug 'jvirtanen/vim-hcl', { 'for': 'tf' }
 call plug#end()
 
 if executable('ag')
@@ -176,17 +179,6 @@ set undofile
 set backup
 set swapfile
 
-
-" Install LSP servers and Treesitter parsers.
-function SetupLsp()
-    if !isdirectory(expand("~/.cache/nvim/lspconfig/yamlls"))
-      LspInstall yamlls
-    endif
-
-    TSInstall all
-endfunction
-au VimEnter * call SetupLsp()
-
 " Set leader key to SPACE.
 let mapleader=" "
 
@@ -252,7 +244,7 @@ command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswa
 " LSP integration
 :lua << END
     local on_attach = function(client, bufnr)
-      vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()')
+      vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.diagnostic.open_float({focusable = false})')
     end
 
     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -262,7 +254,22 @@ command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswa
       }
     )
 
-    require'lspconfig'.pyls.setup{
+    require("mason").setup()
+    require("mason-lspconfig").setup({
+        ensure_installed = {"gopls", "yamlls", "terraformls", "pylsp"}
+    })
+
+    require("mason-lspconfig").setup_handlers {
+        -- The first entry (without a key) will be the default handler
+        -- and will be called for each installed server that doesn't have
+        -- a dedicated handler.
+        function (server_name) -- default handler (optional)
+            require("lspconfig")[server_name].setup {}
+        end,
+        -- Next, you can provide a dedicated handler for specific servers.
+        -- For example, a handler override for the `rust_analyzer`:
+        ["pylsp"] = function ()
+            require("lspconfig").pylsp.setup{
         on_attach=on_attach,
         settings = {
             pyls = {
@@ -283,19 +290,34 @@ command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswa
             }
         }
     }
-
-    require'lspconfig'.yamlls.setup{
+        end,
+        ["yamlls"] = function ()
+            require("lspconfig").yamlls.setup{
+                on_attach=on_attach,
+                settings = {
+                    yaml = {
+                        schemas = { kubernetes = {"*.yml", "*.yaml"} }
+    }
+                }
+            }
+        end,
+        ["gopls"] = function ()
+            require("lspconfig").gopls.setup{
         on_attach=on_attach
     }
-
-    require'lspconfig'.gopls.setup{
-        on_attach=on_attach
-    }
-
-    require'lspconfig'.terraformls.setup{
+        end,
+        ["terraformls"] = function ()
+            require("lspconfig").terraformls.setup{
         on_attach=on_attach,
         filetypes = { "terraform","hcl" }
+            }
+        end,
+
+
     }
+
+
+
 
 END
 
@@ -345,16 +367,33 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
     }
 END
 
-""" EasyMotion bindings
 
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
+" Telescope configuration
+"
+:lua << END
+    require('telescope').setup({
+      defaults = {
+        layout_strategy = "bottom_pane",
+        scroll_strategy = "limit",
+        layout_config = {
+            prompt_position = "bottom",
+            height = 25,
+        },
+      },
+    })
 
-" Most useful one, and I never use 's' key:
-nmap s <Plug>(easymotion-s2)
+builtin = require('telescope.builtin')
 
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+function fuzzyFindFiles()
+  builtin.grep_string({
+    path_display = { 'smart' },
+    only_sort_text = true,
+    word_match = "-w",
+    search = '',
+  })
+end
+
+END
 
 """
 """ <Leader> shortcuts
@@ -375,6 +414,7 @@ au VimEnter * call SetLeaderBackspace()
 " BIND <Leader> + v to Vsplit, c to Split.
 nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>c :split<CR>
+
 
 " BIND <Leader> + h to remove trailing whitespaces.
 nnoremap <Leader>h :%s/\s\+$//e<CR>
@@ -400,11 +440,18 @@ function! SetPluginBindings()
         cnoreabbrev ag Ag
     endif
 
-    " FZF bindings
-    if exists(':FZF')
-        nnoremap <silent> <Leader>f :FZF<CR>
-        nnoremap <silent> <Leader>b :Buffers<CR>
-        nnoremap <silent> <Leader>m :Marks<CR>
+    " Telescope bindings
+    if exists(':Telescope')
+        nnoremap <silent> <Leader>f :Telescope find_files<CR>
+        nnoremap <silent> <Leader>b :Telescope buffers<CR>
+        nnoremap <silent> <Leader>m :Telescope marks<CR>
+        nnoremap <silent> " :Telescope registers<CR>
+        nnoremap <silent> <Leader>lr :Telescope lsp_references<CR>
+        nnoremap <silent> <Leader>lo :Telescope lsp_outgoing_calls<CR>
+        nnoremap <silent> <Leader>li :Telescope lsp_incoming_calls<CR>
+        nnoremap <silent> <Leader>lt :Telescope lsp_type_definitions<CR>
+        nnoremap <silent> <Leader>ls :Telescope lsp_document_symbols<CR>
+        nnoremap <silent> <Leader>a :lua fuzzyFindFiles{}<CR>
     endif
 
     " vim-go bindings
