@@ -14,6 +14,7 @@ defaults write com.apple.dock orientation bottom
 defaults write com.apple.dock show-process-indicators -bool true
 defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock tilesize -int 44
+defaults write com.apple.dock "static-only" -bool "true" # Only show running apps
 
 # Keyboard settings
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
