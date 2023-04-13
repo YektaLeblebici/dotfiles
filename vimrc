@@ -600,3 +600,6 @@ let g:go_gopls_enabled = 0     " Built-in LSP will be used
 
 " terraform
 let g:terraform_fmt_on_save=1
+
+" newer versions of vim-fugitive broke Gblame, restore it back
+command! Gblame :Git blame
