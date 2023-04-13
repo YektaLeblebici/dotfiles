@@ -220,7 +220,7 @@ fbr() {
   local branches branch
   branches=$(git --no-pager branch --all -vv) &&
   branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}' | sed "s/.* //" | rev | cut -d "/" -f1 | rev)
+  git checkout $(echo "$branch" | awk '{print $1}')
 }
 
 # fcs - FZF command to get commit sha, useful combined with git commands.
