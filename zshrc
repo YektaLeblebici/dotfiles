@@ -97,7 +97,7 @@ bindkey "^[[1;2B" end-of-line
 
 # Use ag as the default source.
 # Depends on installed "ag", comment out these two if not.
-export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore .terraform -g ""'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND" 
 
 # Consistent ordering between CTRL+R history search and CTRL+T.
