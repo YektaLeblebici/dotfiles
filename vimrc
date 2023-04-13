@@ -345,7 +345,9 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
 " Treesitter configuration
 :lua << END
     require'nvim-treesitter.configs'.setup {
-      ensure_installed = "maintained",
+      ensure_installed = "all",
+      ignore_install = { "phpdoc" },
+
       highlight = {
         enable = true,
       },
@@ -353,9 +355,6 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
         enable = true,
         disable = {"python"}
       },
-    }
-
-    require'nvim-treesitter.configs'.setup {
       refactor = {
         smart_rename = {
           enable = true,
