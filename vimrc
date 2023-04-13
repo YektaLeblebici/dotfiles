@@ -415,8 +415,8 @@ nnoremap <Leader>v :vsplit<CR>
 nnoremap <Leader>c :split<CR>
 
 
-" BIND <Leader> + h to remove trailing whitespaces.
-nnoremap <Leader>h :%s/\s\+$//e<CR>
+" BIND <Leader> + w to remove trailing whitespaces.
+nnoremap <Leader>w :%s/\s\+$//e<CR>
 
 " BIND <Leader> + t* for toggling different options.
 nnoremap <silent> <Leader>tv :call VirtualeditToggle()<CR>
