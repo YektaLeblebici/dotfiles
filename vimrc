@@ -462,6 +462,9 @@ endfunction
 
 au VimEnter * call SetPluginBindings()
 
+" Command to invoke nvim-spectre
+command! Spectre :lua require('spectre').open()
+
 " Prefer vim-go if exists for Golang files.
 autocmd Filetype go if exists(':GoBuild') | map <buffer> <F10> :GoBuild<CR> | endif
 autocmd Filetype go if exists(':GoRun') | map <buffer> <F9> :GoRun<CR> | endif
