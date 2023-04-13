@@ -293,3 +293,11 @@ awsvl () {
                 echo $TOKEN
         fi
 }
+
+linuxify (){
+    if type brew &>/dev/null; then
+        HOMEBREW_PREFIX=$(brew --prefix)
+        for d in ${HOMEBREW_PREFIX}/opt/*/libexec/gnubin; do export PATH=$d:$PATH; done
+        for d in ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman; do export MANPATH=$d:$MANPATH; done
+    fi
+}
