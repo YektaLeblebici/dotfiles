@@ -113,6 +113,7 @@ alias rg='rg --colors line:fg:yellow --colors line:style:bold --colors path:fg:g
 # Editor
 export EDITOR='nvim'
 alias vi=nvim
+alias vim=nvim
 
 # Git aliases
 # (overrides "git" plugin)
@@ -121,6 +122,11 @@ alias gdca='git diff --cached --color-moved'
 alias gdw='git diff --word-diff --color-moved'
 alias gp='git push origin HEAD'
 alias gst='git status --column'
+alias groot='cd $(git rev-parse --show-toplevel)'
+
+# Aliases
+alias k='kubectl'
+alias cidr='sipcalc'
 
 # Golang
 export PATH=$PATH:/usr/local/go/bin
