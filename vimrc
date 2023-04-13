@@ -488,10 +488,6 @@ command! Registers call fzf#run(fzf#wrap({
 """ Function key bindings
 """
 
-" BIND F2 to Paste Mode.
-" This binding will be overriden if Bracketed Paste plugin is enabled.
-set pastetoggle=<F2>
-
 " BIND F4 to toggle line numbers.
 silent! nmap <F4> :set invnumber<CR>
 
