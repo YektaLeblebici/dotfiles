@@ -47,6 +47,8 @@ Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' } " Fuzzy finder
 Plug 'williamboman/mason.nvim'           " Portable package manager for Neovim
 Plug 'williamboman/mason-lspconfig.nvim' " Mason and lspconfig integration
 Plug 'neovim/nvim-lspconfig'             " LSP integration with built-in LSP
+Plug 'peterlundgren/vim-todo'            " Minimalistic TODO filetype
+
 
 
 " Load wakatime plugin if it's configured for this user.
@@ -603,3 +605,9 @@ let g:terraform_fmt_on_save=1
 
 " newer versions of vim-fugitive broke Gblame, restore it back
 command! Gblame :Git blame
+
+" vim-todo
+" Associate TODO files for vim-todo
+au BufRead,BufNewFile TODO set filetype=todo
+" Shortcut for adding new task
+nnoremap <silent> <Leader>n :let a='[ ]'\|put=a<CR><S-A> 
