@@ -23,6 +23,7 @@ defaults write com.apple.finder "ShowPathbar" -bool "true"
 # Keyboard settings
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
 defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write -g ApplePressAndHoldEnabled -bool false
 
 # Screensaver
