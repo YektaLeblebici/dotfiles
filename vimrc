@@ -326,6 +326,7 @@ set updatetime=100  " Faster updates for hover/linter
 " LSP bindings
 nnoremap <silent> <Leader>le    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <Leader>ld    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <Leader>h    <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>lh    <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>lf    <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <Leader>li    <cmd>lua vim.lsp.buf.incoming_calls()<CR>
