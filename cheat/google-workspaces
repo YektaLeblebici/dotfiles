@@ -1,0 +1,37 @@
+# Google Workspaces
+
+
+## Google Groups
+
+### Admin SDK vs CloudIdentity
+
+* Using an API like Directory API under Admin SDK requires caller to be an admin or impersonate a Workspaces Admin.
+
+
+### Setting up permissions for Google Groups <-> GKE
+
+* Create Service Account
+* Setup Domain-wide Delegation for the SA
+* Add "Group Admin" role to SA
+* Enable "cloudidentity.googleapis.com" API in Google Cloud
+
+### Membership check
+
+```golang
+
+	group, err := groupsService.Lookup().Context(ctx).GroupKeyId("somename@example.com").Do()
+	if err != nil { /* [...] */ }
+
+	membershipsService := groupsService.Memberships
+
+	celQuery := "member_key_id == 'some.user@example.com'"
+	resp, err := membershipsService.CheckTransitiveMembership(group.Name).Query(celQuery).Do()
+
+    // If not a member, this API responds with a 403. Should handle this error.
+	if err != nil { /* [...] */ }
+
+	isMember := resp.HasMembership
+	return isMember
+```
+
+

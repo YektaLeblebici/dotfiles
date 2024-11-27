@@ -9,3 +9,7 @@ $ helm install <name> -f telepresence.yml --namespace <namespace> <source/packag
 Download a chart as .tgz, so you can extract it:
 
 $ helm fetch datawire/telepresence
+
+## How to escape double braces
+Instead of this:  ` "{{ something unescaped }}" `
+Do this: ` {{ print "{{ something unescaped }}" | quote }} `

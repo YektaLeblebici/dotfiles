@@ -1,0 +1,9 @@
+# HTTP/2
+
+
+## pseudo-headers
+
+* :method
+* :scheme
+* :authority
+* :path

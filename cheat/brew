@@ -1,0 +1,10 @@
+# brew
+
+## debugging tap
+
+brew reinstall --keep-tmp -v --debug some/tap/here
+
+
+## edit tap locally for troubleshooting & local testing
+$ cd /opt/homebrew/Library/Taps/some/tap
+

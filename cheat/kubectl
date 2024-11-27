@@ -19,6 +19,12 @@ $ kubectl get pods -o wide  # more info
 
 Get: nodes | pods | componentstatus  deployment | service | ...
 
+Get from specific API version:
+$ kubectl get -A externalsecrets.v1.kubernetes-client.io
+
+This returns `kind:ExternalSecret` and `apiVersion:kubernetes-client.io/v1`.
+
+
 Get all running pods in namespace using --selector:
 $ kubectl get pods --field-selector=status.phase=Running
 

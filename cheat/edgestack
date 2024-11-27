@@ -1,0 +1,6 @@
+# Edge Stack
+
+
+# Gather debug info
+$ AMBASSADOR_POD=edge-stack-12356-abcde bash -c 'kubectl exec -it $AMBASSADOR_POD -n edge-stack -- grab-snapshots && kubectl cp -n edge-stack $AMBASSADOR_POD:sanitized.tgz $AMBASSADOR_POD-sanitized.tgz && kubectl logs -n edge-stack $AMBASSADOR_POD > $AMBASSADOR_POD.log && kubectl cp -n edge-stack $AMBASSADOR_POD:envoy/envoy.json $AMBASSADOR_POD-envoy.json'
+

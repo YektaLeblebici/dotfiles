@@ -1,0 +1,2 @@
+# View NAT mappings of a Google Cloud router
+$ gcloud compute routers get-nat-mapping-info my-router-name --region=europe-west3

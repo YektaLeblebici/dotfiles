@@ -1,0 +1,19 @@
+# Cloudflare
+
+## pull logs from Cloudflare Instant Logs
+
+Set the $CF_API_KEY and $CF_ZONE_ID first, then:
+
+$ curl https://api.cloudflare.com/client/v4/zones/$CF_ZONE_ID/logpush/edge/jobs \
+--header "Authorization: Bearer $CF_API_KEY" \
+--header "Content-Type: application/json" \
+--data '{
+  "sample": 100, "fields": "CacheCacheStatus,CacheResponseStatus,ClientIP,ClientASN,ClientRequestBytes,ClientRequestHost,ClientRequestMethod,ClientRequestReferer,ClientRequestURI,ClientRequestUserAgent,ClientSSLCipher,ClientSSLProtocol,ClientTCPRTTMs,EdgeColoID,EdgeResponseBytes,EdgeResponseStatus,EdgeServerIP",
+  "filter": "",
+  "kind": "instant-logs"
+}'
+
+$ websocat wss://logs.cloudflare.com/instant-logs/ws/sessions/<SESSION FROM THE PREVIOUS RESPONSE>
+
+(different `fields` are possible)
+

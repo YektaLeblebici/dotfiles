@@ -1,0 +1,7 @@
+# kyverno
+
+## locally testing
+$ kubectl kyverno jp query
+
+## run kyverno tests with higher verbosity
+$ kyverno test -v 5 .

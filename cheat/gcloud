@@ -9,3 +9,7 @@ $ gcloud sql instances list --uri
 https://sqladmin.googleapis.com/sql/v1beta4/projects/[...]
 
 -> Sometimes `describe` also outputs a `selfLink`.
+
+# Get DBs by their deletion protection attribute as csv
+$ gcloud sql instances list --format yaml | yq '[.name,.project,.settings.deletionProtectionEnabled] | @csv' | sed 's,---,,' | sed '/^$/d'
+

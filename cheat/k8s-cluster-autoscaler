@@ -1,0 +1,4 @@
+# k8s-cluster-autoscaler
+
+## Get cluster-autoscaler status
+$ kubectl get configmap cluster-autoscaler-status -n kube-system -o yaml

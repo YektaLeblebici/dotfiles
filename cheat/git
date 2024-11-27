@@ -36,3 +36,7 @@ git whatchanged --since="2 weeks ago" --patch
 
 # Git repo stats per author
 git shortlog -sne
+
+# rebase branch over rebased branch
+git rebase -X ours johndoe/branch-123 # `ours` has the reverse meaning here
+

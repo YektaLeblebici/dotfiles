@@ -8,6 +8,7 @@ For a declarative version, see: SelfSubjectAccessReview
 
 # Testing/troubleshooting RBAC
 Create a test serviceAccount and bind a role to it. Then:
+$ kubectl auth can-i --list --namespace mynamespace --as system:serviceaccount:default:rbac-test-sa
 $ kubectl auth can-i create jobs --namespace mynamespace --as system:serviceaccount:default:rbac-test-sa
 
 # Impersonation

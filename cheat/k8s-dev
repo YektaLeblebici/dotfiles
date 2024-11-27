@@ -1,7 +1,13 @@
 # kubernetes developer cheatsheet
 
+# run a pod for debug
+$ kubectl run -it --restart=Never --rm=true --image=alpine debug-pod
 
-$ kubectl explain deployment.spec
+# Explain a specific API version
+$ kubectl explain --api-version="getambassador.io/v2" filterpolicy
+
+# Get a specific version of an object in kubernetes
+$ kubectl get hpa.v2beta2.autoscaling # get v2beta2 explicitly of hpa autoscaling
 
 # Find apiVersion for a resource kind:
 $ kubectl api-resources | grep namespace
@@ -9,3 +15,9 @@ $ kubectl api-resources | grep namespace
 
 # Port forward to reach a service or pod
 $ kubectl -n port-forward service/helloserv-service 8080:80
+
+# ephemeral debug pod to troubleshoot networking
+# (it's a privileged pod, not to be run in prod)
+$ kubectl debug node/gke-some-node-abcde -it --image=nicolaka/netshoot
+
+and then run within container: $ termshark

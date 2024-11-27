@@ -1,0 +1,12 @@
+
+
+# Check Docker image access for a node
+
+SSH into node, then run: 
+
+$ url -s "http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token" -H "Metadata-Flavor: Google"
+
+Take the token and then run this:
+
+crictl pull --creds "oauth2accesstoken:<ACCESS_TOKEN_HERE>" <IMAGE_LOCATION:TAG>
+
