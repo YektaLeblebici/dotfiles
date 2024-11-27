@@ -38,6 +38,7 @@ pip3 install -r requirements.txt
 
 ./npm.sh
 ./gcloud.sh
+./goinstall.sh
 
 # Don't forget to:
 # - Install uBlock Origin on Google Chrome
