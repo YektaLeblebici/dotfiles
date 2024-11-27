@@ -1,70 +1,25 @@
 # .zshrc
 # - Yekta Leblebici <yekta@iamyekta.com>
-# Depends: oh-my-zsh, powerlevel10k, fasd, fzf, fzf-zsh, zsh-autosuggestions
+# Depends: fasd, fzf, ag
 #
 # Get dependencies by running:
-#  sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" (Not a great way to do this.)
-#  git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-#  git clone https://github.com/junegunn/fzf.git $ZSH_CUSTOM/plugins/fzf
-#  $ZSH_CUSTOM/plugins/fzf/install --bin
-#  git clone https://github.com/Treri/fzf-zsh.git $ZSH_CUSTOM/plugins/fzf-zsh
-#  git clone git://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-#  git clone https://github.com/changyuheng/zsh-interactive-cd $ZSH_CUSTOM/plugins/zsh-interactive-cd
 #  brew install fasd
 #  brew install ag
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+# Initialize mise
+# pyenv was mighty slow, mise seems to run much better.
+eval "$(/opt/homebrew/bin/mise activate zsh)"
 
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
+# Load antidote and plugins
+source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
-# 256-color support
-# Setting this here appears to be not a great idea and hinders tmux support.
-# Anyway, comment it out if your terminal app is crap.
-# export TERM=xterm-256color
-
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# Initialize powerlevel10k
 source $HOME/.p10k.zsh
-
-# Disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
-DISABLE_UPDATE_PROMPT=true
+autoload -Uz promptinit && promptinit && prompt powerlevel10k
 
 # Adding date & time stamps to 'history' command.
 HIST_STAMPS="dd.mm.yyyy"
-
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# TODO ssh-agent plugin is too slow, adds 0.2sec~ to startup.
-plugins=(git \
-         fasd \
-         colored-man-pages \
-         extract \
-         docker \
-         fzf-zsh \
-         ssh-agent \
-         gpg-agent \
-         zsh-autosuggestions \
-         zsh-interactive-cd \
-         catimg \
-         copybuffer \
-         fancy-ctrl-z \
-         gcloud \
-     )
-
-# OS-specific plugins
-# case "$OSTYPE" in
-#   darwin*)
-#       # For some reason aws plugin is extremely slow
-#       # on my Fedora VM.
-#       plugins+=('aws')
-#     ;;
-# esac
 
 # OS-specific configuration
 case "$OSTYPE" in
@@ -77,18 +32,15 @@ esac
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
-# Add your identity files below to have them automatically added.
-zstyle :omz:plugins:ssh-agent identities id_ed25519
-zstyle :omz:plugins:ssh-agent agent-forwarding on
-
-# oh-my-zsh!
-source $ZSH/oh-my-zsh.sh
-
 ## Completion tweaks
 zstyle ':completion:*' use-ip true
+unsetopt menu_complete
+setopt complete_in_word
+setopt always_to_end
 
 # Completion for parent directory.
 zstyle -e ':completion:*' special-dirs '[[ $PREFIX = (../)#(|.|..) ]] && reply=(..)'
+
 
 # Keybinds
 bindkey "^[[1;2D" backward-word
@@ -96,13 +48,26 @@ bindkey "^[[1;2C" forward-word
 bindkey "^[[1;2A" beginning-of-line
 bindkey "^[[1;2B" end-of-line
 
+# pushd/popd
+setopt auto_cd
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
+# Shell behaviour
+setopt multios              # enable redirect to multiple streams: echo >file1 >file2
+setopt long_list_jobs       # show long list format job notifications
+setopt interactivecomments  # recognize comments
+
 # Use ag as the default source.
 # Depends on installed "ag", comment out these two if not.
 export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git --ignore .terraform -g ""'
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND" 
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # Consistent ordering between CTRL+R history search and CTRL+T.
 export FZF_CTRL_R_OPTS="--reverse"
+
+source <(fzf --zsh)
 
 # Colors
 alias grep='grep --color'
@@ -117,31 +82,72 @@ alias vi=nvim
 alias vim=nvim
 
 # Git aliases
-# (overrides "git" plugin)
+
+# From https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
+function git_main_branch() {
+  command git rev-parse --git-dir &>/dev/null || return
+  local ref
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,stable,master}; do
+    if command git show-ref -q --verify $ref; then
+      echo ${ref:t}
+      return 0
+    fi
+  done
+
+  # If no main branch was found, fall back to master but return error
+  echo master
+  return 1
+}
+
 alias gd='git diff --color-moved'
 alias gdca='git diff --cached --color-moved'
 alias gdw='git diff --word-diff --color-moved'
 alias gp='git push origin HEAD'
 alias gst='git status --column'
 alias groot='cd $(git rev-parse --show-toplevel)'
+alias gc='git commit --verbose'
+alias ga='git add'
+alias gcm='git checkout $(git_main_branch)'
+alias gf='git fetch'
+alias grm='git rm'
+alias gicp="git checkout -"
 
 # Aliases
 alias k='kubectl'
 alias cidr='sipcalc'
+alias k9s="k9s --readonly"
+alias la='ls -la'
+alias ll='ls -lh'
+
+# Autocomplete directories like OMZ does
+function d () {
+  if [[ -n $1 ]]; then
+    dirs "$@"
+  else
+    dirs -v | head -n 10
+  fi
+}
+compdef _dirs d
 
 # Golang
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/.go/bin
 export GOPATH=$HOME/.go
 
+# Python
+export POETRY_VIRTUALENVS_IN_PROJECT=true
+
 # Local binaries (=pip install --user)
 export PATH=$PATH:$HOME/.local/bin
 
-# homebrew
+# Homebrew
 HOMEBREW_NO_ANALYTICS=1
 export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
 
-# rancher desktop
+# Kubectl krew
+export PATH="${PATH}:${HOME}/.krew/bin"
+
+# Rancher desktop
 export PATH="${PATH}:${HOME}/.rd/bin"
 
 # awscli
@@ -155,8 +161,8 @@ export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 export PATH="/usr/local/opt/curl/bin:$PATH"
 
 # Linuxbrew
-export PATH="$HOME/.linuxbrew/bin:$PATH" # LINUX
-export PATH="$HOME/.linuxbrew/sbin:$PATH" # LINUX
+# export PATH="$HOME/.linuxbrew/bin:$PATH" # LINUX
+# export PATH="$HOME/.linuxbrew/sbin:$PATH" # LINUX
 
 # Turns out I am not a cow person.
 export ANSIBLE_NOCOWS=1
@@ -169,6 +175,7 @@ alias jrnlw="jrnl work"
 
 # cheat
 alias cheat="CHEATCOLORS=true cheat"
+alias cheats="cheat -l | fzf | cut -d' ' -f1 | CHEATCOLORS=true xargs cheat -e"
 
 # Pretty CSV viewer
 # Taken from: https://chrisjean.com/view-csv-data-from-the-command-line/
@@ -188,20 +195,9 @@ brew-la() {
 }
 
 ### FZF Commands
-# Disable all these if you don't want to use FZF.
-# fkill - kill process
-fkill() {
-  local pid
-  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
 
-  if [ "x$pid" != "x" ]
-  then
-    echo $pid | xargs kill -${1:-9}
-  fi
-}
-
-# fag - ag search with FZF
-alias fag="ag --nobreak --nonumbers --noheading . | fzf"
+# fas - ag search with FZF
+alias fas="ag --nobreak --nonumbers --noheading . | fzf"
 
 # flog - git log with FZF
 flog() {
@@ -319,7 +315,7 @@ jnewb(){
     local TASK_ID
     BRANCH_PREFIX=$(jira me | cut -d'.' -f1)
     TASKS=$(jira issue list --plain --no-headers -q"status not in ('Done', 'Canceled')"  -a $(jira me))
-    TASK_ID=$(echo $TASKS | fzf | cut -f2)
+    TASK_ID=$(echo ${TASKS} | fzf | awk -F'\t+' '{print $2}')
 
     BRANCH_NAME="${BRANCH_PREFIX}/${TASK_ID}"
 
@@ -330,3 +326,54 @@ jnewb(){
 
     git checkout -b ${BRANCH_NAME}
 }
+
+# Format a message ready to post on Slack from Github PRs
+# Usage: slackpr
+# Thanks to Craig Huber (https://github.com/crhuber)
+slackpr(){
+    local PR_REPO
+    local PR_ID
+    local PR_INPUT
+    local MSG
+
+    local EMOJIS=("conga_parrot" "ship" "partywizard" "mario_walks" "mario_luigi_dance" "banana_dance" "deployparrot" "quad_parrot" "old_man_yells_at_github" "cat-roomba" "golden_star_spin")
+    local RANDOM_EMOJI
+
+    # Select a random emoji
+    RANDOM_EMOJI=${EMOJIS[$((RANDOM % ${#EMOJIS[@]}))]:-"conga_parrot"}
+
+    PR_INPUT=$(gh search prs --state=open --author=@me | fzf)
+    PR_REPO=$(echo $PR_INPUT | cut -f1)
+    PR_ID=$(echo $PR_INPUT | cut -f2)
+
+    MSG=$(gh pr view $PR_ID --repo $PR_REPO --json url,title | jq -r "\"\(.title) \n:$RANDOM_EMOJI: \(.url)\"")
+    echo "$MSG"
+    echo "$MSG" | pbcopy
+}
+
+# Atuin
+local FOUND_ATUIN=$+commands[atuin]
+
+if [[ $FOUND_ATUIN -eq 1 ]]; then
+  source <(atuin init zsh --disable-up-arrow)
+fi
+
+alias his="atuin search -i --inline-height 0"
+
+# Fancy CTRL+Z
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line -w
+  else
+    zle push-input -w
+    zle clear-screen -w
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+# Edit the current command line in $EDITOR from OMZ
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '\C-x\C-e' edit-command-line

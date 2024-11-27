@@ -1,0 +1,44 @@
+# .zsh_plugins.txt - comments begin with "#"
+
+# Basic Zsh plugins are defined in user/repo format
+# jeffreytse/zsh-vi-mode
+
+# Bash plugins may also work
+rupa/z
+
+# annotations are also allowed:
+# romkatv/zsh-bench kind:path
+# olets/zsh-abbr    kind:defer
+
+# set up Zsh completions with plugins
+mattmc3/ez-compinit
+zsh-users/zsh-completions kind:fpath path:src
+
+# frameworks like oh-my-zsh are supported
+# getantidote/use-omz        # handle OMZ dependencies
+# ohmyzsh/ohmyzsh path:lib   # load OMZ's library
+
+
+# or lighter-weight ones like zsh-utils
+belak/zsh-utils path:editor
+belak/zsh-utils path:history
+belak/zsh-utils path:prompt
+belak/zsh-utils path:utility
+
+# prompts:
+#   with prompt plugins, remember to add this to your .zshrc:
+#   `autoload -Uz promptinit && promptinit && prompt pure`
+romkatv/powerlevel10k kind:fpath
+
+# popular fish-like plugins
+# mattmc3/zfunctions
+# zdharma-continuum/fast-syntax-highlighting kind:defer
+# zsh-users/zsh-history-substring-search
+# junegunn/fzf
+zsh-users/zsh-autosuggestions
+changyuheng/zsh-interactive-cd
+Aloxaf/fzf-tab
+sdiebolt/zsh-ssh-agent
+ael-code/zsh-colored-man-pages
+wookayin/fzf-fasd
+le0me55i/zsh-extract
