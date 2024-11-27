@@ -19,6 +19,9 @@ ln -s $(pwd)/vimrc $HOME/.vimrc
 ln -s $(pwd)/tmux.conf $HOME/.tmux.conf
 ln -s $(pwd)/p10k.zsh $HOME/.p10k.zsh
 ln -s $(pwd)/zsh_plugins.txt $HOME/.zsh_plugins.txt
+ln -s $(pwd)/atuin $HOME/.config/atuin
+
+ln -s $(pwd)/pypoetry/config.toml $HOME/Library/Application\ Support/pypoetry/config.toml
 
 mkdir -p $HOME/.config/nvim
 ln -s $(pwd)/init.vim $HOME/.config/nvim/init.vim
