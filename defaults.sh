@@ -19,10 +19,11 @@ defaults write com.apple.dock "static-only" -bool "true" # Only show running app
 # Finder
 defaults write com.apple.Finder AppleShowAllFiles true
 defaults write com.apple.finder "ShowPathbar" -bool "true"
+defaults write com.apple.finder "CreateDesktop" -bool "false" # Hide desktop icons
 
 # Keyboard settings
-defaults write NSGlobalDomain InitialKeyRepeat -int 15
-defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain KeyRepeat -int 1
 defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write -g ApplePressAndHoldEnabled -bool false
 
@@ -42,8 +43,14 @@ defaults write -g WebKitDeveloperExtras -bool true
 ## Disable two-finger back-forward gesture.
 defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 
+## Manifest v2
+defaults write com.google.Chrome.plist ExtensionManifestV2Availability -int 2
+
+
 # Force restart Dock.
 killall Dock
 
 # Force restart Finder
 killall Finder
+
+killall SystemUIServer
