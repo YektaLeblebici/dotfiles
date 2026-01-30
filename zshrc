@@ -33,6 +33,8 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 ## Completion tweaks
+# Complete from the middle of the word
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
 zstyle ':completion:*' use-ip true
 unsetopt menu_complete
 setopt complete_in_word
@@ -128,6 +130,7 @@ function d () {
   fi
 }
 compdef _dirs d
+
 
 # Golang
 export PATH=$PATH:/usr/local/go/bin
