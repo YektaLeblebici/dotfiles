@@ -767,41 +767,6 @@ let g:fzf_colors = {
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '~30%' }
 
-" Lightline settings.
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'relativepath', 'modified' ] ]
-      \ },
-      \ 'component': {
-      \   'lineinfo': '%3l:%-2v%<',
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'LightlineGitbranch',
-      \   'fileformat': 'LightlineFileformat',
-      \   'filetype': 'LightlineFiletype',
-      \   'filename': 'LightlineFilename',
-      \ },
-      \ }
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'n/a') : ''
-endfunction
-
-function! LightlineGitbranch()
-  return winwidth(0) > 90 ? FugitiveHead()[0:10] : ''
-endfunction
-
-function! LightlineFilename()
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-  let modified = &modified ? ' +' : ''
-  return filename . modified
-endfunction
-
 " vim-go settings
 let g:go_fmt_fail_silently = 1
 let g:go_gopls_enabled = 0     " Built-in LSP will be used
