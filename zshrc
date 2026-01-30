@@ -220,10 +220,10 @@ FZF-EOF"
 
 # fbr - git checkout branches with FZF
 fbr() {
-  local branches branch
-  branches=$(git --no-pager branch --all -vv) &&
-  branch=$(echo "$branches" | fzf +m) &&
-  git checkout $(echo "$branch" | awk '{print $1}')
+  local branch
+  branch=$(git for-each-ref --format='%(refname:short)' refs/heads refs/remotes \
+    | fzf +m)
+  [ -n "$branch" ] && git checkout "$branch"
 }
 
 # fcs - FZF command to get commit sha, useful combined with git commands.
