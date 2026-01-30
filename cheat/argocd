@@ -1,11 +1,30 @@
 # argocd
 
-
-## CLI 
-
+## CLI
 
 ## Connect through port-forward
 $ argocd --port-forward --port-forward-namespace MYNAMESPACE app list
 
 ## Diff app with local changes
 $ argocd --port-forward --port-forward-namespace MYNAMESPACE app diff MY_APP_NAME --hard-refresh --exit-code=false --loglevel error --server-side-generate --local $(pwd)
+
+
+## Optimization
+
+Read:
+- https://argo-cd.readthedocs.io/en/stable/operator-manual/reconcile/#reconcile-optimization
+- https://argo-cd.readthedocs.io/en/stable/operator-manual/reconcile/#finding-resources-to-ignore
+- https://argo-cd.readthedocs.io/en/stable/operator-manual/high_availability/#argocd-application-controller
+
+Try:
+- Set controller log level to debug
+- Search for "Requesting app refresh caused by object update"
+- Make a pie chart by `Kind`
+
+## Get a list of all Kinds of resources ArgoCD manages
+
+```sh
+$ argocd app list -o name \
+  xargs -n1 -I{} argocd app get {} -o json \
+  | jq -r '.status.resources[]? | "\((.group // "core"))/\(.kind)"'
+```

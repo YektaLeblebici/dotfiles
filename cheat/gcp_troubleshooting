@@ -10,3 +10,18 @@ Take the token and then run this:
 
 crictl pull --creds "oauth2accesstoken:<ACCESS_TOKEN_HERE>" <IMAGE_LOCATION:TAG>
 
+
+
+# Check Audit Logs for changes to the infrastructure
+
+The query below roughly works to get only changes done by humans and filter out read operations:
+
+```
+-protoPayload.authorizationInfo.permissionType=("DATA_READ" or "ADMIN_READ")
+protoPayload.authenticationInfo.principalEmail!~".gserviceaccount.com$"
+protoPayload.authenticationInfo.principalEmail!~"system:.*"
+-protoPayload.authenticationInfo.principalEmail=""
+protoPayload.authenticationInfo.principalSubject!~"serviceAccount:.*"
+-protoPayload.methodName="jobservice.jobcompleted"
+-protoPayload.authenticationInfo.principalEmail="system@google.com"
+```

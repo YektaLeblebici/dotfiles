@@ -42,3 +42,7 @@ Pod w/ Deployment: pod-ip-address.deployment-name.my-namespace.svc.cluster.local
 ### Show objects that are not namespaced
 kubectl api-resources --namespaced=false
 
+
+## List enabled features
+
+$ kubectl get --raw /metrics | grep kubernetes_feature_enabled

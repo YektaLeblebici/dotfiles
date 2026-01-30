@@ -1,0 +1,5 @@
+# asciinema
+
+
+## Make a recording and convert it to a GIF
+asciinema rec -e=SHELL,TERM,PATH,PIP_PYTHON_PATH demo.cast && agg demo.cast demo.gif
