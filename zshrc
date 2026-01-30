@@ -119,6 +119,7 @@ alias gicp="git checkout -"
 
 # Aliases
 alias k='kubectl'
+alias kctx='kubectx'
 alias cidr='sipcalc'
 alias k9s="k9s --readonly"
 alias la='ls -la'
@@ -160,7 +161,7 @@ export PATH="${PATH}:${HOME}/.rd/bin"
 export AWS_PAGER=""
 
 # gcloud
-source /opt/homebrew/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
+source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Brew paths
