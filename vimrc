@@ -15,24 +15,79 @@ vim.g.mapleader = " "
 
 -- Lazy.nvim package management
 
--- Ensure lazy.nvim exists
+-- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- Initialize lazy.nvim
 require("lazy").setup({
     {'flazz/vim-colorschemes',                                   desc = 'Colorschemes'},
-    {'itchyny/lightline.vim',                                    desc = 'Enhanced status line'},
+    {
+        'nvim-lualine/lualine.nvim',
+        config = function ()
+        require('lualine').setup {
+          options = {
+            icons_enabled = true,
+            theme = 'powerline',
+            component_separators = { left = '', right = ''},
+            section_separators = { left = '', right = ''},
+            disabled_filetypes = {
+              statusline = {},
+              winbar = {},
+            },
+            ignore_focus = {},
+            always_divide_middle = true,
+            always_show_tabline = false,
+            globalstatus = false,
+            refresh = {
+              statusline = 100,
+              tabline = 100,
+              winbar = 100,
+            }
+          },
+          sections = {
+            lualine_a = {'mode'},
+            lualine_b = {'diff', 'diagnostics'},
+            lualine_c = {'filename'},
+            lualine_x = {'encoding', 'fileformat', 'filetype'},
+            lualine_y = {'progress'},
+            lualine_z = {'location'}
+          },
+          inactive_sections = {
+            lualine_a = {},
+            lualine_b = {},
+            lualine_c = {'filename'},
+            lualine_x = {'location'},
+            lualine_y = {},
+            lualine_z = {}
+          },
+        tabline = {
+            lualine_a = {{'tabs', mode=1, use_mode_colors = true, max_length = vim.o.columns}},
+            lualine_b = {},
+            lualine_c = {},
+            lualine_x = {},
+            lualine_y = {},
+            lualine_z = {}
+        },
+          winbar = {},
+          inactive_winbar = {},
+          extensions = {}
+        }
+        end,
+    },
     {'honza/vim-snippets',                                       desc = 'Preinstalled snippets'},
     {'tpope/vim-fugitive',                                       desc = 'Git integration'},
     {'mbbill/undotree',                                          desc = 'Undo tree visualizer'},
