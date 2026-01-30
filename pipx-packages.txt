@@ -1,0 +1,10 @@
+awsume	null
+cheat	null
+flake8	null
+ipython	null
+isort	null
+pydocstyle	null
+pylint	null
+python-lsp-server	null
+radon	null
+yapf	null

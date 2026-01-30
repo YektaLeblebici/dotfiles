@@ -1,0 +1,10 @@
+awsume
+cheat
+flake8
+ipython
+isort
+pydocstyle
+pylint
+python-lsp-server
+radon
+yapf
