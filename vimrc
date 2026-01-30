@@ -185,7 +185,40 @@ require("lazy").setup({
                 -- Configuration here, or leave empty to use defaults
             })
         end
-    }
+    },
+    {'someone-stole-my-name/yaml-companion.nvim',                desc = 'YAML Schema helper',
+        config = function()
+            require("telescope").load_extension("yaml_schema")
+        end
+    },
+    {
+        "rachartier/tiny-inline-diagnostic.nvim",
+        event = "VeryLazy",
+        priority = 1000,
+        config = function()
+            require("tiny-inline-diagnostic").setup({
+                preset = "classic",
+                -- Customize highlight groups for colors
+                -- Use Neovim highlight group names or hex colors like "#RRGGBB"
+                hi = {
+                    error = "DiagnosticError",     -- Highlight for error diagnostics
+                    warn = "DiagnosticWarn",       -- Highlight for warning diagnostics
+                    info = "DiagnosticInfo",       -- Highlight for info diagnostics
+                    hint = "DiagnosticHint",       -- Highlight for hint diagnostics
+                    arrow = "NonText",             -- Highlight for the arrow pointing to diagnostic
+                    background = "CursorLine",     -- Background highlight for diagnostics
+                    mixing_color = "Normal",       -- Color to blend background with (or "None")
+                },
+                options = {
+                    multilines = {
+                        enabled = false,
+                    },
+                },
+            })
+            vim.diagnostic.config({ virtual_text = false }) -- Disable Neovim's default virtual text diagnostics
+
+        end,
+    },
 })
 
 -- Colorscheme
@@ -324,13 +357,10 @@ vim.api.nvim_set_keymap('n', 'N', 'Nzz', {noremap = true})
 vim.cmd('command! Scratch vnew | setlocal nobuflisted buftype=nofile bufhidden=wipe noswapfile')
 
 if vim.fn.executable('ag') == 1 then
-    vim.g.ackprg = 'ag --vimgrep --hidden'
+  vim.g.ackprg = 'ag --vimgrep --hidden'
 end
 
 -- LSP integration
-     local on_attach = function(client, bufnr)
-       vim.api.nvim_command('autocmd CursorHold <buffer> lua vim.diagnostic.open_float({focusable = false})')
-     end
 
      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
        vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -465,13 +495,17 @@ set updatetime=100  " Faster updates for hover/linter
 " LSP bindings
 nnoremap <silent> <Leader>ge    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <Leader>h    <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>gh    <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>gf    <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <silent> <Leader>gi    <cmd>lua vim.lsp.buf.incoming_calls()<CR>
 nnoremap <silent> <Leader>go    <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
 nnoremap <silent> <Leader>gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>gn    <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent> <Leader>gu    <cmd>lua vim.lsp.buf.code_action()<CR>
+
+
+
 
 " LSP linter configuration & styling
 hi LinterErrorSign ctermfg=199 ctermbg=235
