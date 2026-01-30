@@ -126,8 +126,22 @@ require("lazy").setup({
     {'hrsh7th/cmp-cmdline',                                      desc = 'Plugin for nvim-cmp'},
     {'dcampos/nvim-snippy',                                      desc = 'Snippets'},
     {'dcampos/cmp-snippy',                                       desc = 'Completion and Snippets integration'},
+    {'stevearc/conform.nvim',                                    desc = 'Formatters and prettifiers',
+        config = function()
+            require("conform").setup({
+                formatters_by_ft = {
+                    go = { "gofmt" },
+                    terraform = { "terraform_fmt" },
+                },
+                format_on_save = {
+                  -- These options will be passed to conform.format()
+                  timeout_ms = 500,
+                  lsp_format = "fallback",
+                },
+            })
+        end
+    },
     {'tpope/vim-sleuth',                                         desc = 'Set shiftwidth, tabstop, expandtab... automatically'},
-    {'darrikonn/vim-gofmt',                                      desc = 'gofmt/goimports on save'},
     { 'folke/neodev.nvim', opts = {},                            desc = 'neovim init.lua and plugin development helper' },
     {'zbirenbaum/copilot.lua',                                   desc = 'Unofficial Github Copilot plugin in Lua',
         config = function()
