@@ -40,5 +40,6 @@ changyuheng/zsh-interactive-cd
 Aloxaf/fzf-tab
 sdiebolt/zsh-ssh-agent
 ael-code/zsh-colored-man-pages
-wookayin/fzf-fasd
+#wookayin/fzf-fasd # disabled in favour of fz.sh
 le0me55i/zsh-extract
+mrjohannchang/fz.sh
