@@ -375,72 +375,69 @@ end
 
     require("mason").setup()
     require("mason-lspconfig").setup({
-        ensure_installed = {"gopls", "yamlls", "terraformls", "pylsp"}
-    })
+        ensure_installed = {"gopls", "yamlls", "terraformls", "pylsp"},
 
-    require("mason-lspconfig").setup_handlers {
-        -- The first entry (without a key) will be the default handler
-        -- and will be called for each installed server that doesn't have
-        -- a dedicated handler.
-        function (server_name) -- default handler (optional)
-            require("lspconfig")[server_name].setup {
-                on_attach=on_attach,
-                capabilities=capabilities,
-            }
-        end,
-        -- Next, you can provide a dedicated handler for specific servers.
-        -- For example, a handler override for the `rust_analyzer`:
-        ["pylsp"] = function ()
-            require("lspconfig").pylsp.setup{
-                on_attach=on_attach,
-                capabilities=capabilities,
-                settings = {
-                    pyls = {
-                        plugins = {
-                            preload = {
-                                enabled = true
-                            },
-                            pylint = {
-                                enabled = true
-                            },
-                            rope_completion = {
-                                enabled = true
-                            },
-                            yapf = {
-                                enabled = true
+        handlers = {
+            -- The first entry (without a key) will be the default handler
+            -- and will be called for each installed server that doesn't have
+            -- a dedicated handler.
+            function (server_name) -- default handler (optional)
+                require("lspconfig")[server_name].setup {
+                    capabilities=capabilities,
+                }
+            end,
+            -- Next, you can provide a dedicated handler for specific servers.
+            -- For example, a handler override for the `rust_analyzer`:
+            ["pylsp"] = function ()
+                require("lspconfig").pylsp.setup{
+                    capabilities=capabilities,
+                    settings = {
+                        pyls = {
+                            plugins = {
+                                preload = {
+                                    enabled = true
+                                },
+                                pylint = {
+                                    enabled = true
+                                },
+                                rope_completion = {
+                                    enabled = true
+                                },
+                                yapf = {
+                                    enabled = true
+                                }
                             }
                         }
                     }
                 }
-            }
-        end,
-        ["yamlls"] = function ()
-            require("lspconfig").yamlls.setup{
-                on_attach=on_attach,
-                capabilities=capabilities,
-                settings = {
-                    yaml = {
-                        schemas = { kubernetes = {"*.yml", "*.yaml"} }
-                    }
+            end,
+            ["yamlls"] = function ()
+                local cfg = require("yaml-companion").setup({
+                    builtin_matchers = {
+                        kubernetes = { enabled = true },
+                        cloud_init = { enabled = false }
+                    },
+                     lspconfig = {
+                         capabilities=capabilities,
+                    },
+                })
+                require("lspconfig")["yamlls"].setup(cfg)
+            end,
+            ["gopls"] = function ()
+                require("lspconfig").gopls.setup{
+                    capabilities=capabilities,
                 }
-            }
-        end,
-        ["gopls"] = function ()
-            require("lspconfig").gopls.setup{
-                on_attach=on_attach,
-                capabilities=capabilities,
-            }
-        end,
-        ["terraformls"] = function ()
-            require("lspconfig").terraformls.setup{
-                on_attach=on_attach,
-                capabilities=capabilities,
-                filetypes = { "terraform","hcl" }
-            }
-        end,
+            end,
+            ["terraformls"] = function ()
+                require("lspconfig").terraformls.setup{
+                    capabilities=capabilities,
+                    filetypes = { "terraform","hcl" }
+                }
+            end,
+        },
 
+    })
 
-    }
 
 -- Completion (nvim-cmp)
 local cmp = require 'cmp'
@@ -519,7 +516,7 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
 :lua << END
     require'nvim-treesitter.configs'.setup {
       ensure_installed = "all",
-      ignore_install = { "phpdoc" },
+      ignore_install = { "phpdoc", "ipkg", "org" },
 
       highlight = {
         enable = true,
