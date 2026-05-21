@@ -162,7 +162,7 @@ export PATH="${PATH}:${HOME}/.rd/bin"
 export AWS_PAGER=""
 
 # gcloud
-source "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
+source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Brew paths
