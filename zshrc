@@ -122,6 +122,10 @@ alias k9s="k9s --readonly"
 alias la='ls -la'
 alias ll='ls -lh'
 
+# Markdown in browsr
+mdbrowse() { pipx run grip --browser "$@" }
+compdef '_files -g "*.md"' mdbrowse   # zsh
+
 # Autocomplete directories like OMZ does
 function d () {
   if [[ -n $1 ]]; then
