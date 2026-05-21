@@ -122,8 +122,6 @@ require("lazy").setup({
     {'williamboman/mason-lspconfig.nvim',                        desc = 'Mason and lspconfig integration'},
     {'neovim/nvim-lspconfig',                                    desc = 'LSP integration with built-in LSP'},
     {'peterlundgren/vim-todo',                                   desc = 'Minimalistic To-do filetype'},
-    {'MunifTanjim/nui.nvim',                                     desc = 'Dependency for neo-tree'},
-    {'nvim-neo-tree/neo-tree.nvim', branch = 'v3.x',             desc = 'File tree'},
     {'hrsh7th/nvim-cmp',                                         desc = 'Completion'},
     {'hrsh7th/cmp-nvim-lsp',                                     desc = 'Completion and LSP integration'},
     {'hrsh7th/cmp-buffer',                                       desc = 'Plugin for nvim-cmp'},
@@ -223,6 +221,32 @@ require("lazy").setup({
 
         end,
     },
+    { 'nvim-mini/mini.nvim', version = false,
+        config = function()
+            require('mini.files').setup({
+              -- General options
+              options = {
+                -- Whether to delete permanently or move into module-specific trash
+                permanent_delete = false,
+                -- Whether to use for editing directories
+                use_as_default_explorer = true,
+              },
+
+              windows = {
+                -- Whether to show preview of file/directory under cursor
+                preview = true,
+              },
+            })
+            vim.keymap.set("n", "<leader>t", function()
+              if MiniFiles.get_explorer_state() then
+                MiniFiles.close()
+              else
+                MiniFiles.open()
+              end
+            end, { desc = "Toggle mini.files" })
+        end
+    },
+
 })
 
 -- Colorscheme
@@ -539,61 +563,6 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
       },
     }
 END
-
-" Neotree configuration
-nnoremap <silent> <Leader>n :Neotree action=focus source=filesystem position=left toggle=true reveal=true<CR>
-let g:neo_tree_remove_legacy_commands = 1
-:lua << END
-require("neo-tree").setup({
-  sources = {
-      "filesystem",
-  },
-  filesystem = {
-    filtered_items = {
-       visible = true,
-       hide_dotfiles = false,
-       hide_gitignored = false,
-       hide_hidden = false,
-    },
-    window = {
-      mappings = {
-        -- disable deletion
-        ["d"] = "noop",
-      }
-    },
-  },
-  default_component_configs = {
-    icon = {
-      folder_closed = "/",
-      folder_open = "/",
-      folder_empty = "/",
-      folder_empty_open = "/.",
-      -- The next two settings are only a fallback, if you use nvim-web-devicons and configure default icons there
-      -- then these will never be used.
-      default = "*",
-      highlight = "NeoTreeFileIcon"
-    },
-    git_status = {
-      symbols = {
-        -- Change type
-        added     = "✚", -- NOTE: you can set any of these to an empty string to not show them
-        deleted   = "✖",
-        modified  = "Ⓜ",
-        renamed   = "R",
-        -- Status type
-        untracked = "?",
-        ignored   = "I",
-        unstaged  = "…",
-        staged    = "",
-        conflict  = "♺",
-      },
-      align = "right",
-    },
-   }
-})
-
-END
-
 
 " Telescope configuration
 "
