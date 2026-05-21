@@ -91,10 +91,14 @@ require("lazy").setup({
     {'honza/vim-snippets',                                       desc = 'Preinstalled snippets'},
     {'tpope/vim-fugitive',                                       desc = 'Git integration'},
     {'mbbill/undotree',                                          desc = 'Undo tree visualizer'},
-    {'ggandor/leap.nvim',                                        desc = 'Better and simpler motions',
-        config = function ()
-        require('leap').create_default_mappings()
-        end,
+    {
+      "folke/flash.nvim",
+      event = "VeryLazy",
+      ---@type Flash.Config
+      opts = {},
+      keys = {
+        { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      },
     },
     {'numToStr/Comment.nvim',                                    desc = 'Comments',
         config = function ()
