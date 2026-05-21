@@ -1,0 +1,8 @@
+# gcp-k8s
+
+# See node pool upgrades and other cluster/node pool events:
+$ gcloud container operations list
+
+# Find Spot preemption events in the logs
+log_name="projects/my-project/logs/cloudaudit.googleapis.com%2Fsystem_event"
+protoPayload.methodName="compute.instances.preempted"

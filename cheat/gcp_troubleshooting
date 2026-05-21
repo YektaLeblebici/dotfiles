@@ -25,3 +25,10 @@ protoPayload.authenticationInfo.principalSubject!~"serviceAccount:.*"
 -protoPayload.methodName="jobservice.jobcompleted"
 -protoPayload.authenticationInfo.principalEmail="system@google.com"
 ```
+
+
+# Check GKE audit logs for create pods/exec
+```
+resource.type="k8s_cluster"
+protoPayload.methodName="io.k8s.core.v1.pods.exec.create"
+```

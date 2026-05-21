@@ -1,5 +1,5 @@
-
-
+## View all members of a Google Group
+gcloud identity groups memberships list --group-email=myteam@example.com --billing-project=some-project
 
 ## Troubleshooting permissions:
 
