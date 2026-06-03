@@ -44,3 +44,7 @@ macOS settings and tweaks as a shell script (Dock, Finder, keyboard, etc.).
 
 ### cheat/
 Personal cheatsheets for [`cheat`](https://github.com/cheat/cheat).
+
+### claude/
+Single-line [Claude Code](https://claude.com/claude-code) status line, symlinked
+to `~/.claude/statusline.sh`.

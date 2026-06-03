@@ -19,6 +19,7 @@ init.vim:.config/nvim/init.vim
 mysnippets:.vim/mysnippets
 cheat:.cheat
 jrnl_config:.config/jrnl/jrnl_config
+claude/statusline.sh:.claude/statusline.sh
 '
 
 SYMLINKS_OSX='
