@@ -1,10 +1,10 @@
 # .zshrc
 # - Yekta Leblebici <yekta@iamyekta.com>
-# Depends: fasd, fzf, ag
+# Depends: fzf, ag
 #
 # Get dependencies by running:
-#  brew install fasd
-#  brew install ag
+#  brew install fzf
+#  brew install the_silver_searcher
 
 # Initialize mise
 # pyenv was mighty slow, mise seems to run much better.
