@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 COMPONENTS=( bq gsutil core alpha beta cloud_sql_proxy config-connector )
 

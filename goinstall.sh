@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 PACKAGES=( github.com/x-motemen/gore/cmd/gore@latest )
 
