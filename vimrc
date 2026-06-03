@@ -105,7 +105,7 @@ require("lazy").setup({
         require('Comment').setup()
         end,
     },
-    {'junegunn/fzf', dir = '~/.fzf', build = './install --all',  desc = 'Fuzzy finder core'},
+    {'junegunn/fzf', build = './install --all',                  desc = 'Fuzzy finder core'},
     {'junegunn/fzf.vim',                                         desc = 'Fuzzy finder Vim integration'},
     {'Vimjas/vim-python-pep8-indent',                            desc = 'PEP8-compatible Python indentation'},
     {'nvim-treesitter/nvim-treesitter',                          desc = 'Treesitter integration'},
