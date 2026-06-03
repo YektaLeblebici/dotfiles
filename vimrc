@@ -108,8 +108,7 @@ require("lazy").setup({
     {'junegunn/fzf', build = './install --all',                  desc = 'Fuzzy finder core'},
     {'junegunn/fzf.vim',                                         desc = 'Fuzzy finder Vim integration'},
     {'Vimjas/vim-python-pep8-indent',                            desc = 'PEP8-compatible Python indentation'},
-    {'nvim-treesitter/nvim-treesitter',                          desc = 'Treesitter integration'},
-    {'nvim-treesitter/nvim-treesitter-refactor',                 desc = 'Refactoring with Treesitter'},
+    {'nvim-treesitter/nvim-treesitter', branch = 'main', build = ':TSUpdate', desc = 'Treesitter integration'},
     {'hashivim/vim-terraform',                                   desc = 'Terraform integration'},
     {'tsandall/vim-rego',                                        desc = 'Rego highlighting'},
     {'towolf/vim-helm',                                          desc = 'Helm filetype'},
@@ -542,26 +541,44 @@ call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagn
 
 " Treesitter configuration
 :lua << END
-    require'nvim-treesitter.configs'.setup {
-      ensure_installed = "all",
-      ignore_install = { "phpdoc", "ipkg", "org" },
+    local ts = require('nvim-treesitter')
+    ts.setup()
 
-      highlight = {
-        enable = true,
-      },
-      indent = {
-        enable = true,
-        disable = {"python"}
-      },
-      refactor = {
-        smart_rename = {
-          enable = true,
-          keymaps = {
-            smart_rename = "grr",
-          },
-        },
-      },
-    }
+    local ignore = { phpdoc = true, ipkg = true, org = true, gitcommit = true }
+
+    -- Install parsers on demand, one per filetype.
+    local available = {}
+    for _, l in ipairs(ts.get_available()) do available[l] = true end
+    local installed = {}
+    for _, l in ipairs(ts.get_installed()) do installed[l] = true end
+
+    local function enable(buf, ft, lang)
+      pcall(vim.treesitter.start, buf, lang)
+      if ft ~= 'python' then
+        vim.bo[buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+      end
+    end
+
+    vim.api.nvim_create_autocmd('FileType', {
+      callback = function(args)
+        local buf = args.buf
+        local ft = vim.bo[buf].filetype
+        local lang = vim.treesitter.language.get_lang(ft)
+        if not lang or ignore[lang] or not available[lang] then return end
+
+        if installed[lang] then
+          enable(buf, ft, lang)
+        else
+          installed[lang] = true  -- mark first to avoid re-triggering installs
+          ts.install(lang):await(function(err)
+            if err then installed[lang] = nil return end
+            vim.schedule(function()
+              if vim.api.nvim_buf_is_valid(buf) then enable(buf, ft, lang) end
+            end)
+          end)
+        end
+      end,
+    })
 END
 
 " Telescope configuration
