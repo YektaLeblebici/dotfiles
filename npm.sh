@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-PACKAGES=( serverless markdownlint markdownlint-cli yaml-language-server @adobe/jsonschema2md @google/gemini-cli @anthropic-ai/claude-code @openai/codex )
+PACKAGES=( serverless markdownlint markdownlint-cli yaml-language-server @adobe/jsonschema2md )
 
 npm install -g "${PACKAGES[@]}"
 
