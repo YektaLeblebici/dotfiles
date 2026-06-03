@@ -1,0 +1,131 @@
+# Brewfile for linux_headless installs.
+tap "ankitpokhrel/jira-cli"
+tap "romkatv/powerlevel10k"
+tap "ynqa/tap"               # jnv
+tap "norwoodj/tap"           # helm-docs
+tap "derailed/popeye"
+tap "kubeshark/kubeshark"
+tap "go-task/tap"
+tap "terraform-linters/tap"  # tflint (cask)
+
+# Core
+brew "git"
+brew "zsh"
+brew "tmux"
+brew "neovim"
+brew "tree-sitter-cli"  # CLI needed by nvim-treesitter (main branch) to build parsers
+
+# Shell
+brew "antidote"
+brew "fzf"
+brew "powerlevel10k"
+brew "atuin"
+brew "the_silver_searcher"
+brew "mise"
+
+# Languages / build
+brew "uv"
+brew "rustup"
+brew "python@3.14"
+brew "pipx"
+brew "node"
+brew "go"
+brew "poetry"
+
+# Cloud
+cask "gcloud-cli"
+brew "awscli"
+
+# Kubernetes (for `kubectl krew install ...`)
+brew "kubernetes-cli"
+brew "krew"
+brew "kubectx"
+brew "k9s"
+brew "helm"
+brew "stern"
+brew "kustomize"
+brew "kubecolor"
+brew "kubeconform"
+brew "kubent"
+brew "kor"
+brew "kind"
+brew "minikube"
+brew "kyverno"
+brew "norwoodj/tap/helm-docs"
+brew "derailed/popeye/popeye"
+brew "pluto"
+brew "ko"
+brew "kubebuilder"
+brew "k6"
+brew "kubeshark/kubeshark/kubeshark"
+
+# Tools
+brew "cheat"
+brew "jrnl"
+brew "ripgrep"
+brew "jq"
+brew "gh"
+brew "jira-cli"
+brew "sipcalc"
+brew "tree"
+
+# insane alias: fortune | cowsay | lolcat
+brew "fortune"
+brew "cowsay"
+brew "lolcat"
+
+# Search / view / files
+brew "fx"
+brew "gron"
+brew "yq"
+brew "dasel"
+brew "ynqa/tap/jnv"
+brew "ncdu"
+brew "hyperfine"
+brew "entr"
+
+# Git
+brew "lazygit"
+brew "git-delta"
+brew "multi-gitter"
+
+# Terraform / IaC
+brew "terraform-ls"
+cask "tflint"
+brew "terragrunt"
+brew "terrascan"
+brew "terraformer"
+
+# Network / debugging
+brew "curl"
+brew "wget"
+brew "httpie"
+brew "curlie"
+brew "hurl"
+brew "websocat"
+brew "mtr"
+brew "nmap"
+brew "iperf3"
+brew "grpcurl"
+
+# Lint / CI
+brew "pre-commit"
+brew "shellcheck"
+brew "yamllint"
+brew "prettier"
+brew "golangci-lint"
+brew "gopls"
+brew "goreleaser"
+brew "go-task"
+
+# Security
+brew "trivy"
+brew "trufflehog"
+brew "osv-scanner"
+brew "gnupg"
+
+# Misc
+brew "cbonsai"
+brew "nethack"
+brew "vhs"
+brew "marp-cli"
