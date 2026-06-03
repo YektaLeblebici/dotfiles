@@ -248,14 +248,6 @@ fdif(){
  git diff `fcs` `fcs`
 }
 
-# fv - FZF + fasd to edit recent vim files faster.
-# Don't change this fv() to v(), or all hell may break loose.
-fv(){
-  local file
-  file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vi "${file}" || return 1
-}
-alias v="fv"
-
 # mdf - Use FZF to search with mdfind (OS X) and save to clipboard.
 # Searches by file name only.
 mdf(){
@@ -285,25 +277,8 @@ wttr(){
 }
 
 
-awsve () {
-        AWS_ASSUME_ROLE_TTL=1h aws-vault exec $@
-}
-
 # for Macs only
 alias google-chrome-stable='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
-
-awsvl () {
-        local TOKEN="$(aws-vault login -s $@)"
-        if [[ $TOKEN =~ "signin.aws.amazon.com" ]]
-        then
-                local cache=$(mktemp -d /tmp/google-chrome-XXXXXX)
-                local data=$(mktemp -d /tmp/google-chrome-XXXXXX)
-                google-chrome-stable --no-first-run --new-window --disk-cache-dir=$cache --user-data-dir=$data $TOKEN
-                rm -rf $cache $data
-        else
-                echo $TOKEN
-        fi
-}
 
 linuxify (){
     if type brew &>/dev/null; then
