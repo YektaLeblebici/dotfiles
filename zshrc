@@ -6,12 +6,18 @@
 #  brew install fzf
 #  brew install the_silver_searcher
 
+# Homebrew prefix, hardcoded per-platform to avoid the slow `brew --prefix`.
+case "$OSTYPE" in
+  darwin*) BREW_PREFIX="/opt/homebrew" ;;
+  linux*)  BREW_PREFIX="/home/linuxbrew/.linuxbrew" ;;
+esac
+
 # Initialize mise
 # pyenv was mighty slow, mise seems to run much better.
-eval "$(/opt/homebrew/bin/mise activate zsh)"
+eval "$(${BREW_PREFIX}/bin/mise activate zsh)"
 
 # Load antidote and plugins
-source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh
+source ${BREW_PREFIX}/opt/antidote/share/antidote/antidote.zsh
 antidote load ${ZDOTDIR:-$HOME}/.zsh_plugins.txt
 
 # Initialize powerlevel10k
@@ -150,7 +156,7 @@ export PATH=$PATH:$HOME/.local/bin
 
 # Homebrew
 HOMEBREW_NO_ANALYTICS=1
-export PATH="/opt/homebrew/bin:/usr/local/bin:$PATH"
+export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:/usr/local/bin:$PATH"
 
 # Kubectl krew
 export PATH="${PATH}:${HOME}/.krew/bin"
@@ -162,7 +168,8 @@ export PATH="${PATH}:${HOME}/.rd/bin"
 export AWS_PAGER=""
 
 # gcloud
-source "/opt/homebrew/share/google-cloud-sdk/path.zsh.inc"
+[ -f "${BREW_PREFIX}/share/google-cloud-sdk/path.zsh.inc" ] && \
+  source "${BREW_PREFIX}/share/google-cloud-sdk/path.zsh.inc"
 export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 
 # Brew paths
