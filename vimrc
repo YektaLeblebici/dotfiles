@@ -164,7 +164,7 @@ require("lazy").setup({
         end
     },
     {'tpope/vim-sleuth',                                         desc = 'Set shiftwidth, tabstop, expandtab... automatically'},
-    { 'folke/neodev.nvim', opts = {},                            desc = 'neovim init.lua and plugin development helper' },
+    { 'folke/lazydev.nvim', ft = 'lua', opts = {},               desc = 'Lua LS for Neovim config & plugin development (replaces neodev)' },
     {'zbirenbaum/copilot.lua',                                   desc = 'Unofficial Github Copilot plugin in Lua',
         config = function()
           require("copilot").setup({
