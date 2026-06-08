@@ -381,3 +381,8 @@ alias peon="bash $HOME/.claude/hooks/peon-ping/peon.sh"
 
 # Docker Sandboxes
 export SBX_NO_TELEMETRY=1
+
+# Point docker / docker-compose at the rootless Podman socket for Linux target
+case "$OSTYPE" in
+  linux*) export DOCKER_HOST="unix://${XDG_RUNTIME_DIR:-/run/user/$UID}/podman/podman.sock" ;;
+esac
