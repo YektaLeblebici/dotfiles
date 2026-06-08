@@ -114,12 +114,40 @@ require("lazy").setup({
     {'mason-org/mason-lspconfig.nvim',                           desc = 'Mason and lspconfig integration'},
     {'neovim/nvim-lspconfig',                                    desc = 'LSP integration with built-in LSP'},
     {'peterlundgren/vim-todo',                                   desc = 'Minimalistic To-do filetype'},
-    {'hrsh7th/nvim-cmp',                                         desc = 'Completion'},
-    {'hrsh7th/cmp-nvim-lsp',                                     desc = 'Completion and LSP integration'},
-    {'hrsh7th/cmp-buffer',                                       desc = 'Plugin for nvim-cmp'},
-    {'hrsh7th/cmp-cmdline',                                      desc = 'Plugin for nvim-cmp'},
-    {'dcampos/nvim-snippy',                                      desc = 'Snippets'},
-    {'dcampos/cmp-snippy',                                       desc = 'Completion and Snippets integration'},
+    {
+        'saghen/blink.cmp',
+        version = '*', -- release tag: pulls the prebuilt fuzzy-matching binary (no cargo needed)
+        desc = 'Completion engine (replaces nvim-cmp + cmp-* + snippy + copilot-cmp)',
+        dependencies = {
+            'rafamadriz/friendly-snippets',
+            { 'fang2hou/blink-copilot', dependencies = { 'zbirenbaum/copilot.lua' } },
+        },
+        config = function()
+            require('blink.cmp').setup({
+                -- 'enter' preset: <CR> accepts, <C-space> opens menu/docs, <C-e> hides,
+                -- <C-b>/<C-f> scroll docs, <Tab>/<S-Tab> jump snippet stops.
+                keymap = { preset = 'enter' },
+                sources = {
+                    default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
+                    providers = {
+                        copilot = {
+                            name = 'copilot',
+                            module = 'blink-copilot',
+                            score_offset = 100,
+                            async = true,
+                            opts = { max_completions = 5 }, -- default 3; surface more Copilot items
+                        },
+                    },
+                },
+                snippets = { preset = 'default' }, -- native vim.snippet + friendly-snippets
+                signature = { enabled = true }, -- show LSP signature help while typing arguments
+                cmdline = {
+                    keymap = { preset = 'cmdline' },
+                    completion = { menu = { auto_show = true } },
+                },
+            })
+        end,
+    },
     {'stevearc/conform.nvim',                                    desc = 'Formatters and prettifiers',
         config = function()
             require("conform").setup({
@@ -382,127 +410,68 @@ end
 
 -- LSP integration
 
-     vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-       vim.lsp.diagnostic.on_publish_diagnostics, {
-         virtual_text = false,
-         update_in_insert = false
-       }
-     )
-
-    -- nvim-cmp extra capabilities. Depends on nvim-cmp.
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-    require("mason").setup()
-    require("mason-lspconfig").setup({
-        ensure_installed = {"gopls", "yamlls", "terraformls", "pylsp"},
-
-        handlers = {
-            -- The first entry (without a key) will be the default handler
-            -- and will be called for each installed server that doesn't have
-            -- a dedicated handler.
-            function (server_name) -- default handler (optional)
-                require("lspconfig")[server_name].setup {
-                    capabilities=capabilities,
-                }
-            end,
-            -- Next, you can provide a dedicated handler for specific servers.
-            -- For example, a handler override for the `rust_analyzer`:
-            ["pylsp"] = function ()
-                require("lspconfig").pylsp.setup{
-                    capabilities=capabilities,
-                    settings = {
-                        pyls = {
-                            plugins = {
-                                preload = {
-                                    enabled = true
-                                },
-                                pylint = {
-                                    enabled = true
-                                },
-                                rope_completion = {
-                                    enabled = true
-                                },
-                                yapf = {
-                                    enabled = true
-                                }
-                            }
-                        }
-                    }
-                }
-            end,
-            ["yamlls"] = function ()
-                local cfg = require("yaml-companion").setup({
-                    builtin_matchers = {
-                        kubernetes = { enabled = true },
-                        cloud_init = { enabled = false }
-                    },
-                     lspconfig = {
-                         capabilities=capabilities,
-                    },
-                })
-                require("lspconfig")["yamlls"].setup(cfg)
-            end,
-            ["gopls"] = function ()
-                require("lspconfig").gopls.setup{
-                    capabilities=capabilities,
-                }
-            end,
-            ["terraformls"] = function ()
-                require("lspconfig").terraformls.setup{
-                    capabilities=capabilities,
-                    filetypes = { "terraform","hcl" }
-                }
-            end,
-        },
-
+    -- Diagnostics behaviour. Replaces the removed
+    -- vim.lsp.diagnostic.on_publish_diagnostics handler. virtual_text stays off
+    -- here (tiny-inline-diagnostic renders diagnostics inline); signs use the
+    -- Neovim defaults.
+    vim.diagnostic.config({
+      virtual_text = false,
+      update_in_insert = false,
     })
 
+    -- LSP client capabilities, augmented by blink.cmp.
+    local capabilities = require('blink.cmp').get_lsp_capabilities()
 
--- Completion (nvim-cmp)
-local cmp = require 'cmp'
+    require("mason").setup()
+    -- mason-lspconfig 2.x removed the `handlers` API; we disable automatic_enable
+    -- and configure + enable servers ourselves via the native vim.lsp.config /
+    -- vim.lsp.enable API (Neovim 0.11+), which replaces the deprecated
+    -- require('lspconfig').<server>.setup framework. Per-server defaults (cmd,
+    -- filetypes, root markers) still come from nvim-lspconfig's lsp/ directory.
+    require("mason-lspconfig").setup({
+        ensure_installed = { "gopls", "yamlls", "terraformls", "pylsp" },
+        automatic_enable = false,
+    })
 
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      require 'snippy'.expand_snippet(args.body)
-    end
-  },
-  mapping = cmp.mapping.preset.insert {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete {},
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = false,
-    },
-  },
-  window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
-  },
-  sources = {
-    { name = 'copilot' },
-    { name = 'nvim_lsp' },
-    { name = 'snippy' },
-    { name = 'buffer' },
-  },
-}
+    -- Apply completion capabilities to every server.
+    vim.lsp.config('*', { capabilities = capabilities })
 
--- `:` cmdline setup.
-cmp.setup.cmdline(':', {
-  mapping = cmp.mapping.preset.cmdline(),
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    {
-      name = 'cmdline',
-      option = {
-        ignore_cmds = { 'Man', '!' }
-      }
-    }
-  })
-})
+    -- gopls needs no overrides beyond the global capabilities.
+
+    vim.lsp.config('pylsp', {
+        settings = {
+            pylsp = {
+                plugins = {
+                    preload = { enabled = true },
+                    pylint = { enabled = true },
+                    rope_completion = { enabled = true },
+                    yapf = { enabled = true },
+                    autopep8 = { enabled = false }, -- yapf is the sole formatter
+                }
+            }
+        }
+    })
+
+    vim.lsp.config('terraformls', {
+        filetypes = { "terraform", "hcl" },
+    })
+
+    -- yamlls is configured via yaml-companion, whose setup() returns a client
+    -- config table (on_attach/on_init/handlers/settings) that vim.lsp.config accepts.
+    vim.lsp.config('yamlls', require("yaml-companion").setup({
+        builtin_matchers = {
+            kubernetes = { enabled = true },
+            cloud_init = { enabled = false }
+        },
+        lspconfig = {
+            capabilities = capabilities,
+        },
+    }))
+
+    vim.lsp.enable({ "gopls", "yamlls", "terraformls", "pylsp" })
+
+
+-- Completion is handled by blink.cmp, configured in its plugin spec above.
 END
 
 
@@ -514,23 +483,13 @@ nnoremap <silent> <Leader>ge    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> <Leader>gd    <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <Leader>h     <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <Leader>gh    <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> <Leader>gf    <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap <silent> <Leader>gf    <cmd>lua vim.lsp.buf.format()<CR>
 nnoremap <silent> <Leader>gi    <cmd>lua vim.lsp.buf.incoming_calls()<CR>
 nnoremap <silent> <Leader>go    <cmd>lua vim.lsp.buf.outgoing_calls()<CR>
 nnoremap <silent> <Leader>gr    <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <Leader>gn    <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent> <Leader>gu    <cmd>lua vim.lsp.buf.code_action()<CR>
 
-
-
-
-" LSP linter configuration & styling
-hi LinterErrorSign ctermfg=199 ctermbg=235
-hi LinterWarningSign ctermfg=250 ctermbg=235
-call sign_define("LspDiagnosticsSignError", {"text" : "➤", "texthl" : "LinterErrorSign"})
-call sign_define("LspDiagnosticsSignWarning", {"text" : "➤", "texthl" : "LinterWarningSign"})
-call sign_define("LspDiagnosticsSignInformation", {"text" : "ℹ", "texthl" : "LspDiagnosticsInformation"})
-call sign_define("LspDiagnosticsSignHint", {"text" : "ℹ", "texthl" : "LspDiagnosticsHint"})
 
 " Treesitter configuration
 :lua << END
@@ -758,10 +717,6 @@ endfun
 " Autocompletion
 set completeopt=menu,menuone,noinsert,noselect
 
-" Neosnippets
-let g:neosnippet#enable_complete_done = 1
-let g:neosnippet#snippets_directory = '~/.vim/mysnippets'
-
 " fzf-vim settings.
 let g:fzf_colors = {
              \ 'fg':      ['fg', 'Normal'],
@@ -780,10 +735,6 @@ let g:fzf_colors = {
 
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '~30%' }
-
-" vim-go settings
-let g:go_fmt_fail_silently = 1
-let g:go_gopls_enabled = 0     " Built-in LSP will be used
 
 " terraform
 let g:terraform_fmt_on_save=1
