@@ -128,8 +128,15 @@ alias k9s="k9s --readonly"
 alias la='ls -la'
 alias ll='ls -lh'
 
-# Markdown in browsr
-mdbrowse() { pipx run grip --browser "$@" }
+# Markdown in browser on a random port; set MDBROWSE_HOST (e.g. 0.0.0.0[:port]) to expose it on the network.
+mdbrowse() {
+  local port=$((RANDOM % 3001 + 6000))
+  local addr="$port"
+  if [[ -n "$MDBROWSE_HOST" ]]; then
+    [[ "$MDBROWSE_HOST" == *:* ]] && addr="$MDBROWSE_HOST" || addr="$MDBROWSE_HOST:$port"
+  fi
+  pipx run grip --browser "$@" "$addr"
+}
 compdef '_files -g "*.md"' mdbrowse   # zsh
 
 # Autocomplete directories like OMZ does
