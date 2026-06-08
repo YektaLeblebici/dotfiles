@@ -130,7 +130,7 @@ alias ll='ls -lh'
 
 # Markdown in browser on a random port; set MDBROWSE_HOST (e.g. 0.0.0.0[:port]) to expose it on the network.
 mdbrowse() {
-  local port=$((RANDOM % 3001 + 6000))
+  local port=$((RANDOM % 10001 + 30000))
   local addr="$port"
   if [[ -n "$MDBROWSE_HOST" ]]; then
     [[ "$MDBROWSE_HOST" == *:* ]] && addr="$MDBROWSE_HOST" || addr="$MDBROWSE_HOST:$port"
