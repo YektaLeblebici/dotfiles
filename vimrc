@@ -178,11 +178,6 @@ require("lazy").setup({
           })
         end
     },
-    {'zbirenbaum/copilot-cmp',                                   desc = 'Copilot completion plugin for zbirenbaum/copilot.lua',
-        config = function ()
-          require("copilot_cmp").setup()
-        end
-    },
       {
         "CopilotC-Nvim/CopilotChat.nvim",
         branch = "main",
