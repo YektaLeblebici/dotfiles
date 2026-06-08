@@ -88,7 +88,6 @@ require("lazy").setup({
         }
         end,
     },
-    {'honza/vim-snippets',                                       desc = 'Preinstalled snippets'},
     {'tpope/vim-fugitive',                                       desc = 'Git integration'},
     {'mbbill/undotree',                                          desc = 'Undo tree visualizer'},
     {
@@ -100,17 +99,11 @@ require("lazy").setup({
         { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
       },
     },
-    {'numToStr/Comment.nvim',                                    desc = 'Comments',
-        config = function ()
-        require('Comment').setup()
-        end,
-    },
     {'junegunn/fzf', build = './install --all',                  desc = 'Fuzzy finder core'},
     {'junegunn/fzf.vim',                                         desc = 'Fuzzy finder Vim integration'},
     {'Vimjas/vim-python-pep8-indent',                            desc = 'PEP8-compatible Python indentation'},
     {'nvim-treesitter/nvim-treesitter', branch = 'main', build = ':TSUpdate', desc = 'Treesitter integration'},
     {'hashivim/vim-terraform',                                   desc = 'Terraform integration'},
-    {'tsandall/vim-rego',                                        desc = 'Rego highlighting'},
     {'towolf/vim-helm',                                          desc = 'Helm filetype'},
     {'windwp/nvim-spectre',                                      desc = 'Interactive search & replace'},
     {'nvim-lua/plenary.nvim',                                    desc = 'Common dependency for multiple plugins'},
