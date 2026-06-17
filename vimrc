@@ -1,5 +1,5 @@
 " VIMRC - Yekta Leblebici <yekta@iamyekta.com>
-" depends: neovim (>=v0.10.0), ag (>= 2.2.0), rg (>=13.0.0)
+" depends: neovim (>=v0.11.0), ag (>= 2.2.0), rg (>=13.0.0)
 
 :lua << END
 -- Common settings
@@ -378,10 +378,10 @@ vim.api.nvim_set_keymap('n', 'X', '"_x', {noremap = true})
 vim.api.nvim_set_keymap('n', 'XX', '"_dd', {noremap = true})
 
 -- Map uppercase WQ and the like to lowercase ones.
-vim.cmd('command W w')
-vim.cmd('command WQ wq')
-vim.cmd('command Wq wq')
-vim.cmd('command Q q')
+vim.cmd('command! W w')
+vim.cmd('command! WQ wq')
+vim.cmd('command! Wq wq')
+vim.cmd('command! Q q')
 
 -- Make Y copy from cursor to the end of the line
 vim.api.nvim_set_keymap('n', 'Y', 'y$', {noremap = true})
@@ -587,7 +587,7 @@ nnoremap <Leader><Left> :tabp<CR>
 nnoremap <Leader><CR>  :tab split<CR>
 
 " BIND <Leader> + <BACKSPACE> to dismiss highlighting.
-function SetLeaderBackspace()
+function! SetLeaderBackspace()
     nnoremap <Leader><BACKSPACE> :nohl<CR>
 endfunction
 
