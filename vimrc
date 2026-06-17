@@ -334,19 +334,13 @@ vim.g.netrw_browsex_viewer = 'google-chrome' -- Set preferred browser.
 vim.cmd([[command! Vex exe 'Vexplore' getcwd()]])
 vim.cmd([[cnoreabbrev vex Vex]])
 
--- OS specific configuration
-if vim.fn.has('unix') == 1 then
-    local uname = vim.fn.system("uname -s")
-    if uname == "Darwin\n" then
-        -- OS X clipboard support
-        if vim.fn.has('clipboard') == 1 then
-            vim.cmd('set clipboard^=unnamed')
-        end
-    elseif uname == "Linux\n" then
-        -- Linux clipboard support
-        if vim.fn.has('clipboard') == 1 then
-            vim.cmd('set clipboard^=unnamedplus')
-        end
+-- OS-specific clipboard. Uses libuv (vim.uv) instead of shelling out to `uname`.
+if vim.fn.has('clipboard') == 1 then
+    local sysname = vim.uv.os_uname().sysname
+    if sysname == "Darwin" then
+        vim.opt.clipboard:prepend("unnamed")      -- macOS
+    elseif sysname == "Linux" then
+        vim.opt.clipboard:prepend("unnamedplus")  -- Linux
     end
 end
 
