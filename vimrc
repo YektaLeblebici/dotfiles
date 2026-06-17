@@ -638,12 +638,6 @@ function! SetPluginBindings()
         nnoremap <silent> <Leader>ls :Telescope lsp_document_symbols<CR>
         nnoremap <silent> <Leader>a :lua fuzzyFindFiles{}<CR>
     endif
-
-    " vim-go bindings
-    " if exists(':GoBuild')
-    "     nnoremap <silent> <Leader>ge :GoIfErr<CR>
-    "     nnoremap <silent> <Leader>gr :GoImports<CR>
-    " endif
 endfunction
 
 au VimEnter * call SetPluginBindings()
