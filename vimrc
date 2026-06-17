@@ -722,6 +722,11 @@ let g:fzf_colors = {
 let g:fzf_buffers_jump = 1
 let g:fzf_layout = { 'down': '~30%' }
 
+" Reverse fzf's default bottom-up layout. Applies to :Rg, :Ag, :Files, etc.
+if $FZF_DEFAULT_OPTS !~# '--layout'
+  let $FZF_DEFAULT_OPTS .= ' --layout=reverse'
+endif
+
 " terraform
 let g:terraform_fmt_on_save=1
 
