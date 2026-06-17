@@ -617,9 +617,12 @@ endfunction
 """ Plugin bindings
 
 function! SetPluginBindings()
-    " Ag abbreviation
+    " Ag / Rg abbreviations (type :ag / :rg to run fzf.vim's :Ag / :Rg)
     if exists(':Ag')
         cnoreabbrev ag Ag
+    endif
+    if exists(':Rg')
+        cnoreabbrev rg Rg
     endif
 
     " Telescope bindings
