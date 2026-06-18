@@ -127,6 +127,16 @@ require("lazy").setup({
                 -- 'enter' preset: <CR> accepts, <C-space> opens menu/docs, <C-e> hides,
                 -- <C-b>/<C-f> scroll docs, <Tab>/<S-Tab> jump snippet stops.
                 keymap = { preset = 'enter' },
+                completion = {
+                    list = {
+                        selection = {
+                            -- Don't auto-highlight the first item: <CR> inserts a newline
+                            -- unless you've manually selected an item with <Down>/<C-n> first.
+                            preselect = false,
+                            auto_insert = true,
+                        },
+                    },
+                },
                 sources = {
                     default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
                     providers = {
