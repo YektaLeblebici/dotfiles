@@ -1,5 +1,5 @@
 #!/bin/sh
-# Defaults - Written for OS X High Sierra 10.13
+# Defaults - Written for macOS 26 Tahoe
 # Yekta Leblebici <yekta@iamyekta.com>
 
 
@@ -31,13 +31,6 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 300
 
-# Safari
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-defaults write -g WebKitDeveloperExtras -bool true
-
 # Google Chrome
 
 ## Disable two-finger back-forward gesture.
@@ -46,11 +39,17 @@ defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
 ## Manifest v2
 defaults write com.google.Chrome.plist ExtensionManifestV2Availability -int 2
 
+# Shortcuts
+APP_ID="com.google.Chrome"
+ellipsis="$(printf '\342\200\246')"     # …
+defaults write "$APP_ID" NSUserKeyEquivalents -dict-add "Select Previous Tab" '~^$h'
+defaults write "$APP_ID" NSUserKeyEquivalents -dict-add "Select Next Tab" '~^$l'
+defaults write "$APP_ID" NSUserKeyEquivalents -dict-add "Search Tabs${ellipsis}" '~^$y'
 
-# Force restart Dock.
+# Force restart cfprefsd (for shortcuts)
+killall cfprefsd 2>/dev/null || true
+
+# Force restart components to apply changes
 killall Dock
-
-# Force restart Finder
 killall Finder
-
 killall SystemUIServer
