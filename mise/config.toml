@@ -1,0 +1,7 @@
+[tools]
+fnox = "latest"
+python = "3.13.5"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
+python.github_attestations = false

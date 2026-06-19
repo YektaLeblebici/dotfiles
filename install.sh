@@ -20,6 +20,7 @@ mysnippets:.vim/mysnippets
 cheat:.cheat
 jrnl_config:.config/jrnl/jrnl_config
 claude/statusline.sh:.claude/statusline.sh
+mise/config.toml:.config/mise/config.toml
 '
 
 SYMLINKS_OSX='
