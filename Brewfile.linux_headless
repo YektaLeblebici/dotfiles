@@ -6,6 +6,7 @@ tap "norwoodj/tap"           # helm-docs
 tap "derailed/popeye"
 tap "kubeshark/kubeshark"
 tap "go-task/tap"
+tap "lindell/multi-gitter"   # multi-gitter
 tap "terraform-linters/tap"  # tflint (cask)
 
 # Core
@@ -14,6 +15,7 @@ brew "zsh"
 brew "tmux"
 brew "neovim"
 brew "tree-sitter-cli"  # CLI needed by nvim-treesitter (main branch) to build parsers
+brew "tree-sitter"      # tree-sitter library
 
 # Shell
 brew "antidote"
@@ -31,10 +33,12 @@ brew "pipx"
 brew "node"
 brew "go"
 brew "poetry"
+brew "gcc"              # C/C++ toolchain
 
 # Cloud
 cask "gcloud-cli"
 brew "awscli"
+brew "ansible"
 
 # Kubernetes (for `kubectl krew install ...`)
 brew "kubernetes-cli"
@@ -68,6 +72,7 @@ brew "gh"
 brew "jira-cli"
 brew "sipcalc"
 brew "tree"
+brew "restic"           # backups
 
 # insane alias: fortune | cowsay | lolcat
 brew "fortune"
@@ -123,6 +128,10 @@ brew "trivy"
 brew "trufflehog"
 brew "osv-scanner"
 brew "gnupg"
+
+# AI / coding agents
+cask "claude-code@latest"
+cask "codex"
 
 # Misc
 brew "cbonsai"
