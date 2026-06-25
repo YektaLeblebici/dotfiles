@@ -6,6 +6,12 @@
 #  brew install fzf
 #  brew install the_silver_searcher
 
+# Advertise truecolor (24-bit) support. Our TERM entries (xterm-256color /
+# tmux-256color) only report 256 colors, so without this zsh quantizes the
+# Powerlevel10k hex colors back to the 256 palette. Set unconditionally: kitty
+# already sets it, but Windows Terminal / WSL does not propagate it.
+export COLORTERM=truecolor
+
 # Homebrew prefix, hardcoded per-platform to avoid the slow `brew --prefix`.
 case "$OSTYPE" in
   darwin*) BREW_PREFIX="/opt/homebrew" ;;
