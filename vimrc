@@ -120,7 +120,8 @@ require("lazy").setup({
         desc = 'Completion engine (replaces nvim-cmp + cmp-* + snippy + copilot-cmp)',
         dependencies = {
             'rafamadriz/friendly-snippets',
-            { 'fang2hou/blink-copilot', dependencies = { 'zbirenbaum/copilot.lua' } },
+            -- Copilot disabled; re-enable together with 'copilot' in sources.default below
+            { 'fang2hou/blink-copilot', enabled = false, dependencies = { 'zbirenbaum/copilot.lua' } },
         },
         config = function()
             require('blink.cmp').setup({
@@ -138,7 +139,7 @@ require("lazy").setup({
                     },
                 },
                 sources = {
-                    default = { 'copilot', 'lsp', 'path', 'snippets', 'buffer' },
+                    default = { 'lsp', 'path', 'snippets', 'buffer' },
                     providers = {
                         copilot = {
                             name = 'copilot',
@@ -176,6 +177,7 @@ require("lazy").setup({
     {'tpope/vim-sleuth',                                         desc = 'Set shiftwidth, tabstop, expandtab... automatically'},
     { 'folke/lazydev.nvim', ft = 'lua', opts = {},               desc = 'Lua LS for Neovim config & plugin development (replaces neodev)' },
     {'zbirenbaum/copilot.lua',                                   desc = 'Unofficial Github Copilot plugin in Lua',
+        enabled = false, -- Copilot disabled
         config = function()
           require("copilot").setup({
             suggestion = { enabled = false },
@@ -190,6 +192,7 @@ require("lazy").setup({
     },
       {
         "CopilotC-Nvim/CopilotChat.nvim",
+        enabled = false, -- Copilot disabled
         branch = "main",
         dependencies = {
           { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
